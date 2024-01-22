@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1032476929835",
+    "project_id": "doctor-11392",
+    "storage_bucket": "doctor-11392.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1032476929835:android:94cf26ac5c2ef3a1b7df6e",
+        "android_client_info": {
+          "package_name": "com.eHealth.doctor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABwdH5nVo5sV9PdwGQa8lERf7IDhAKb9g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
