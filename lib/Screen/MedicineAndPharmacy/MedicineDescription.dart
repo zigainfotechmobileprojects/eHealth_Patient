@@ -177,14 +177,16 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
                   children: [
                     Container(
                       width: width * 0.3,
-                      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                      margin:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                       child: CachedNetworkImage(
                         alignment: Alignment.center,
                         imageUrl: '$medicineImage',
                         placeholder: (context, url) => SpinKitFadingCircle(
                           color: Palette.blue,
                         ),
-                        errorWidget: (context, url, error) => Image.asset("assets/images/no_image.jpg"),
+                        errorWidget: (context, url, error) =>
+                            Image.asset("assets/images/no_image.jpg"),
                       ),
                     ),
                     Container(
@@ -205,12 +207,15 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
                           ),
                           Container(
                             alignment: AlignmentDirectional.topStart,
-                            margin: EdgeInsets.symmetric(vertical: 3, horizontal: 0),
+                            margin: EdgeInsets.symmetric(
+                                vertical: 3, horizontal: 0),
                             child: Row(
                               children: [
                                 Container(
                                   child: Text(
-                                    getTranslated(context, medicineDescription_price).toString(),
+                                    getTranslated(
+                                            context, medicineDescription_price)
+                                        .toString(),
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -220,8 +225,18 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
                                 ),
                                 Container(
                                   child: Text(
-                                    SharedPreferenceHelper.getString(Preferences.currency_symbol).toString() + '$medicinePricePrStrip ' + '/ ' + getTranslated(context, medicineDescription_strip).toString(),
-                                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Palette.blue),
+                                    SharedPreferenceHelper.getString(
+                                                Preferences.currency_symbol)
+                                            .toString() +
+                                        '$medicinePricePrStrip ' +
+                                        '/ ' +
+                                        getTranslated(context,
+                                                medicineDescription_strip)
+                                            .toString(),
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: Palette.blue),
                                   ),
                                 )
                               ],
@@ -229,12 +244,15 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
                           ),
                           Container(
                             alignment: AlignmentDirectional.topStart,
-                            margin: EdgeInsets.symmetric(vertical: 2, horizontal: 0),
+                            margin: EdgeInsets.symmetric(
+                                vertical: 2, horizontal: 0),
                             child: Row(
                               children: [
                                 Container(
                                   child: Text(
-                                    getTranslated(context, medicineDescription_strip1).toString(),
+                                    getTranslated(
+                                            context, medicineDescription_strip1)
+                                        .toString(),
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -244,7 +262,10 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
                                 ),
                                 Container(
                                   child: Text(
-                                    '$medicineNumberOfMedicine ' + getTranslated(context, medicineDescription_tablet).toString(),
+                                    '$medicineNumberOfMedicine ' +
+                                        getTranslated(context,
+                                                medicineDescription_tablet)
+                                            .toString(),
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
@@ -261,7 +282,9 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
                             height: 28,
                             child: Container(
                               width: width * 0.26,
-                              decoration: BoxDecoration(border: Border.all(color: Palette.dark_blue), borderRadius: BorderRadius.circular(5)),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Palette.dark_blue),
+                                  borderRadius: BorderRadius.circular(5)),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -273,7 +296,8 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
                                       height: double.infinity,
                                       // color: Palette.blue,
                                       child: Padding(
-                                        padding: const EdgeInsets.only(left: 5, right: 5),
+                                        padding: const EdgeInsets.only(
+                                            left: 5, right: 5),
                                         child: Icon(
                                           Icons.remove,
                                           size: 25,
@@ -286,7 +310,8 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
                                     width: 30,
                                     color: Palette.white,
                                     child: Padding(
-                                      padding: const EdgeInsets.only(left: 5, right: 5),
+                                      padding: const EdgeInsets.only(
+                                          left: 5, right: 5),
                                       child: Center(
                                         child: Text(
                                           '$quantity',
@@ -307,8 +332,10 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
                                       height: double.infinity,
                                       // color: Palette.blue,
                                       child: Padding(
-                                        padding: const EdgeInsets.only(left: 5, right: 5),
-                                        child: Icon(Icons.add_outlined, size: 25),
+                                        padding: const EdgeInsets.only(
+                                            left: 5, right: 5),
+                                        child:
+                                            Icon(Icons.add_outlined, size: 25),
                                       ),
                                     ),
                                   ),
@@ -344,7 +371,8 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
                 alignment: AlignmentDirectional.topStart,
                 margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Text(
-                  getTranslated(context, medicineDescription_description).toString(),
+                  getTranslated(context, medicineDescription_description)
+                      .toString(),
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -363,7 +391,8 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
                 alignment: AlignmentDirectional.topStart,
                 margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Text(
-                  getTranslated(context, medicineDescription_howItWork).toString(),
+                  getTranslated(context, medicineDescription_howItWork)
+                      .toString(),
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -383,7 +412,9 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
                       children: [
                         Container(
                           child: Text(
-                            getTranslated(context, medicineDescription_addPrescriptionPdf).toString(),
+                            getTranslated(context,
+                                    medicineDescription_addPrescriptionPdf)
+                                .toString(),
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -406,16 +437,21 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
                           child: fileName != ""
                               ? ElevatedButton(
                                   child: Text(
-                                    getTranslated(context, medicineDescription_selected).toString(),
+                                    getTranslated(context,
+                                            medicineDescription_selected)
+                                        .toString(),
                                   ),
                                   style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(Palette.dark_grey),
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Palette.dark_grey),
                                   ),
                                   onPressed: () {},
                                 )
                               : ElevatedButton(
                                   child: Text(
-                                    getTranslated(context, medicineDescription_selectPdf).toString(),
+                                    getTranslated(context,
+                                            medicineDescription_selectPdf)
+                                        .toString(),
                                   ),
                                   onPressed: () {
                                     filePicker();
@@ -428,133 +464,47 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
             ],
           ),
         ),
-        bottomNavigationBar: Container(
-          height: height * 0.05,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: visibility == true ? Palette.blue : Palette.dark_grey,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                visibility == true
-                    ? Text(
-                        getTranslated(context, medicineDescription_addToCart_button).toString(),
-                        style: TextStyle(
-                          fontSize: width * 0.04,
-                          color: Palette.white,
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            height: height * 0.05,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor:
+                    visibility == true ? Palette.blue : Palette.dark_grey,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  visibility == true
+                      ? Text(
+                          getTranslated(
+                                  context, medicineDescription_addToCart_button)
+                              .toString(),
+                          style: TextStyle(
+                            fontSize: width * 0.04,
+                            color: Palette.white,
+                          ),
+                        )
+                      : Text(
+                          getTranslated(
+                                  context, medicineDescription_viewCart_button)
+                              .toString(),
+                          style: TextStyle(
+                            fontSize: width * 0.04,
+                            color: Palette.white,
+                          ),
                         ),
-                      )
-                    : Text(
-                        getTranslated(context, medicineDescription_viewCart_button).toString(),
-                        style: TextStyle(
-                          fontSize: width * 0.04,
-                          color: Palette.white,
-                        ),
-                      ),
-              ],
-            ),
-            onPressed: () {
-              if (SharedPreferenceHelper.getBoolean(Preferences.is_logged_in) == true) {
-                if (prescriptionRequired == 0) {
-                  if (visibility == true && isInCart == false) {
-                    if (pharamacyId == listOfPharmacyId || listOfPharmacyId == 0) {
-                      setState(() {
-                        visibility = false;
-                      });
-                      this.model!.productName = medicineName;
-                      this.model!.medicineId = medicineId;
-                      this.model!.quantity = quantity;
-                      this.model!.price = medicinePricePrStrip;
-                      this.model!.pharmacyId = pharamacyId;
-                      this.model!.shippingStatus = shippingStatus;
-                      this.model!.pLat = pharmacyLat;
-                      this.model!.pLang = pharmacyLang;
-                      this.model!.prescriptionFilePath = filePath;
-                      this.model!.medicineStock = medicineTotalStock;
-
-                      dbService.addProduct(model).then(
-                        (value) {
-                          Fluttertoast.showToast(
-                            msg: getTranslated(context, medicineDescription_medicineAddToCart_toast).toString(),
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
-                          );
-                        },
-                      );
-                    } else {
-                      showDialog<String>(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                          title: Text(getTranslated(context, medicineDescription_clearCartDetail_alert_title).toString()),
-                          content: Text(getTranslated(context, medicineDescription_clearCartDetail_alert_text).toString()),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () {
-                                setState(() {
-                                  Navigator.of(context).pop();
-                                });
-                              },
-                              child: Text(getTranslated(context, cancel).toString()),
-                            ),
-                            TextButton(
-                              onPressed: () async {
-                                late List<ProductModel> products;
-                                await dbService.getProducts().then((value) {
-                                  products = value;
-                                });
-                                assert(products.isNotEmpty);
-                                dbService.deleteTable(products[0]).then((value) {
-                                  setState(() {
-                                    listOfPharmacyId = 0;
-                                    if (visibility == true) {
-                                      if (listOfPharmacyId == 0) {
-                                        setState(() {
-                                          visibility = false;
-                                        });
-                                        this.model!.productName = medicineName;
-                                        this.model!.medicineId = medicineId;
-                                        this.model!.quantity = quantity;
-                                        this.model!.price = medicinePricePrStrip;
-                                        this.model!.pharmacyId = pharamacyId;
-                                        this.model!.shippingStatus = shippingStatus;
-                                        this.model!.pLat = pharmacyLat;
-                                        this.model!.pLang = pharmacyLang;
-                                        this.model!.prescriptionFilePath = filePath;
-                                        this.model!.medicineStock = medicineTotalStock;
-
-                                        dbService.addProduct(model).then(
-                                          (value) {
-                                            Fluttertoast.showToast(
-                                              msg: getTranslated(context, medicineDescription_medicineAddToCart_toast).toString(),
-                                              toastLength: Toast.LENGTH_SHORT,
-                                              gravity: ToastGravity.BOTTOM,
-                                            );
-                                          },
-                                        );
-                                      }
-                                    }
-                                    Navigator.of(context).pop();
-                                  });
-                                });
-                              },
-                              child: const Text('OK'),
-                            ),
-                          ],
-                        ),
-                      );
-                    }
-                  } else {
-                    Navigator.pushNamed(context, 'AddToCart');
-
-                    ///
-                    quantity = 1;
-                    setState(() {});
-                  }
-                } else if (prescriptionRequired == 1 && fileName != "") {
-                  if (SharedPreferenceHelper.getBoolean(Preferences.is_logged_in) == true) {
+                ],
+              ),
+              onPressed: () {
+                if (SharedPreferenceHelper.getBoolean(
+                        Preferences.is_logged_in) ==
+                    true) {
+                  if (prescriptionRequired == 0) {
                     if (visibility == true && isInCart == false) {
-                      if (pharamacyId == listOfPharmacyId || listOfPharmacyId == 0) {
+                      if (pharamacyId == listOfPharmacyId ||
+                          listOfPharmacyId == 0) {
                         setState(() {
                           visibility = false;
                         });
@@ -572,7 +522,9 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
                         dbService.addProduct(model).then(
                           (value) {
                             Fluttertoast.showToast(
-                              msg: getTranslated(context, medicineDescription_medicineAddToCart_toast).toString(),
+                              msg: getTranslated(context,
+                                      medicineDescription_medicineAddToCart_toast)
+                                  .toString(),
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.BOTTOM,
                             );
@@ -582,12 +534,12 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
                         showDialog<String>(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
-                            title: Text(
-                              getTranslated(context, medicineDescription_clearCartDetail_alert_title).toString(),
-                            ),
-                            content: Text(
-                              getTranslated(context, medicineDescription_clearCartDetail_alert_text).toString(),
-                            ),
+                            title: Text(getTranslated(context,
+                                    medicineDescription_clearCartDetail_alert_title)
+                                .toString()),
+                            content: Text(getTranslated(context,
+                                    medicineDescription_clearCartDetail_alert_text)
+                                .toString()),
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () {
@@ -596,8 +548,7 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
                                   });
                                 },
                                 child: Text(
-                                  getTranslated(context, cancel).toString(),
-                                ),
+                                    getTranslated(context, cancel).toString()),
                               ),
                               TextButton(
                                 onPressed: () async {
@@ -606,7 +557,9 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
                                     products = value;
                                   });
                                   assert(products.isNotEmpty);
-                                  dbService.deleteTable(products[0]).then((value) {
+                                  dbService
+                                      .deleteTable(products[0])
+                                      .then((value) {
                                     setState(() {
                                       listOfPharmacyId = 0;
                                       if (visibility == true) {
@@ -614,20 +567,28 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
                                           setState(() {
                                             visibility = false;
                                           });
-                                          this.model!.productName = medicineName;
+                                          this.model!.productName =
+                                              medicineName;
                                           this.model!.medicineId = medicineId;
                                           this.model!.quantity = quantity;
-                                          this.model!.price = medicinePricePrStrip;
+                                          this.model!.price =
+                                              medicinePricePrStrip;
                                           this.model!.pharmacyId = pharamacyId;
-                                          this.model!.shippingStatus = shippingStatus;
+                                          this.model!.shippingStatus =
+                                              shippingStatus;
                                           this.model!.pLat = pharmacyLat;
                                           this.model!.pLang = pharmacyLang;
-                                          this.model!.prescriptionFilePath = filePath;
-                                          this.model!.medicineStock = medicineTotalStock;
+                                          this.model!.prescriptionFilePath =
+                                              filePath;
+                                          this.model!.medicineStock =
+                                              medicineTotalStock;
+
                                           dbService.addProduct(model).then(
                                             (value) {
                                               Fluttertoast.showToast(
-                                                msg: getTranslated(context, medicineDescription_medicineAddToCart_toast).toString(),
+                                                msg: getTranslated(context,
+                                                        medicineDescription_medicineAddToCart_toast)
+                                                    .toString(),
                                                 toastLength: Toast.LENGTH_SHORT,
                                                 gravity: ToastGravity.BOTTOM,
                                               );
@@ -639,9 +600,7 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
                                     });
                                   });
                                 },
-                                child: Text(
-                                  getTranslated(context, medicineDescription_oK).toString(),
-                                ),
+                                child: const Text('OK'),
                               ),
                             ],
                           ),
@@ -654,48 +613,186 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
                       quantity = 1;
                       setState(() {});
                     }
-                  } else {
-                    FormHelper.showMessage(
-                      context,
-                      getTranslated(context, medicineDescription_buyMedicine_alert_title).toString(),
-                      getTranslated(context, medicineDescription_buyMedicine_alert_text).toString(),
-                      getTranslated(context, medicineDescription_cancel).toString(),
-                      () {
-                        Navigator.of(context).pop();
-                      },
-                      buttonText2: getTranslated(context, login).toString(),
-                      isConfirmationDialog: true,
-                      onPressed2: () {
-                        Navigator.pushNamed(context, 'SignIn');
-                      },
+                  } else if (prescriptionRequired == 1 && fileName != "") {
+                    if (SharedPreferenceHelper.getBoolean(
+                            Preferences.is_logged_in) ==
+                        true) {
+                      if (visibility == true && isInCart == false) {
+                        if (pharamacyId == listOfPharmacyId ||
+                            listOfPharmacyId == 0) {
+                          setState(() {
+                            visibility = false;
+                          });
+                          this.model!.productName = medicineName;
+                          this.model!.medicineId = medicineId;
+                          this.model!.quantity = quantity;
+                          this.model!.price = medicinePricePrStrip;
+                          this.model!.pharmacyId = pharamacyId;
+                          this.model!.shippingStatus = shippingStatus;
+                          this.model!.pLat = pharmacyLat;
+                          this.model!.pLang = pharmacyLang;
+                          this.model!.prescriptionFilePath = filePath;
+                          this.model!.medicineStock = medicineTotalStock;
+
+                          dbService.addProduct(model).then(
+                            (value) {
+                              Fluttertoast.showToast(
+                                msg: getTranslated(context,
+                                        medicineDescription_medicineAddToCart_toast)
+                                    .toString(),
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                              );
+                            },
+                          );
+                        } else {
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: Text(
+                                getTranslated(context,
+                                        medicineDescription_clearCartDetail_alert_title)
+                                    .toString(),
+                              ),
+                              content: Text(
+                                getTranslated(context,
+                                        medicineDescription_clearCartDetail_alert_text)
+                                    .toString(),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      Navigator.of(context).pop();
+                                    });
+                                  },
+                                  child: Text(
+                                    getTranslated(context, cancel).toString(),
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () async {
+                                    late List<ProductModel> products;
+                                    await dbService.getProducts().then((value) {
+                                      products = value;
+                                    });
+                                    assert(products.isNotEmpty);
+                                    dbService
+                                        .deleteTable(products[0])
+                                        .then((value) {
+                                      setState(() {
+                                        listOfPharmacyId = 0;
+                                        if (visibility == true) {
+                                          if (listOfPharmacyId == 0) {
+                                            setState(() {
+                                              visibility = false;
+                                            });
+                                            this.model!.productName =
+                                                medicineName;
+                                            this.model!.medicineId = medicineId;
+                                            this.model!.quantity = quantity;
+                                            this.model!.price =
+                                                medicinePricePrStrip;
+                                            this.model!.pharmacyId =
+                                                pharamacyId;
+                                            this.model!.shippingStatus =
+                                                shippingStatus;
+                                            this.model!.pLat = pharmacyLat;
+                                            this.model!.pLang = pharmacyLang;
+                                            this.model!.prescriptionFilePath =
+                                                filePath;
+                                            this.model!.medicineStock =
+                                                medicineTotalStock;
+                                            dbService.addProduct(model).then(
+                                              (value) {
+                                                Fluttertoast.showToast(
+                                                  msg: getTranslated(context,
+                                                          medicineDescription_medicineAddToCart_toast)
+                                                      .toString(),
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.BOTTOM,
+                                                );
+                                              },
+                                            );
+                                          }
+                                        }
+                                        Navigator.of(context).pop();
+                                      });
+                                    });
+                                  },
+                                  child: Text(
+                                    getTranslated(
+                                            context, medicineDescription_oK)
+                                        .toString(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      } else {
+                        Navigator.pushNamed(context, 'AddToCart');
+
+                        ///
+                        quantity = 1;
+                        setState(() {});
+                      }
+                    } else {
+                      FormHelper.showMessage(
+                        context,
+                        getTranslated(context,
+                                medicineDescription_buyMedicine_alert_title)
+                            .toString(),
+                        getTranslated(context,
+                                medicineDescription_buyMedicine_alert_text)
+                            .toString(),
+                        getTranslated(context, medicineDescription_cancel)
+                            .toString(),
+                        () {
+                          Navigator.of(context).pop();
+                        },
+                        buttonText2: getTranslated(context, login).toString(),
+                        isConfirmationDialog: true,
+                        onPressed2: () {
+                          Navigator.pushNamed(context, 'SignIn');
+                        },
+                      );
+                    }
+                  } else if (prescriptionRequired == 1 && fileName == "") {
+                    Fluttertoast.showToast(
+                      msg: getTranslated(context,
+                              medicineDescription_pleaseSelectPdf_toast)
+                          .toString(),
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      backgroundColor: Palette.blue,
+                      textColor: Palette.white,
                     );
                   }
-                } else if (prescriptionRequired == 1 && fileName == "") {
-                  Fluttertoast.showToast(
-                    msg: getTranslated(context, medicineDescription_pleaseSelectPdf_toast).toString(),
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    backgroundColor: Palette.blue,
-                    textColor: Palette.white,
+                } else {
+                  FormHelper.showMessage(
+                    context,
+                    getTranslated(context,
+                            medicineDescription_buyMedicine_alert_title)
+                        .toString(),
+                    getTranslated(
+                            context, medicineDescription_buyMedicine_alert_text)
+                        .toString(),
+                    getTranslated(context, medicineDescription_cancel)
+                        .toString(),
+                    () {
+                      Navigator.of(context).pop();
+                    },
+                    buttonText2: getTranslated(context, login).toString(),
+                    isConfirmationDialog: true,
+                    onPressed2: () {
+                      Navigator.pushNamed(context, 'SignIn');
+                    },
                   );
                 }
-              } else {
-                FormHelper.showMessage(
-                  context,
-                  getTranslated(context, medicineDescription_buyMedicine_alert_title).toString(),
-                  getTranslated(context, medicineDescription_buyMedicine_alert_text).toString(),
-                  getTranslated(context, medicineDescription_cancel).toString(),
-                  () {
-                    Navigator.of(context).pop();
-                  },
-                  buttonText2: getTranslated(context, login).toString(),
-                  isConfirmationDialog: true,
-                  onPressed2: () {
-                    Navigator.pushNamed(context, 'SignIn');
-                  },
-                );
-              }
-            },
+              },
+            ),
           ),
         ),
       ),
@@ -713,7 +810,8 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
 
       if (file.extension != "pdf") {
         print("PDF ${file.extension}");
-        Fluttertoast.showToast(msg: "File Invalid", toastLength: Toast.LENGTH_SHORT);
+        Fluttertoast.showToast(
+            msg: "File Invalid", toastLength: Toast.LENGTH_SHORT);
       } else {
         setState(() {
           fileName = file.name;
@@ -727,7 +825,9 @@ class _MedicineDescriptionState extends State<MedicineDescription> {
   void increase() {
     setState(() {
       if (quantity == medicineTotalStock) {
-        Fluttertoast.showToast(msg: getTranslated(context, medicineDescription_outOfStock_toast).toString());
+        Fluttertoast.showToast(
+            msg: getTranslated(context, medicineDescription_outOfStock_toast)
+                .toString());
       } else {
         quantity = quantity + 1;
       }

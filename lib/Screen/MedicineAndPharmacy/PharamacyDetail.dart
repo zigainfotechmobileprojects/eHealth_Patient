@@ -26,7 +26,8 @@ class PharamacyDetail extends StatefulWidget {
   _PharamacyDetailState createState() => _PharamacyDetailState();
 }
 
-class _PharamacyDetailState extends State<PharamacyDetail> with TickerProviderStateMixin {
+class _PharamacyDetailState extends State<PharamacyDetail>
+    with TickerProviderStateMixin {
   bool loading = false;
 
   List<Tab> tabList = [];
@@ -45,32 +46,41 @@ class _PharamacyDetailState extends State<PharamacyDetail> with TickerProviderSt
   String? pharmacyLat = "";
   String? pharmacyLang = "";
 
-  List<String?> minValue = [];
-  List<String?> maxValue = [];
-  List<String?> charges = [];
+  List<String> minValue = [];
+  List<String> maxValue = [];
+  List<String> charges = [];
 
   List<Medicine> medicines = [];
 
   int? pharamacyId;
 
   void initState() {
+    super.initState();
     id = widget.id;
     callApiPharamacyDetail();
-    Future.delayed(Duration.zero, () {
-      tabList.add(
-        new Tab(
-          text: getTranslated(context, pharamacy_about).toString(),
-        ),
-      );
-      tabList.add(
-        new Tab(
-          text: getTranslated(context, pharamacy_product).toString(),
-        ),
-      );
-      _tabController = new TabController(vsync: this, length: tabList.length);
-    });
-    super.initState();
-    _passPharamacyId();
+    // Future.delayed(Duration.zero, () {
+    //   tabList.add(
+    //     new Tab(
+    //       text: getTranslated(context, pharamacy_about).toString(),
+    //     ),
+    //   );
+    //   tabList.add(
+    //     new Tab(
+    //       text: getTranslated(context, pharamacy_product).toString(),
+    //     ),
+    //   );
+    //   _tabController = new TabController(vsync: this, length: tabList.length);
+    // });
+     tabList = [
+      Tab(text: "pharamacy_about",),
+      Tab(text: "pharamacy_product",),
+    // Tab(text: getTranslated(context, pharamacy_about).toString()),
+    // Tab(text: getTranslated(context, pharamacy_product).toString()),
+  ];
+   _tabController = TabController(vsync: this, length: tabList.length);
+  _passPharamacyId();
+    // super.initState();
+    // _passPharamacyId();
   }
 
   @override
@@ -165,7 +175,9 @@ class _PharamacyDetailState extends State<PharamacyDetail> with TickerProviderSt
                           color: Palette.black,
                           image: new DecorationImage(
                             fit: BoxFit.cover,
-                            colorFilter: new ColorFilter.mode(Palette.black.withOpacity(0.7), BlendMode.dstATop),
+                            colorFilter: new ColorFilter.mode(
+                                Palette.black.withOpacity(0.7),
+                                BlendMode.dstATop),
                             image: NetworkImage('$pharamacyImage'),
                           ),
                         ),
@@ -182,7 +194,8 @@ class _PharamacyDetailState extends State<PharamacyDetail> with TickerProviderSt
                               child: Text(
                                 '$pharamacyName',
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontSize: 18, color: Palette.white),
+                                style: TextStyle(
+                                    fontSize: 18, color: Palette.white),
                               ),
                             ),
                             Container(
@@ -202,7 +215,8 @@ class _PharamacyDetailState extends State<PharamacyDetail> with TickerProviderSt
                                     child: Text(
                                       ' $pharamacyPhone',
                                       overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(fontSize: 16, color: Palette.white),
+                                      style: TextStyle(
+                                          fontSize: 16, color: Palette.white),
                                     ),
                                   )
                                 ],
@@ -225,7 +239,8 @@ class _PharamacyDetailState extends State<PharamacyDetail> with TickerProviderSt
                                     child: Text(
                                       ' $pharamacyEmail',
                                       overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(fontSize: 16, color: Palette.white),
+                                      style: TextStyle(
+                                          fontSize: 16, color: Palette.white),
                                     ),
                                   )
                                 ],
@@ -237,19 +252,23 @@ class _PharamacyDetailState extends State<PharamacyDetail> with TickerProviderSt
                     ],
                   ),
                 ),
-                Container(
-                  height: 50,
-                  color: Palette.white,
-                  margin: EdgeInsets.only(top: 5),
-                  padding: EdgeInsets.all(width * 0.02),
-                  child: new TabBar(
-                    labelColor: Palette.blue,
-                    controller: _tabController,
-                    indicatorSize: TabBarIndicatorSize.tab,
-                    indicatorColor: Palette.transparent,
-                    tabs: tabList,
-                    labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    unselectedLabelColor: Palette.dark_grey,
+                DefaultTabController(
+                  length: tabList.length,
+                  child: Container(
+                    height: 50,
+                    color: Palette.white,
+                    margin: EdgeInsets.only(top: 5),
+                    padding: EdgeInsets.all(width * 0.02),
+                    child: new TabBar(
+                      labelColor: Palette.blue,
+                      controller: _tabController,
+                      indicatorSize: TabBarIndicatorSize.tab,
+                      indicatorColor: Palette.transparent,
+                      tabs: tabList,
+                      labelStyle:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      unselectedLabelColor: Palette.dark_grey,
+                    ),
                   ),
                 ),
                 Container(
@@ -265,9 +284,11 @@ class _PharamacyDetailState extends State<PharamacyDetail> with TickerProviderSt
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
                               child: Text(
-                                getTranslated(context, pharamacy_about).toString(),
+                                getTranslated(context, pharamacy_about)
+                                    .toString(),
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -276,19 +297,23 @@ class _PharamacyDetailState extends State<PharamacyDetail> with TickerProviderSt
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 0),
                               child: pharamacyDescription != null
                                   ? Html(
                                       data: '$pharamacyDescription',
                                     )
                                   : Html(
-                                      data: getTranslated(context, "noDetail").toString(),
+                                      data: getTranslated(context, "noDetail")
+                                          .toString(),
                                     ),
                             ),
                             Container(
-                              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 15),
                               child: Text(
-                                getTranslated(context, pharamacy_openingHours).toString(),
+                                getTranslated(context, pharamacy_openingHours)
+                                    .toString(),
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -297,41 +322,65 @@ class _PharamacyDetailState extends State<PharamacyDetail> with TickerProviderSt
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 0),
                               child: Column(
                                 children: [
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
                                     children: [
                                       Container(
                                         child: Text(
-                                          getTranslated(context, pharamacy_monday_saturday).toString(),
-                                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Palette.grey),
+                                          getTranslated(context,
+                                                  pharamacy_monday_saturday)
+                                              .toString(),
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                              color: Palette.grey),
                                         ),
                                       ),
                                       Container(
                                         child: Text(
-                                          '$pharamacyStartTime' + ' - ' + '$pharamacyEndTime',
-                                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Palette.grey),
+                                          '$pharamacyStartTime' +
+                                              ' - ' +
+                                              '$pharamacyEndTime',
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                              color: Palette.grey),
                                         ),
                                       )
                                     ],
                                   ),
                                   Container(
-                                    margin: EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: 0, vertical: 5),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
                                       children: [
                                         Container(
                                           child: Text(
-                                            getTranslated(context, pharamacy_sunday).toString(),
-                                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Palette.grey),
+                                            getTranslated(
+                                                    context, pharamacy_sunday)
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                color: Palette.grey),
                                           ),
                                         ),
                                         Container(
                                           child: Text(
-                                            getTranslated(context, pharamacy_close).toString(),
-                                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Palette.grey),
+                                            getTranslated(
+                                                    context, pharamacy_close)
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                color: Palette.grey),
                                           ),
                                         )
                                       ],
@@ -341,9 +390,11 @@ class _PharamacyDetailState extends State<PharamacyDetail> with TickerProviderSt
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 15),
                               child: Text(
-                                getTranslated(context, pharamacy_address).toString(),
+                                getTranslated(context, pharamacy_address)
+                                    .toString(),
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -352,7 +403,8 @@ class _PharamacyDetailState extends State<PharamacyDetail> with TickerProviderSt
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.symmetric(horizontal: 25, vertical: 0),
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 25, vertical: 0),
                               alignment: Alignment.topLeft,
                               child: Text(
                                 '$pharamacyAddress',
@@ -370,19 +422,27 @@ class _PharamacyDetailState extends State<PharamacyDetail> with TickerProviderSt
                       //tab 2
                       medicines.length != 0
                           ? Container(
-                              padding: EdgeInsets.symmetric(horizontal: 17, vertical: 10),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 17, vertical: 10),
                               child: GridView.builder(
                                 itemCount: medicines.length,
                                 shrinkWrap: true,
                                 scrollDirection: Axis.vertical,
-                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10, childAspectRatio: 2.5),
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        mainAxisSpacing: 10,
+                                        crossAxisSpacing: 10,
+                                        childAspectRatio: 2.5),
                                 itemBuilder: (context, index) {
                                   return GestureDetector(
                                     onTap: () {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => MedicineDescription(id: medicines[index].id),
+                                          builder: (context) =>
+                                              MedicineDescription(
+                                                  id: medicines[index].id),
                                         ),
                                       );
                                     },
@@ -396,13 +456,15 @@ class _PharamacyDetailState extends State<PharamacyDetail> with TickerProviderSt
                                         ),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: Palette.black.withOpacity(0.1),
+                                            color:
+                                                Palette.black.withOpacity(0.1),
                                             blurRadius: 2,
                                           )
                                         ],
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
                                         child: Row(
                                           children: [
                                             Container(
@@ -417,12 +479,17 @@ class _PharamacyDetailState extends State<PharamacyDetail> with TickerProviderSt
                                                   height: 35,
                                                   width: 35,
                                                   fit: BoxFit.fill,
-                                                  imageUrl: medicines[index].fullImage!,
-                                                  placeholder: (context, url) => SpinKitFadingCircle(
+                                                  imageUrl: medicines[index]
+                                                      .fullImage!,
+                                                  placeholder: (context, url) =>
+                                                      SpinKitFadingCircle(
                                                     color: Palette.blue,
                                                   ),
-                                                  errorWidget: (context, url, error) => ClipRRect(
-                                                    borderRadius: BorderRadius.all(
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.all(
                                                       Radius.circular(5),
                                                     ),
                                                     child: Image.asset(
@@ -440,12 +507,15 @@ class _PharamacyDetailState extends State<PharamacyDetail> with TickerProviderSt
                                             ),
                                             Expanded(
                                               child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     medicines[index].name!,
-                                                    overflow: TextOverflow.ellipsis,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                     maxLines: 1,
                                                     style: TextStyle(
                                                       fontSize: width * 0.035,
@@ -453,7 +523,14 @@ class _PharamacyDetailState extends State<PharamacyDetail> with TickerProviderSt
                                                     ),
                                                   ),
                                                   Text(
-                                                    SharedPreferenceHelper.getString(Preferences.currency_symbol).toString() + medicines[index].pricePrStrip.toString(),
+                                                    SharedPreferenceHelper
+                                                                .getString(
+                                                                    Preferences
+                                                                        .currency_symbol)
+                                                            .toString() +
+                                                        medicines[index]
+                                                            .pricePrStrip
+                                                            .toString(),
                                                     style: TextStyle(
                                                       fontSize: width * 0.035,
                                                       color: Palette.dark_blue,
@@ -473,7 +550,9 @@ class _PharamacyDetailState extends State<PharamacyDetail> with TickerProviderSt
                           : Container(
                               alignment: Alignment.center,
                               child: Text(
-                                getTranslated(context, pharamacy_medicineNotAvailable).toString(),
+                                getTranslated(
+                                        context, pharamacy_medicineNotAvailable)
+                                    .toString(),
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -499,7 +578,8 @@ class _PharamacyDetailState extends State<PharamacyDetail> with TickerProviderSt
       loading = true;
     });
     try {
-      response = await RestClient(RetroApi2().dioData2()).pharmacyDetailRequest(id);
+      response =
+          await RestClient(RetroApi2().dioData2()).pharmacyDetailRequest(id);
       setState(() {
         loading = false;
         if (response.success == true) {
@@ -520,7 +600,8 @@ class _PharamacyDetailState extends State<PharamacyDetail> with TickerProviderSt
               pharmacyLang = response.data!.lang;
 
               if ('$isShipping' == 1.toString()) {
-                var convertCharges = json.decode(response.data!.deliveryCharges!);
+                var convertCharges =
+                    json.decode(response.data!.deliveryCharges!);
                 minValue.clear();
                 maxValue.clear();
                 charges.clear();

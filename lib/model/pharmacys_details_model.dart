@@ -34,7 +34,7 @@ class Data {
   String? lang;
   String? startTime;
   String? endTime;
-  int? commissionAmount;
+  String? commissionAmount;
   String? description;
   int? isShipping;
   String? deliveryCharges;

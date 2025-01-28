@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
-import '../AppointmentRelatedScreen/BookAppointment.dart';
 import '../../api/base_model.dart';
 import '../../api/server_error.dart';
 import '../../const/Palette.dart';
@@ -45,7 +44,10 @@ class _SignUpState extends State<SignUp> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      gender = [getTranslated(context, signUp_male).toString(), getTranslated(context, signUp_female).toString()];
+      gender = [
+        getTranslated(context, signUp_male).toString(),
+        getTranslated(context, signUp_female).toString()
+      ];
     });
   }
 
@@ -114,14 +116,19 @@ class _SignUpState extends State<SignUp> {
                             keyboardType: TextInputType.text,
                             textAlignVertical: TextAlignVertical.center,
                             textCapitalization: TextCapitalization.words,
-                            inputFormatters: [FilteringTextInputFormatter.allow(RegExp('[a-zA-Z ]'))],
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(
+                                  RegExp('[a-zA-Z ]'))
+                            ],
                             style: TextStyle(
                               fontSize: 16,
                               color: Palette.dark_blue,
                             ),
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: getTranslated(context, signUp_userName_hint).toString(),
+                              hintText:
+                                  getTranslated(context, signUp_userName_hint)
+                                      .toString(),
                               hintStyle: TextStyle(
                                 fontSize: 16,
                                 color: Palette.dark_grey,
@@ -131,9 +138,13 @@ class _SignUpState extends State<SignUp> {
                             validator: (String? value) {
                               value!.trim();
                               if (value.isEmpty) {
-                                return getTranslated(context, signUp_userName_validator1).toString();
+                                return getTranslated(
+                                        context, signUp_userName_validator1)
+                                    .toString();
                               } else if (value.trim().length < 1) {
-                                return getTranslated(context, signUp_userName_validator2).toString();
+                                return getTranslated(
+                                        context, signUp_userName_validator2)
+                                    .toString();
                               }
                               return null;
                             },
@@ -146,8 +157,11 @@ class _SignUpState extends State<SignUp> {
 
                         /// Email ///
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 2),
-                          decoration: BoxDecoration(color: Palette.dark_white, borderRadius: BorderRadius.circular(10)),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 15, vertical: 2),
+                          decoration: BoxDecoration(
+                              color: Palette.dark_white,
+                              borderRadius: BorderRadius.circular(10)),
                           child: TextFormField(
                             controller: _email,
                             keyboardType: TextInputType.text,
@@ -158,15 +172,26 @@ class _SignUpState extends State<SignUp> {
                             ),
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: getTranslated(context, signUp_email_hint).toString(),
-                              hintStyle: TextStyle(fontSize: 16, color: Palette.dark_grey, fontWeight: FontWeight.bold),
+                              hintText:
+                                  getTranslated(context, signUp_email_hint)
+                                      .toString(),
+                              hintStyle: TextStyle(
+                                  fontSize: 16,
+                                  color: Palette.dark_grey,
+                                  fontWeight: FontWeight.bold),
                             ),
                             validator: (String? value) {
                               if (value!.isEmpty) {
-                                return getTranslated(context, signUp_email_validator1).toString();
+                                return getTranslated(
+                                        context, signUp_email_validator1)
+                                    .toString();
                               }
-                              if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)) {
-                                return getTranslated(context, signUp_email_validator1).toString();
+                              if (!RegExp(
+                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                  .hasMatch(value)) {
+                                return getTranslated(
+                                        context, signUp_email_validator1)
+                                    .toString();
                               }
                               return null;
                             },
@@ -183,7 +208,8 @@ class _SignUpState extends State<SignUp> {
                           children: [
                             Container(
                               width: width * 0.2,
-                              padding: EdgeInsets.symmetric(horizontal: 9, vertical: 2),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 9, vertical: 2),
                               decoration: BoxDecoration(
                                 color: Palette.dark_white,
                                 borderRadius: BorderRadius.circular(10),
@@ -200,7 +226,10 @@ class _SignUpState extends State<SignUp> {
                                 decoration: InputDecoration(
                                   hintText: '+91',
                                   border: InputBorder.none,
-                                  hintStyle: TextStyle(fontSize: width * 0.04, color: Palette.dark_grey, fontWeight: FontWeight.bold),
+                                  hintStyle: TextStyle(
+                                      fontSize: width * 0.04,
+                                      color: Palette.dark_grey,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 onTap: () {
                                   showCountryPicker(
@@ -217,14 +246,19 @@ class _SignUpState extends State<SignUp> {
                                         topRight: Radius.circular(40.0),
                                       ),
                                       inputDecoration: InputDecoration(
-                                        labelText: getTranslated(context, signUp_phoneCode_label).toString(),
+                                        labelText: getTranslated(
+                                                context, signUp_phoneCode_label)
+                                            .toString(),
                                         // 'Search',
-                                        hintText: getTranslated(context, signUp_phoneCode_hint).toString(),
+                                        hintText: getTranslated(
+                                                context, signUp_phoneCode_hint)
+                                            .toString(),
                                         // 'Start typing to search',
                                         prefixIcon: const Icon(Icons.search),
                                         border: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Palette.grey.withOpacity(0.2),
+                                            color:
+                                                Palette.grey.withOpacity(0.2),
                                           ),
                                         ),
                                       ),
@@ -235,8 +269,11 @@ class _SignUpState extends State<SignUp> {
                             ),
                             Container(
                               width: width * 0.65,
-                              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 2),
-                              decoration: BoxDecoration(color: Palette.dark_white, borderRadius: BorderRadius.circular(10)),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 15, vertical: 2),
+                              decoration: BoxDecoration(
+                                  color: Palette.dark_white,
+                                  borderRadius: BorderRadius.circular(10)),
                               child: TextFormField(
                                 controller: _phone,
                                 keyboardType: TextInputType.number,
@@ -252,7 +289,9 @@ class _SignUpState extends State<SignUp> {
                                 ),
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
-                                  hintText: getTranslated(context, signUp_phoneNo_hint).toString(),
+                                  hintText: getTranslated(
+                                          context, signUp_phoneNo_hint)
+                                      .toString(),
                                   hintStyle: TextStyle(
                                     fontSize: width * 0.04,
                                     color: Palette.dark_grey,
@@ -261,7 +300,9 @@ class _SignUpState extends State<SignUp> {
                                 ),
                                 validator: (String? value) {
                                   if (value!.isEmpty) {
-                                    return getTranslated(context, signUp_phoneNo_validator1).toString();
+                                    return getTranslated(
+                                            context, signUp_phoneNo_validator1)
+                                        .toString();
                                   }
                                   return null;
                                 },
@@ -276,47 +317,74 @@ class _SignUpState extends State<SignUp> {
 
                         /// Birth Date ///
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 2),
-                          decoration: BoxDecoration(color: Palette.dark_white, borderRadius: BorderRadius.circular(10)),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 15, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: Palette.dark_white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           child: TextFormField(
-                            textCapitalization: TextCapitalization.words,
-                            textAlignVertical: TextAlignVertical.center,
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Palette.dark_blue,
-                            ),
+                            readOnly: true,
                             controller: _dob,
                             decoration: InputDecoration(
-                              hintText: getTranslated(context, signUp_birthDate_hint).toString(),
-                              border: InputBorder.none,
-                              hintStyle: TextStyle(fontSize: width * 0.04, color: Palette.dark_grey, fontWeight: FontWeight.bold),
+                              labelText: 'Date of Birth',
+                              hintText: 'Select your date of birth',
+                              border: OutlineInputBorder(),
                             ),
-                            validator: (String? value) {
-                              if (value!.isEmpty) {
-                                return getTranslated(context, signUp_birthDate_validator1).toString();
+                            onTap: () async {
+                              // Open the DatePicker
+                              DateTime? _selectedDate = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(1900),
+                                lastDate: DateTime.now(),
+                              );
+
+                              // If the user selects a date
+                              if (_selectedDate != null) {
+                                // Format it as yyyy-MM-dd
+                                _dob.text = DateFormat('yyyy-MM-dd')
+                                    .format(_selectedDate);
+
+                                // Print the selected date
+                                print('Selected Date: ${_dob.text}');
                               }
-                              return null;
                             },
-                            onTap: () {
-                              _selectDate(context);
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please select a valid date';
+                              }
+                              try {
+                                // Validate the input date format
+                                DateTime.parse(value);
+                                return null; // If the date is valid
+                              } catch (e) {
+                                return 'Invalid date format'; // If the date format is incorrect
+                              }
                             },
                           ),
                         ),
+
                         SizedBox(
                           height: 10,
                         ),
 
                         /// Gender ///
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 2),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 15, vertical: 2),
                           decoration: BoxDecoration(
                             color: Palette.dark_white,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: DropdownButtonFormField(
                             hint: Text(
-                              getTranslated(context, signUp_selectGender_hint).toString(),
-                              style: TextStyle(fontSize: 16, color: Palette.dark_grey, fontWeight: FontWeight.bold),
+                              getTranslated(context, signUp_selectGender_hint)
+                                  .toString(),
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Palette.dark_grey,
+                                  fontWeight: FontWeight.bold),
                             ),
                             // underline: Container(),
                             decoration: InputDecoration(
@@ -336,7 +404,11 @@ class _SignUpState extends State<SignUp> {
                                 },
                               );
                             },
-                            validator: (dynamic value) => value == null ? getTranslated(context, signUp_selectGender_validator).toString() : null,
+                            validator: (dynamic value) => value == null
+                                ? getTranslated(
+                                        context, signUp_selectGender_validator)
+                                    .toString()
+                                : null,
                             items: gender.map(
                               (location) {
                                 return DropdownMenuItem<String>(
@@ -359,20 +431,28 @@ class _SignUpState extends State<SignUp> {
 
                         /// Password ///
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 2),
-                          decoration: BoxDecoration(color: Palette.dark_white, borderRadius: BorderRadius.circular(10)),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 15, vertical: 2),
+                          decoration: BoxDecoration(
+                              color: Palette.dark_white,
+                              borderRadius: BorderRadius.circular(10)),
                           child: TextFormField(
                             controller: _password,
                             keyboardType: TextInputType.text,
                             textAlignVertical: TextAlignVertical.center,
-                            inputFormatters: [FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9@#\$&._~]'))],
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(
+                                  RegExp('[a-zA-Z0-9@#\$&._~]'))
+                            ],
                             style: TextStyle(
                               fontSize: 16,
                               color: Palette.dark_blue,
                             ),
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: getTranslated(context, signUp_password_hint).toString(),
+                              hintText:
+                                  getTranslated(context, signUp_password_hint)
+                                      .toString(),
                               hintStyle: TextStyle(
                                 fontSize: 16,
                                 color: Palette.dark_grey,
@@ -380,7 +460,9 @@ class _SignUpState extends State<SignUp> {
                               ),
                               suffixIcon: IconButton(
                                 icon: Icon(
-                                  _isHidden ? Icons.visibility : Icons.visibility_off,
+                                  _isHidden
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
                                   color: Palette.grey,
                                 ),
                                 onPressed: () {
@@ -393,10 +475,14 @@ class _SignUpState extends State<SignUp> {
                             obscureText: _isHidden,
                             validator: (String? value) {
                               if (value!.isEmpty) {
-                                return getTranslated(context, signUp_password_validator1).toString();
+                                return getTranslated(
+                                        context, signUp_password_validator1)
+                                    .toString();
                               }
                               if (value.length < 6) {
-                                return getTranslated(context, signUp_password_validator2).toString();
+                                return getTranslated(
+                                        context, signUp_password_validator2)
+                                    .toString();
                               }
                               return null;
                             },
@@ -410,7 +496,8 @@ class _SignUpState extends State<SignUp> {
                     ),
                     Container(
                       width: width,
-                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -418,7 +505,8 @@ class _SignUpState extends State<SignUp> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           child: Text(
-                            getTranslated(context, signUp_signUp_button).toString(),
+                            getTranslated(context, signUp_signUp_button)
+                                .toString(),
                             style: TextStyle(fontSize: 18),
                             textAlign: TextAlign.center,
                           ),
@@ -435,7 +523,8 @@ class _SignUpState extends State<SignUp> {
                     Container(
                       child: Text(
                         getTranslated(context, signUp_text).toString(),
-                        style: TextStyle(fontSize: 12, color: Palette.dark_blue),
+                        style:
+                            TextStyle(fontSize: 12, color: Palette.dark_blue),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -444,8 +533,10 @@ class _SignUpState extends State<SignUp> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          getTranslated(context, signUp_alreadyAccount).toString(),
-                          style: TextStyle(fontSize: 16, color: Palette.dark_blue),
+                          getTranslated(context, signUp_alreadyAccount)
+                              .toString(),
+                          style:
+                              TextStyle(fontSize: 16, color: Palette.dark_blue),
                         ),
                         SizedBox(
                           width: 10,
@@ -455,8 +546,12 @@ class _SignUpState extends State<SignUp> {
                             Navigator.pushReplacementNamed(context, 'SignIn');
                           },
                           child: Text(
-                            getTranslated(context, signUp_signIn_button).toString(),
-                            style: TextStyle(color: Palette.blue, fontWeight: FontWeight.bold, fontSize: 16),
+                            getTranslated(context, signUp_signIn_button)
+                                .toString(),
+                            style: TextStyle(
+                                color: Palette.blue,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
                           ),
                         ),
                       ],
@@ -472,43 +567,59 @@ class _SignUpState extends State<SignUp> {
   }
 
   Future<BaseModel<Register>> callApiRegister() async {
+    print("Selected Date: ${_dob.text}");
     Register response;
-    newDateApiPass = DateUtilForPass().formattedDate(DateTime.parse('$_selectedDate'));
+    // newDateApiPass = DateUtilForPass().formattedDate(DateTime.parse('$_selectedDate'));
+    print(newDateApiPass);
+
     Map<String, dynamic> body = {
       "name": _name.text,
       "email": _email.text,
       "phone": _phone.text,
-      "dob": newDateApiPass,
+      "dob": _dob.text,
       "gender": _selectGender,
       "password": _password.text,
       "phone_code": _phoneCode.text,
     };
+
     setState(() {
       Preferences.onLoading(context);
     });
+
     try {
       response = await RestClient(RetroApi2().dioData2()).registerRequest(body);
       if (response.success == true) {
         setState(() {
           Preferences.hideDialog(context);
-          id = response.data!.id;
-          response.data!.verify != 1
-              ? Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PhoneVerification(id: id),
-                  ),
-                )
-              : Navigator.pushReplacementNamed(context, "SignIn");
-          Fluttertoast.showToast(
-            msg: getTranslated(context, signUp_successFully_toast).toString() + " " + '${response.data!.name}',
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            backgroundColor: Palette.blue,
-            textColor: Palette.white,
-          );
         });
+
+        // Show the toast message first, then navigate after a delay
+        Fluttertoast.showToast(
+          msg: getTranslated(context, signUp_successFully_toast).toString() +
+              " " +
+              '${response.data!.name}',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Palette.blue,
+          textColor: Palette.white,
+        );
+
+        // Wait for toast to show before navigating
+        await Future.delayed(Duration(seconds: 2));
+
+        // Navigate based on verification status
+        if (response.data!.verify != 1) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PhoneVerification(id: response.data!.id),
+            ),
+          );
+        } else {
+          Navigator.pushReplacementNamed(context, "SignIn");
+        }
       }
+
       setState(() {
         Preferences.hideDialog(context);
       });
@@ -519,13 +630,31 @@ class _SignUpState extends State<SignUp> {
       print("Exception occur: $error stackTrace: $stacktrace");
       return BaseModel()..setException(ServerError.withError(error: error));
     }
+
     return BaseModel()..data = response;
   }
 
-  _selectDate(BuildContext context) async {
+  Future<void> _showDatePicker(
+      BuildContext context, TextEditingController controller) async {
+    final _selectedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+      initialEntryMode: DatePickerEntryMode.calendar,
+      helpText: 'Select Date',
+    );
+
+    if (_selectedDate != null) {
+      // Update the TextField's controller with the selected date.
+      controller.text = DateFormat('yyyy-MM-dd').format(_selectedDate);
+    }
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
     DateTime? newSelectedDate = await showDatePicker(
       context: context,
-      initialDate: _selectedDate != null ? _selectedDate! : DateTime.now(),
+      initialDate: _selectedDate ?? DateTime.now(),
       firstDate: DateTime(1950, 1),
       lastDate: DateTime.now(),
       builder: (BuildContext context, Widget? child) {
@@ -543,13 +672,14 @@ class _SignUpState extends State<SignUp> {
         );
       },
     );
+
     if (newSelectedDate != null) {
-      _selectedDate = newSelectedDate;
-      _dob
-        ..text = DateFormat('dd-MM-yyyy').format(_selectedDate!)
-        ..selection = TextSelection.fromPosition(
-          TextPosition(offset: _dob.text.length, affinity: TextAffinity.upstream),
-        );
+      setState(() {
+        _selectedDate = newSelectedDate; // Save the selected date
+        _dob.text =
+            DateFormat('dd-MM-yyyy').format(_selectedDate!); // Update TextField
+      });
+      print("Selected Date: ${_dob.text}"); // Debugging purpose
     }
   }
 }

@@ -57,7 +57,10 @@ class _HealthTipsState extends State<HealthTips> {
           backgroundColor: Palette.white,
           title: Text(
             getTranslated(context, healthTips_title).toString(),
-            style: TextStyle(fontSize: 18, color: Color(0xFF003165), fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: 18,
+                color: Color(0xFF003165),
+                fontWeight: FontWeight.bold),
           ),
         ),
         body: GestureDetector(
@@ -85,13 +88,14 @@ class _HealthTipsState extends State<HealthTips> {
                                         vertical: height * 0.002,
                                       ),
                                       width: width * 1,
-                                      height: 100,
+                                      // height: 100,
                                       child: GestureDetector(
                                         onTap: () {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => HealthTipsDetail(
+                                              builder: (context) =>
+                                                  HealthTipsDetail(
                                                 id: healthTip[index].id,
                                               ),
                                             ),
@@ -100,7 +104,8 @@ class _HealthTipsState extends State<HealthTips> {
                                         child: Card(
                                           color: Palette.white,
                                           shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(10),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                           ),
                                           elevation: 5,
                                           child: Row(
@@ -115,14 +120,19 @@ class _HealthTipsState extends State<HealthTips> {
                                                   height: 80,
                                                   child: CachedNetworkImage(
                                                     alignment: Alignment.center,
-                                                    imageUrl: healthTip[index].fullImage!,
+                                                    imageUrl: healthTip[index]
+                                                        .fullImage!,
                                                     fit: BoxFit.fill,
-                                                    placeholder: (context, url) => SpinKitFadingCircle(
+                                                    placeholder:
+                                                        (context, url) =>
+                                                            SpinKitFadingCircle(
                                                       color: Palette.blue,
                                                     ),
-                                                    errorWidget: (context, url, error) => Image.asset(
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                            Image.asset(
                                                       "assets/images/no_image.jpg",
-                                                      fit: BoxFit.fitHeight,
+                                                      fit: BoxFit.contain,
                                                     ),
                                                   ),
                                                 ),
@@ -130,24 +140,41 @@ class _HealthTipsState extends State<HealthTips> {
                                               Container(
                                                 width: width * 0.65,
                                                 child: Padding(
-                                                  padding: const EdgeInsets.all(5),
+                                                  padding:
+                                                      const EdgeInsets.all(5),
                                                   child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Text(
                                                         healthTip[index].title!,
                                                         maxLines: 2,
-                                                        overflow: TextOverflow.ellipsis,
-                                                        style: TextStyle(fontSize: width * 0.045, color: Palette.dark_blue, fontWeight: FontWeight.bold),
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: TextStyle(
+                                                            fontSize:
+                                                                width * 0.045,
+                                                            color: Palette
+                                                                .dark_blue,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
                                                       ),
                                                       Text(
-                                                        healthTip[index].blogRef!,
+                                                        healthTip[index]
+                                                            .blogRef!,
                                                         maxLines: 2,
-                                                        overflow: TextOverflow.ellipsis,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                         style: TextStyle(
-                                                          fontSize: width * 0.035,
-                                                          color: Palette.dark_blue,
+                                                          fontSize:
+                                                              width * 0.035,
+                                                          color:
+                                                              Palette.dark_blue,
                                                         ),
                                                       ),
                                                     ],
@@ -174,7 +201,10 @@ class _HealthTipsState extends State<HealthTips> {
                   margin: EdgeInsets.symmetric(vertical: 40),
                   child: Text(
                     getTranslated(context, healthTips_noTips).toString(),
-                    style: TextStyle(fontSize: width * 0.04, color: Palette.grey, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: width * 0.04,
+                        color: Palette.grey,
+                        fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                 ),

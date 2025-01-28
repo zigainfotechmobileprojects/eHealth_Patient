@@ -29,7 +29,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import '../../../const/prefConstatnt.dart';
 import '../../../const/preference.dart';
-import '../Location/ShowLocation.dart';
+// import '../Location/ShowLocation.dart';
 import '../../api/base_model.dart';
 import '../../api/server_error.dart';
 import '../../const/Palette.dart';
@@ -127,7 +127,7 @@ class _BookAppointmentState extends State<BookAppointment> {
   TextEditingController note = TextEditingController();
   TextEditingController date = TextEditingController();
   TextEditingController time = TextEditingController();
-  TextEditingController policyNumberController=TextEditingController();
+  TextEditingController policyNumberController = TextEditingController();
 
   TextEditingController _offerController = TextEditingController();
 
@@ -156,7 +156,7 @@ class _BookAppointmentState extends State<BookAppointment> {
   List<String> drugEffects = [];
   String? selectDrugEffects;
   InsurersData? selectedInsures;
-  String selectInsured="";
+  String selectInsured = "";
   List<ShowAddressData> showAddress = [];
   int selectAddressId = 0;
   ShowAddressData? showAddressData;
@@ -205,7 +205,8 @@ class _BookAppointmentState extends State<BookAppointment> {
     );
   }
 
-  var publicKey = SharedPreferenceHelper.getString(Preferences.payStack_public_key);
+  var publicKey =
+      SharedPreferenceHelper.getString(Preferences.payStack_public_key);
   final plugin = PaystackPlugin();
   String? paymentToken = "";
 
@@ -214,7 +215,8 @@ class _BookAppointmentState extends State<BookAppointment> {
 
   @override
   void initState() {
-    Stripe.publishableKey = SharedPreferenceHelper.getString(Preferences.stripe_public_key)!;
+    Stripe.publishableKey =
+        SharedPreferenceHelper.getString(Preferences.stripe_public_key)!;
     super.initState();
     id = widget.id;
     // callApiDoctorDetail();
@@ -237,7 +239,9 @@ class _BookAppointmentState extends State<BookAppointment> {
     // _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
 
     // PayStack //
-    plugin.initialize(publicKey: SharedPreferenceHelper.getString(Preferences.payStack_public_key)!);
+    plugin.initialize(
+        publicKey:
+            SharedPreferenceHelper.getString(Preferences.payStack_public_key)!);
     todayDate = DateTime.now();
     _firstTimeSelected = DateTime.now();
     date
@@ -280,7 +284,8 @@ class _BookAppointmentState extends State<BookAppointment> {
     super.dispose();
     // _razorpay.clear();
   }
-  bool isInsured=false;
+
+  bool isInsured = false;
   @override
   Widget build(BuildContext context) {
     double width;
@@ -304,7 +309,8 @@ class _BookAppointmentState extends State<BookAppointment> {
                   color: Palette.transparent,
                   child: Container(
                     alignment: Alignment.topRight,
-                    margin: EdgeInsets.only(right: width * 0.02, left: width * 0.02),
+                    margin: EdgeInsets.only(
+                        right: width * 0.02, left: width * 0.02),
                     child: GestureDetector(
                       child: Icon(Icons.arrow_back_ios),
                       onTap: () {
@@ -316,7 +322,8 @@ class _BookAppointmentState extends State<BookAppointment> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: width * 0.04, right: width * 0.04),
+                  margin:
+                      EdgeInsets.only(left: width * 0.04, right: width * 0.04),
                   child: Row(
                     children: [
                       Container(
@@ -328,7 +335,8 @@ class _BookAppointmentState extends State<BookAppointment> {
                               child: CachedNetworkImage(
                                 alignment: Alignment.center,
                                 imageUrl: '$fullImage',
-                                imageBuilder: (context, imageProvider) => CircleAvatar(
+                                imageBuilder: (context, imageProvider) =>
+                                    CircleAvatar(
                                   radius: 50,
                                   backgroundColor: Palette.image_circle,
                                   child: CircleAvatar(
@@ -336,10 +344,15 @@ class _BookAppointmentState extends State<BookAppointment> {
                                     backgroundImage: imageProvider,
                                   ),
                                 ),
-                                placeholder: (context, url) => SpinKitPulse(color: Palette.blue),
+                                placeholder: (context, url) =>
+                                    SpinKitPulse(color: Palette.blue),
                                 errorWidget: (context, url, error) => ClipRRect(
                                   borderRadius: BorderRadius.circular(60),
-                                  child: Image.asset("assets/images/no_image.jpg", width: width * 0.2, height: width * 0.2, fit: BoxFit.fitHeight),
+                                  child: Image.asset(
+                                      "assets/images/no_image.jpg",
+                                      width: width * 0.2,
+                                      height: width * 0.2,
+                                      fit: BoxFit.fitHeight),
                                 ),
                               ),
                             ),
@@ -348,7 +361,8 @@ class _BookAppointmentState extends State<BookAppointment> {
                       ),
                       Container(
                         width: width * 0.6,
-                        margin: EdgeInsets.only(left: width * 0.04, right: width * 0.04),
+                        margin: EdgeInsets.only(
+                            left: width * 0.04, right: width * 0.04),
                         child: Column(
                           children: [
                             Container(
@@ -358,7 +372,9 @@ class _BookAppointmentState extends State<BookAppointment> {
                                   Text(
                                     // '$hospitalName',
                                     '$name',
-                                    style: TextStyle(fontSize: width * 0.047, color: Palette.dark_blue),
+                                    style: TextStyle(
+                                        fontSize: width * 0.047,
+                                        color: Palette.dark_blue),
                                     overflow: TextOverflow.ellipsis,
                                   )
                                 ],
@@ -372,7 +388,9 @@ class _BookAppointmentState extends State<BookAppointment> {
                                   Text(
                                     // '$name',
                                     '$expertise',
-                                    style: TextStyle(fontSize: width * 0.038, color: Palette.grey),
+                                    style: TextStyle(
+                                        fontSize: width * 0.038,
+                                        color: Palette.grey),
                                     overflow: TextOverflow.ellipsis,
                                   )
                                 ],
@@ -390,15 +408,19 @@ class _BookAppointmentState extends State<BookAppointment> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        child: Text(
-                          getTranslated(context, bookAppointment_appointmentFees).toString(),
-                          style: TextStyle(fontSize: width * 0.045, color: Palette.blue),
-                        ),
-                      ),
+                          // child: Text(
+                          //   getTranslated(context, bookAppointment_appointmentFees).toString(),
+                          //   style: TextStyle(fontSize: width * 0.045, color: Palette.blue),
+                          // ),
+                          ),
                       Container(
                         child: Text(
-                          SharedPreferenceHelper.getString(Preferences.currency_symbol).toString() + '$appointmentFees',
-                          style: TextStyle(fontSize: width * 0.04, color: Palette.black),
+                          SharedPreferenceHelper.getString(
+                                      Preferences.currency_symbol)
+                                  .toString() +
+                              '$appointmentFees',
+                          style: TextStyle(
+                              fontSize: width * 0.04, color: Palette.black),
                         ),
                       ),
                     ],
@@ -426,7 +448,9 @@ class _BookAppointmentState extends State<BookAppointment> {
                         /// Step 1 //
                         Step(
                           title: new Text(
-                            getTranslated(context, bookAppointment_appointmentFor_hint).toString(),
+                            getTranslated(context,
+                                    bookAppointment_appointmentFor_hint)
+                                .toString(),
                           ),
                           content: Form(
                             key: _step1,
@@ -436,19 +460,31 @@ class _BookAppointmentState extends State<BookAppointment> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      margin: EdgeInsets.only(top: width * 0.03),
+                                      margin:
+                                          EdgeInsets.only(top: width * 0.03),
                                       child: Column(
                                         children: [
                                           Text(
-                                            getTranslated(context, bookAppointment_appointmentFor_title).toString(),
-                                            style: TextStyle(fontSize: width * 0.04, color: Palette.dark_blue, fontWeight: FontWeight.bold),
+                                            getTranslated(context,
+                                                    bookAppointment_appointmentFor_title)
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontSize: width * 0.04,
+                                                color: Palette.dark_blue,
+                                                fontWeight: FontWeight.bold),
                                           )
                                         ],
                                       ),
                                     ),
                                     DropdownButtonFormField(
                                       hint: Text(
-                                        getTranslated(context, bookAppointment_mySelf).toString() + ' / ' + getTranslated(context, bookAppointment_patient).toString(),
+                                        getTranslated(context,
+                                                    bookAppointment_mySelf)
+                                                .toString() +
+                                            ' / ' +
+                                            getTranslated(context,
+                                                    bookAppointment_patient)
+                                                .toString(),
                                         style: TextStyle(
                                           fontSize: width * 0.035,
                                           color: Palette.grey,
@@ -469,7 +505,12 @@ class _BookAppointmentState extends State<BookAppointment> {
                                           },
                                         );
                                       },
-                                      validator: (dynamic value) => value == null ? getTranslated(context, bookAppointment_appointmentFor_validator).toString() : null,
+                                      validator: (dynamic value) => value ==
+                                              null
+                                          ? getTranslated(context,
+                                                  bookAppointment_appointmentFor_validator)
+                                              .toString()
+                                          : null,
                                       items: appointmentFor.map((location) {
                                         return DropdownMenuItem<String>(
                                           child: new Text(
@@ -484,19 +525,27 @@ class _BookAppointmentState extends State<BookAppointment> {
                                       }).toList(),
                                     ),
                                     Container(
-                                      margin: EdgeInsets.only(top: width * 0.05),
+                                      margin:
+                                          EdgeInsets.only(top: width * 0.05),
                                       child: Column(
                                         children: [
                                           Text(
-                                            getTranslated(context, bookAppointment_hospital_title).toString(),
-                                            style: TextStyle(fontSize: width * 0.04, color: Palette.dark_blue, fontWeight: FontWeight.bold),
+                                            getTranslated(context,
+                                                    bookAppointment_hospital_title)
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontSize: width * 0.04,
+                                                color: Palette.dark_blue,
+                                                fontWeight: FontWeight.bold),
                                           )
                                         ],
                                       ),
                                     ),
                                     DropdownButtonFormField(
                                       hint: Text(
-                                        getTranslated(context, bookAppointment_hospital_hint).toString(),
+                                        getTranslated(context,
+                                                bookAppointment_hospital_hint)
+                                            .toString(),
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
@@ -516,16 +565,25 @@ class _BookAppointmentState extends State<BookAppointment> {
                                       onChanged: (HospitalId? newValue) {
                                         setState(
                                           () {
-                                            hospitalId = hospital[hospital.indexOf(newValue!)].hospitalDetails!.id;
+                                            hospitalId = hospital[
+                                                    hospital.indexOf(newValue!)]
+                                                .hospitalDetails!
+                                                .id;
                                             print("HospitalId $hospitalId");
                                           },
                                         );
                                       },
-                                      validator: (dynamic value) => value == null ? getTranslated(context, bookAppointment_hospital_validator).toString() : null,
-                                      items: hospital.map((location) {
+                                      validator: (dynamic value) => value ==
+                                              null
+                                          ? getTranslated(context,
+                                                  bookAppointment_hospital_validator)
+                                              .toString()
+                                          : null,
+                                      items: hospital.map((hos) {
                                         return DropdownMenuItem<HospitalId>(
                                           child: new Text(
-                                            location.hospitalDetails!.name!,
+                                            // location.hospitalDetails!.phone!,
+                                            hos.hospitalDetails!.name!,
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
@@ -533,32 +591,44 @@ class _BookAppointmentState extends State<BookAppointment> {
                                               color: Palette.dark_blue,
                                             ),
                                           ),
-                                          value: location,
+                                          value: hos,
                                         );
                                       }).toList(),
                                     ),
                                     Container(
-                                      margin: EdgeInsets.only(top: width * 0.05),
+                                      margin:
+                                          EdgeInsets.only(top: width * 0.05),
                                       child: Column(
                                         children: [
                                           Text(
-                                            getTranslated(context, bookAppointment_patient_title).toString(),
-                                            style: TextStyle(fontSize: width * 0.04, color: Palette.dark_blue, fontWeight: FontWeight.bold),
+                                            getTranslated(context,
+                                                    bookAppointment_patient_title)
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontSize: width * 0.04,
+                                                color: Palette.dark_blue,
+                                                fontWeight: FontWeight.bold),
                                           )
                                         ],
                                       ),
                                     ),
                                     TextFormField(
-                                      textCapitalization: TextCapitalization.words,
+                                      textCapitalization:
+                                          TextCapitalization.words,
                                       controller: patientNameController,
                                       keyboardType: TextInputType.text,
-                                      inputFormatters: [FilteringTextInputFormatter.allow(RegExp('[a-zA-Z ]'))],
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(
+                                            RegExp('[a-zA-Z ]'))
+                                      ],
                                       style: TextStyle(
                                         fontSize: width * 0.04,
                                         color: Palette.dark_blue,
                                       ),
                                       decoration: InputDecoration(
-                                        hintText: getTranslated(context, bookAppointment_patient_hint).toString(),
+                                        hintText: getTranslated(context,
+                                                bookAppointment_patient_hint)
+                                            .toString(),
                                         hintStyle: TextStyle(
                                           fontSize: width * 0.04,
                                           color: Palette.grey,
@@ -567,9 +637,13 @@ class _BookAppointmentState extends State<BookAppointment> {
                                       validator: (String? value) {
                                         value!.trim();
                                         if (value.isEmpty) {
-                                          return getTranslated(context, bookAppointment_patient_validator1).toString();
+                                          return getTranslated(context,
+                                                  bookAppointment_patient_validator1)
+                                              .toString();
                                         } else if (value.trim().length < 1) {
-                                          return getTranslated(context, bookAppointment_patient_validator2).toString();
+                                          return getTranslated(context,
+                                                  bookAppointment_patient_validator2)
+                                              .toString();
                                         }
                                         return null;
                                       },
@@ -578,27 +652,39 @@ class _BookAppointmentState extends State<BookAppointment> {
                                       },
                                     ),
                                     Container(
-                                      margin: EdgeInsets.only(top: width * 0.05),
+                                      margin:
+                                          EdgeInsets.only(top: width * 0.05),
                                       child: Column(
                                         children: [
                                           Text(
-                                            getTranslated(context, bookAppointment_illness_title).toString(),
-                                            style: TextStyle(fontSize: width * 0.04, color: Palette.dark_blue, fontWeight: FontWeight.bold),
+                                            getTranslated(context,
+                                                    bookAppointment_illness_title)
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontSize: width * 0.04,
+                                                color: Palette.dark_blue,
+                                                fontWeight: FontWeight.bold),
                                           )
                                         ],
                                       ),
                                     ),
                                     TextFormField(
-                                      textCapitalization: TextCapitalization.words,
+                                      textCapitalization:
+                                          TextCapitalization.words,
                                       controller: illnessInformation,
                                       keyboardType: TextInputType.text,
-                                      inputFormatters: [FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9 ]'))],
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(
+                                            RegExp('[a-zA-Z0-9 ]'))
+                                      ],
                                       style: TextStyle(
                                         fontSize: width * 0.04,
                                         color: Palette.dark_blue,
                                       ),
                                       decoration: InputDecoration(
-                                        hintText: getTranslated(context, bookAppointment_illness_hint).toString(),
+                                        hintText: getTranslated(context,
+                                                bookAppointment_illness_hint)
+                                            .toString(),
                                         // 'Enter patient illness',
                                         hintStyle: TextStyle(
                                           fontSize: width * 0.04,
@@ -607,21 +693,31 @@ class _BookAppointmentState extends State<BookAppointment> {
                                       ),
                                       validator: (String? value) {
                                         if (value!.isEmpty) {
-                                          return getTranslated(context, bookAppointment_illness_validator1).toString();
+                                          return getTranslated(context,
+                                                  bookAppointment_illness_validator1)
+                                              .toString();
                                         } else if (value.trim().length < 1) {
-                                          return getTranslated(context, bookAppointment_illness_validator2).toString();
+                                          return getTranslated(context,
+                                                  bookAppointment_illness_validator2)
+                                              .toString();
                                         }
                                         return null;
                                       },
                                       onSaved: (String? name) {},
                                     ),
                                     Container(
-                                      margin: EdgeInsets.only(top: width * 0.05),
+                                      margin:
+                                          EdgeInsets.only(top: width * 0.05),
                                       child: Column(
                                         children: [
                                           Text(
-                                            getTranslated(context, bookAppointment_age_title).toString(),
-                                            style: TextStyle(fontSize: width * 0.04, color: Palette.dark_blue, fontWeight: FontWeight.bold),
+                                            getTranslated(context,
+                                                    bookAppointment_age_title)
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontSize: width * 0.04,
+                                                color: Palette.dark_blue,
+                                                fontWeight: FontWeight.bold),
                                           )
                                         ],
                                       ),
@@ -629,13 +725,18 @@ class _BookAppointmentState extends State<BookAppointment> {
                                     TextFormField(
                                       controller: ageController,
                                       keyboardType: TextInputType.number,
-                                      inputFormatters: [FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9]'))],
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(
+                                            RegExp('[a-zA-Z0-9]'))
+                                      ],
                                       style: TextStyle(
                                         fontSize: width * 0.04,
                                         color: Palette.dark_blue,
                                       ),
                                       decoration: InputDecoration(
-                                        hintText: getTranslated(context, bookAppointment_age_hint).toString(),
+                                        hintText: getTranslated(context,
+                                                bookAppointment_age_hint)
+                                            .toString(),
                                         hintStyle: TextStyle(
                                           fontSize: width * 0.04,
                                           color: Palette.grey,
@@ -643,104 +744,226 @@ class _BookAppointmentState extends State<BookAppointment> {
                                       ),
                                       validator: (String? value) {
                                         if (value!.isEmpty) {
-                                          return getTranslated(context, bookAppointment_age_validator).toString();
+                                          return getTranslated(context,
+                                                  bookAppointment_age_validator)
+                                              .toString();
                                         }
                                         return null;
                                       },
                                       onSaved: (String? name) {},
                                     ),
+                                    // Container(
+                                    //   margin:
+                                    //       EdgeInsets.only(top: width * 0.05),
+                                    //   child: Column(
+                                    //     children: [
+                                    //       Text(
+                                    //         getTranslated(context,
+                                    //                 bookAppointment_patientAddress_title)
+                                    //             .toString(),
+                                    //         style: TextStyle(
+                                    //             fontSize: width * 0.04,
+                                    //             color: Palette.dark_blue,
+                                    //             fontWeight: FontWeight.bold),
+                                    //       )
+                                    //     ],
+                                    //   ),
+                                    // ),
+                                    // GestureDetector(
+                                    //   onTap: () {
+                                    //     if (showAddress.length == 0) {
+                                    //       FormHelper.showMessage(
+                                    //         context,
+                                    //         "No Address",
+                                    //         "No any address, Please add address.",
+                                    //         "No",
+                                    //         () {
+                                    //           Navigator.of(context).pop();
+                                    //         },
+                                    //         buttonText2: "Add",
+                                    //         isConfirmationDialog: true,
+                                    //         onPressed2: () {
+                                    //           Navigator.of(context).pop();
+                                    //           SharedPreferenceHelper.setString(
+                                    //               'isWhere', "BookAppointment");
+                                    //           SharedPreferenceHelper.setString(
+                                    //               'doctorId',
+                                    //               widget.id.toString());
+                                    //           // Navigator.pushReplacement(
+                                    //           //   context,
+                                    //           //   MaterialPageRoute(
+                                    //           //     builder: (context) =>
+                                    //           //         ShowLocation(),
+                                    //           //   ),
+                                    //           // );
+                                    //         },
+                                    //       );
+                                    //     }
+                                    //   },
+                                    //   child: DropdownButtonFormField(
+                                    //     hint: Text(
+                                    //       getTranslated(context,
+                                    //               bookAppointment_patientAddress_text)
+                                    //           .toString(),
+                                    //       style: TextStyle(
+                                    //         fontSize: width * 0.04,
+                                    //         color: Palette.grey,
+                                    //       ),
+                                    //     ),
+                                    //     value: showAddressData,
+                                    //     isExpanded: true,
+                                    //     iconSize: 30,
+                                    //     onTap: () {
+                                    //       if (showAddress.length == 0) {
+                                    //         Fluttertoast.showToast(
+                                    //           msg: "Please add Address.",
+                                    //           toastLength: Toast.LENGTH_SHORT,
+                                    //           gravity: ToastGravity.CENTER,
+                                    //         );
+                                    //       }
+                                    //     },
+                                    //     onSaved: (dynamic value) {
+                                    //       setState(() {
+                                    //         showAddressData = value;
+                                    //       });
+                                    //     },
+                                    //     onChanged: (ShowAddressData? newValue) {
+                                    //       setState(
+                                    //         () {
+                                    //           selectAddressId = newValue!.id!;
+                                    //         },
+                                    //       );
+                                    //     },
+                                    //     validator: (dynamic value) => value ==
+                                    //             null
+                                    //         ? getTranslated(context,
+                                    //                 bookAppointment_patientAddress_validator1)
+                                    //             .toString()
+                                    //         : null,
+                                    //     items: showAddress.map((location) {
+                                    //       return DropdownMenuItem<
+                                    //           ShowAddressData>(
+                                    //         child: new Text(
+                                    //           location.address!,
+                                    //           style: TextStyle(
+                                    //             fontSize: width * 0.04,
+                                    //             color: Palette.dark_blue,
+                                    //           ),
+                                    //         ),
+                                    //         value: location,
+                                    //       );
+                                    //     }).toList(),
+                                    //   ),
+                                    // ),
+                                    // GestureDetector(
+                                    //   onTap: () {
+                                    //     if (showAddress.isEmpty) {
+                                    //       // .length == 0 ஐ பதிலாக .isEmpty பயன்படுத்தவும்
+                                    //       FormHelper.showMessage(
+                                    //         context,
+                                    //         "No Address",
+                                    //         "No address found. Please add an address.",
+                                    //         "No",
+                                    //         () {
+                                    //           Navigator.of(context).pop();
+                                    //         },
+                                    //         buttonText2: "Add",
+                                    //         isConfirmationDialog: true,
+                                    //         onPressed2: () {
+                                    //           Navigator.of(context).pop();
+                                    //           SharedPreferenceHelper.setString(
+                                    //               'isWhere', "BookAppointment");
+                                    //           SharedPreferenceHelper.setString(
+                                    //               'doctorId',
+                                    //               widget.id.toString());
+                                    //           // Navigator.pushReplacement(
+                                    //           //   context,
+                                    //           //   MaterialPageRoute(
+                                    //           //     builder: (context) =>
+                                    //           //         // ShowLocation(),
+                                    //           //   ),
+                                    //           // );
+                                    //         },
+                                    //       );
+                                    //     }
+                                    //   },
+                                    //   child: DropdownButtonFormField<
+                                    //       ShowAddressData>(
+                                    //     hint: Text(
+                                    //       getTranslated(context,
+                                    //               bookAppointment_patientAddress_text)
+                                    //           .toString(),
+                                    //       style: TextStyle(
+                                    //         fontSize: width * 0.04,
+                                    //         color: Palette.grey,
+                                    //       ),
+                                    //     ),
+                                    //     value: showAddressData,
+                                    //     isExpanded: true,
+                                    //     iconSize: 30,
+                                    //     onTap: () {
+                                    //       if (showAddress.isEmpty) {
+                                    //         // Address data இல்லாவிட்டால்
+                                    //         Fluttertoast.showToast(
+                                    //           msg: "Please add Address.",
+                                    //           toastLength: Toast.LENGTH_SHORT,
+                                    //           gravity: ToastGravity.CENTER,
+                                    //         );
+                                    //       }
+                                    //     },
+                                    //     onSaved: (dynamic value) {
+                                    //       setState(() {
+                                    //         showAddressData = value;
+                                    //       });
+                                    //     },
+                                    //     onChanged: (ShowAddressData? newValue) {
+                                    //       if (newValue != null) {
+                                    //         // Null safety added
+                                    //         setState(() {
+                                    //           selectAddressId = (newValue.id
+                                    //                       ?.toString() ??
+                                    //                   "")
+                                    //               as int; // Null fallback handle
+                                    //         });
+                                    //       }
+                                    //     },
+                                    //     validator: (dynamic value) {
+                                    //       if (value == null) {
+                                    //         return getTranslated(context,
+                                    //                 bookAppointment_patientAddress_validator1)
+                                    //             .toString();
+                                    //       }
+                                    //       return null;
+                                    //     },
+                                    //     items: showAddress.map((location) {
+                                    //       return DropdownMenuItem<
+                                    //           ShowAddressData>(
+                                    //         value: location,
+                                    //         child: Text(
+                                    //           location.address ??
+                                    //               "Unknown Address", // Null fallback
+                                    //           style: TextStyle(
+                                    //             fontSize: width * 0.04,
+                                    //             color: Palette.dark_blue,
+                                    //           ),
+                                    //         ),
+                                    //       );
+                                    //     }).toList(),
+                                    //   ),
+                                    // ),
                                     Container(
-                                      margin: EdgeInsets.only(top: width * 0.05),
+                                      margin:
+                                          EdgeInsets.only(top: width * 0.05),
                                       child: Column(
                                         children: [
                                           Text(
-                                            getTranslated(context, bookAppointment_patientAddress_title).toString(),
-                                            style: TextStyle(fontSize: width * 0.04, color: Palette.dark_blue, fontWeight: FontWeight.bold),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        if (showAddress.length == 0) {
-                                          FormHelper.showMessage(
-                                            context,
-                                            "No Address",
-                                            "No any address, Please add address.",
-                                            "No",
-                                            () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            buttonText2: "Add",
-                                            isConfirmationDialog: true,
-                                            onPressed2: () {
-                                              Navigator.of(context).pop();
-                                              SharedPreferenceHelper.setString('isWhere', "BookAppointment");
-                                              SharedPreferenceHelper.setString('doctorId', widget.id.toString());
-                                              Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) => ShowLocation(),
-                                                ),
-                                              );
-                                            },
-                                          );
-                                        }
-                                      },
-                                      child: DropdownButtonFormField(
-                                        hint: Text(
-                                          getTranslated(context, bookAppointment_patientAddress_text).toString(),
-                                          style: TextStyle(
-                                            fontSize: width * 0.04,
-                                            color: Palette.grey,
-                                          ),
-                                        ),
-                                        value: showAddressData,
-                                        isExpanded: true,
-                                        iconSize: 30,
-                                        onTap: () {
-                                          if (showAddress.length == 0) {
-                                            Fluttertoast.showToast(
-                                              msg: "Please add Address.",
-                                              toastLength: Toast.LENGTH_SHORT,
-                                              gravity: ToastGravity.CENTER,
-                                            );
-                                          }
-                                        },
-                                        onSaved: (dynamic value) {
-                                          setState(() {
-                                            showAddressData = value;
-                                          });
-                                        },
-                                        onChanged: (ShowAddressData? newValue) {
-                                          setState(
-                                            () {
-                                              selectAddressId = newValue!.id!;
-                                            },
-                                          );
-                                        },
-                                        validator: (dynamic value) => value == null ? getTranslated(context, bookAppointment_patientAddress_validator1).toString() : null,
-                                        items: showAddress.map((location) {
-                                          return DropdownMenuItem<ShowAddressData>(
-                                            child: new Text(
-                                              location.address!,
-                                              style: TextStyle(
+                                            getTranslated(context,
+                                                    bookAppointment_phoneNo_title)
+                                                .toString(),
+                                            style: TextStyle(
                                                 fontSize: width * 0.04,
                                                 color: Palette.dark_blue,
-                                              ),
-                                            ),
-                                            value: location,
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.only(top: width * 0.05),
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            getTranslated(context, bookAppointment_phoneNo_title).toString(),
-                                            style: TextStyle(fontSize: width * 0.04, color: Palette.dark_blue, fontWeight: FontWeight.bold),
+                                                fontWeight: FontWeight.bold),
                                           )
                                         ],
                                       ),
@@ -748,13 +971,19 @@ class _BookAppointmentState extends State<BookAppointment> {
                                     TextFormField(
                                       controller: phoneNoController,
                                       keyboardType: TextInputType.number,
-                                      inputFormatters: [FilteringTextInputFormatter.allow(RegExp('[0-9]')), LengthLimitingTextInputFormatter(10)],
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(
+                                            RegExp('[0-9]')),
+                                        LengthLimitingTextInputFormatter(10)
+                                      ],
                                       style: TextStyle(
                                         fontSize: width * 0.035,
                                         color: Palette.dark_blue,
                                       ),
                                       decoration: InputDecoration(
-                                        hintText: getTranslated(context, bookAppointment_phoneNo_hint).toString(),
+                                        hintText: getTranslated(context,
+                                                bookAppointment_phoneNo_hint)
+                                            .toString(),
                                         hintStyle: TextStyle(
                                           fontSize: width * 0.04,
                                           color: Palette.grey,
@@ -762,7 +991,9 @@ class _BookAppointmentState extends State<BookAppointment> {
                                       ),
                                       validator: (String? value) {
                                         if (value!.isEmpty) {
-                                          return getTranslated(context, bookAppointment_phoneNo_Validator1).toString();
+                                          return getTranslated(context,
+                                                  bookAppointment_phoneNo_Validator1)
+                                              .toString();
                                         }
 
                                         return null;
@@ -770,19 +1001,27 @@ class _BookAppointmentState extends State<BookAppointment> {
                                       onSaved: (String? name) {},
                                     ),
                                     Container(
-                                      margin: EdgeInsets.only(top: width * 0.05),
+                                      margin:
+                                          EdgeInsets.only(top: width * 0.05),
                                       child: Column(
                                         children: [
                                           Text(
-                                            getTranslated(context, bookAppointment_sideEffects_title).toString(),
-                                            style: TextStyle(fontSize: width * 0.038, color: Palette.dark_blue, fontWeight: FontWeight.bold),
+                                            getTranslated(context,
+                                                    bookAppointment_sideEffects_title)
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontSize: width * 0.038,
+                                                color: Palette.dark_blue,
+                                                fontWeight: FontWeight.bold),
                                           )
                                         ],
                                       ),
                                     ),
                                     DropdownButtonFormField(
                                       hint: Text(
-                                        getTranslated(context, bookAppointment_sideEffects_hint).toString(),
+                                        getTranslated(context,
+                                                bookAppointment_sideEffects_hint)
+                                            .toString(),
                                         style: TextStyle(
                                           fontSize: width * 0.04,
                                           color: Palette.grey,
@@ -803,7 +1042,12 @@ class _BookAppointmentState extends State<BookAppointment> {
                                           },
                                         );
                                       },
-                                      validator: (dynamic value) => value == null ? getTranslated(context, bookAppointment_sideEffects_validator).toString() : null,
+                                      validator: (dynamic value) => value ==
+                                              null
+                                          ? getTranslated(context,
+                                                  bookAppointment_sideEffects_validator)
+                                              .toString()
+                                          : null,
                                       items: drugEffects.map((location) {
                                         return DropdownMenuItem<String>(
                                           child: new Text(
@@ -818,28 +1062,40 @@ class _BookAppointmentState extends State<BookAppointment> {
                                       }).toList(),
                                     ),
                                     Container(
-                                      margin: EdgeInsets.only(top: width * 0.05),
+                                      margin:
+                                          EdgeInsets.only(top: width * 0.05),
                                       child: Column(
                                         children: [
                                           Text(
-                                            getTranslated(context, bookAppointment_note_title).toString(),
-                                            style: TextStyle(fontSize: width * 0.038, color: Palette.dark_blue, fontWeight: FontWeight.bold),
+                                            getTranslated(context,
+                                                    bookAppointment_note_title)
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontSize: width * 0.038,
+                                                color: Palette.dark_blue,
+                                                fontWeight: FontWeight.bold),
                                           )
                                         ],
                                       ),
                                     ),
                                     TextFormField(
-                                      textCapitalization: TextCapitalization.sentences,
+                                      textCapitalization:
+                                          TextCapitalization.sentences,
                                       controller: note,
                                       keyboardType: TextInputType.text,
-                                      inputFormatters: [FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9,. ]'))],
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(
+                                            RegExp('[a-zA-Z0-9,. ]'))
+                                      ],
                                       maxLength: 40,
                                       style: TextStyle(
                                         fontSize: width * 0.04,
                                         color: Palette.dark_blue,
                                       ),
                                       decoration: InputDecoration(
-                                        hintText: getTranslated(context, bookAppointment_note_hint).toString(),
+                                        hintText: getTranslated(context,
+                                                bookAppointment_note_hint)
+                                            .toString(),
                                         hintStyle: TextStyle(
                                           fontSize: width * 0.04,
                                           color: Palette.grey,
@@ -847,116 +1103,153 @@ class _BookAppointmentState extends State<BookAppointment> {
                                       ),
                                       onSaved: (String? name) {},
                                     ),
-
                                     ListTileSwitch(
                                       value: isInsured,
-                                      onChanged: (value){
+                                      onChanged: (value) {
                                         setState(() {
-                                          isInsured=value;
+                                          isInsured = value;
                                         });
                                       },
-                                      title: Text(getTranslated(context, patientInsured).toString(),style: TextStyle(fontSize: width * 0.038, color: Palette.dark_blue, fontWeight: FontWeight.bold),),
+                                      title: Text(
+                                        getTranslated(context, patientInsured)
+                                            .toString(),
+                                        style: TextStyle(
+                                            fontSize: width * 0.038,
+                                            color: Palette.dark_blue,
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                       dense: true,
                                       contentPadding: EdgeInsets.zero,
-                                      switchActiveColor:Palette.purple,
-                                      visualDensity: VisualDensity(vertical: -4,horizontal: -4),
+                                      switchActiveColor: Palette.purple,
+                                      visualDensity: VisualDensity(
+                                          vertical: -4, horizontal: -4),
                                       switchType: SwitchType.custom,
                                     ),
                                     Visibility(
                                       visible: isInsured,
                                       child: Column(
-                                      children: [
-                                        DropdownButtonFormField(
-                                          hint: Text(
-                                            getTranslated(context, choosePolicyProvider).toString(),
+                                        children: [
+                                          DropdownButtonFormField(
+                                            hint: Text(
+                                              getTranslated(context,
+                                                      choosePolicyProvider)
+                                                  .toString(),
+                                              style: TextStyle(
+                                                fontSize: width * 0.04,
+                                                color: Palette.grey,
+                                              ),
+                                            ),
+                                            value: selectedInsures,
+                                            isExpanded: true,
+                                            iconSize: 30,
+                                            onSaved: (dynamic value) {
+                                              setState(() {
+                                                selectedInsures = value;
+                                              });
+                                            },
+                                            onChanged:
+                                                (InsurersData? newValue) {
+                                              setState(
+                                                () {
+                                                  selectInsured =
+                                                      newValue!.name ?? "";
+                                                },
+                                              );
+                                            },
+                                            validator: (dynamic value) =>
+                                                value == null
+                                                    ? getTranslated(context,
+                                                            choosePolicyProvider)
+                                                        .toString()
+                                                    : null,
+                                            items: allInsurers.map((location) {
+                                              return DropdownMenuItem<
+                                                  InsurersData>(
+                                                child: new Text(
+                                                  location.name ?? "",
+                                                  style: TextStyle(
+                                                    fontSize: width * 0.04,
+                                                    color: Palette.dark_blue,
+                                                  ),
+                                                ),
+                                                value: location,
+                                              );
+                                            }).toList(),
+                                          ),
+                                          TextFormField(
+                                            controller: policyNumberController,
+                                            keyboardType: TextInputType.number,
+                                            validator: (String? value) {
+                                              if (value!.isEmpty) {
+                                                return getTranslated(
+                                                        context, policyNumber)
+                                                    .toString();
+                                              }
+
+                                              return null;
+                                            },
+                                            inputFormatters: [
+                                              FilteringTextInputFormatter
+                                                  .digitsOnly
+                                            ],
                                             style: TextStyle(
                                               fontSize: width * 0.04,
-                                              color: Palette.grey,
+                                              color: Palette.dark_blue,
                                             ),
-                                          ),
-                                          value: selectedInsures,
-                                          isExpanded: true,
-                                          iconSize: 30,
-                                          onSaved: (dynamic value) {
-                                            setState(() {
-                                              selectedInsures = value;
-                                            });
-                                          },
-                                          onChanged: (InsurersData? newValue) {
-                                            setState(
-                                                  () {
-                                                    selectInsured = newValue!.name??"";
-                                              },
-                                            );
-                                          },
-                                          validator: (dynamic value) => value == null ? getTranslated(context, choosePolicyProvider).toString() : null,
-                                          items: allInsurers.map((location) {
-                                            return DropdownMenuItem<InsurersData>(
-                                              child: new Text(
-                                                location.name??"",
-                                                style: TextStyle(
-                                                  fontSize: width * 0.04,
-                                                  color: Palette.dark_blue,
-                                                ),
+                                            decoration: InputDecoration(
+                                              hintText: getTranslated(
+                                                      context, policyNumber)
+                                                  .toString(),
+                                              hintStyle: TextStyle(
+                                                fontSize: width * 0.04,
+                                                color: Palette.grey,
                                               ),
-                                              value: location,
-                                            );
-                                          }).toList(),
-                                        ),
-                                        TextFormField(
-                                          controller: policyNumberController,
-                                          keyboardType: TextInputType.number,
-                                          validator: (String? value) {
-                                            if (value!.isEmpty) {
-                                              return getTranslated(context, policyNumber).toString();
-                                            }
-
-                                            return null;
-                                          },
-                                          inputFormatters: [
-                                            FilteringTextInputFormatter.digitsOnly
-                                          ],
-                                          style: TextStyle(
-                                            fontSize: width * 0.04,
-                                            color: Palette.dark_blue,
-                                          ),
-                                          decoration: InputDecoration(
-                                            hintText: getTranslated(context, policyNumber).toString(),
-                                            hintStyle: TextStyle(
-                                              fontSize: width * 0.04,
-                                              color: Palette.grey,
                                             ),
+                                            onSaved: (String? name) {},
                                           ),
-                                          onSaved: (String? name) {},
-                                        ),
-                                      ],
-                                    ),),
+                                        ],
+                                      ),
+                                    ),
                                     Container(
-                                      margin: EdgeInsets.only(top: width * 0.05),
+                                      margin:
+                                          EdgeInsets.only(top: width * 0.05),
                                       child: Column(
                                         children: [
                                           Text(
-                                            getTranslated(context, bookAppointment_reportImage_title).toString(),
-                                            style: TextStyle(fontSize: width * 0.04, color: Palette.dark_blue),
+                                            getTranslated(context,
+                                                    bookAppointment_reportImage_title)
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontSize: width * 0.04,
+                                                color: Palette.dark_blue),
                                           )
                                         ],
                                       ),
                                     ),
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
                                           child: Row(
                                             children: [
                                               Container(
                                                 alignment: Alignment.topLeft,
-                                                margin: EdgeInsets.only(top: width * 0.028, left: width * 0.02, right: width * 0.02),
+                                                margin: EdgeInsets.only(
+                                                    top: width * 0.028,
+                                                    left: width * 0.02,
+                                                    right: width * 0.02),
                                                 child: Container(
                                                   height: width * 0.24,
                                                   width: width * 0.24,
                                                   child: Card(
                                                     color: Palette.dash_line,
-                                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5)),
                                                     child: _proImage != null
                                                         ? GestureDetector(
                                                             onTap: () {
@@ -968,20 +1261,37 @@ class _BookAppointmentState extends State<BookAppointment> {
                                                             ),
                                                           )
                                                         : Container(
-                                                            height: width * 0.24,
+                                                            height:
+                                                                width * 0.24,
                                                             width: width * 0.24,
-                                                            child: CachedNetworkImage(
-                                                              height: width * 0.24,
-                                                              width: width * 0.24,
-                                                              alignment: Alignment.center,
-                                                              imageUrl: reportImage,
-                                                              fit: BoxFit.fitHeight,
-                                                              placeholder: (context, url) => SpinKitFadingCircle(color: Palette.blue),
-                                                              errorWidget: (context, url, error) => IconButton(
+                                                            child:
+                                                                CachedNetworkImage(
+                                                              height:
+                                                                  width * 0.24,
+                                                              width:
+                                                                  width * 0.24,
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              imageUrl:
+                                                                  reportImage,
+                                                              fit: BoxFit
+                                                                  .fitHeight,
+                                                              placeholder: (context,
+                                                                      url) =>
+                                                                  SpinKitFadingCircle(
+                                                                      color: Palette
+                                                                          .blue),
+                                                              errorWidget: (context,
+                                                                      url,
+                                                                      error) =>
+                                                                  IconButton(
                                                                 icon: Icon(
-                                                                  Icons.add_outlined,
+                                                                  Icons
+                                                                      .add_outlined,
                                                                   size: 50,
-                                                                  color: Palette.blue,
+                                                                  color: Palette
+                                                                      .blue,
                                                                 ),
                                                                 onPressed: () {
                                                                   _chooseProfileImage();
@@ -999,13 +1309,21 @@ class _BookAppointmentState extends State<BookAppointment> {
                                           child: Row(
                                             children: [
                                               Container(
-                                                margin: EdgeInsets.only(top: width * 0.028, left: width * 0.02, right: width * 0.02),
+                                                margin: EdgeInsets.only(
+                                                    top: width * 0.028,
+                                                    left: width * 0.02,
+                                                    right: width * 0.02),
                                                 child: Container(
                                                   height: width * 0.24,
                                                   width: width * 0.24,
                                                   child: Card(
                                                     color: Palette.dash_line,
-                                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5)),
                                                     child: _proImage1 != null
                                                         ? GestureDetector(
                                                             onTap: () {
@@ -1017,20 +1335,37 @@ class _BookAppointmentState extends State<BookAppointment> {
                                                             ),
                                                           )
                                                         : Container(
-                                                            height: width * 0.24,
+                                                            height:
+                                                                width * 0.24,
                                                             width: width * 0.24,
-                                                            child: CachedNetworkImage(
-                                                              height: width * 0.24,
-                                                              width: width * 0.24,
-                                                              alignment: Alignment.center,
-                                                              imageUrl: reportImage1,
-                                                              fit: BoxFit.fitHeight,
-                                                              placeholder: (context, url) => SpinKitFadingCircle(color: Palette.blue),
-                                                              errorWidget: (context, url, error) => IconButton(
+                                                            child:
+                                                                CachedNetworkImage(
+                                                              height:
+                                                                  width * 0.24,
+                                                              width:
+                                                                  width * 0.24,
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              imageUrl:
+                                                                  reportImage1,
+                                                              fit: BoxFit
+                                                                  .fitHeight,
+                                                              placeholder: (context,
+                                                                      url) =>
+                                                                  SpinKitFadingCircle(
+                                                                      color: Palette
+                                                                          .blue),
+                                                              errorWidget: (context,
+                                                                      url,
+                                                                      error) =>
+                                                                  IconButton(
                                                                 icon: Icon(
-                                                                  Icons.add_outlined,
+                                                                  Icons
+                                                                      .add_outlined,
                                                                   size: 50,
-                                                                  color: Palette.blue,
+                                                                  color: Palette
+                                                                      .blue,
                                                                 ),
                                                                 onPressed: () {
                                                                   _chooseProfileImage1();
@@ -1049,13 +1384,21 @@ class _BookAppointmentState extends State<BookAppointment> {
                                             children: [
                                               Container(
                                                 alignment: Alignment.topLeft,
-                                                margin: EdgeInsets.only(top: width * 0.028, left: width * 0.02, right: width * 0.02),
+                                                margin: EdgeInsets.only(
+                                                    top: width * 0.028,
+                                                    left: width * 0.02,
+                                                    right: width * 0.02),
                                                 child: Container(
                                                   height: width * 0.24,
                                                   width: width * 0.24,
                                                   child: Card(
                                                     color: Palette.dash_line,
-                                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5)),
                                                     child: _proImage2 != null
                                                         ? GestureDetector(
                                                             onTap: () {
@@ -1067,20 +1410,37 @@ class _BookAppointmentState extends State<BookAppointment> {
                                                             ),
                                                           )
                                                         : Container(
-                                                            height: width * 0.24,
+                                                            height:
+                                                                width * 0.24,
                                                             width: width * 0.24,
-                                                            child: CachedNetworkImage(
-                                                              height: width * 0.24,
-                                                              width: width * 0.24,
-                                                              alignment: Alignment.center,
-                                                              imageUrl: reportImage2,
-                                                              fit: BoxFit.fitHeight,
-                                                              placeholder: (context, url) => SpinKitFadingCircle(color: Palette.blue),
-                                                              errorWidget: (context, url, error) => IconButton(
+                                                            child:
+                                                                CachedNetworkImage(
+                                                              height:
+                                                                  width * 0.24,
+                                                              width:
+                                                                  width * 0.24,
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              imageUrl:
+                                                                  reportImage2,
+                                                              fit: BoxFit
+                                                                  .fitHeight,
+                                                              placeholder: (context,
+                                                                      url) =>
+                                                                  SpinKitFadingCircle(
+                                                                      color: Palette
+                                                                          .blue),
+                                                              errorWidget: (context,
+                                                                      url,
+                                                                      error) =>
+                                                                  IconButton(
                                                                 icon: Icon(
-                                                                  Icons.add_outlined,
+                                                                  Icons
+                                                                      .add_outlined,
                                                                   size: 50,
-                                                                  color: Palette.blue,
+                                                                  color: Palette
+                                                                      .blue,
                                                                 ),
                                                                 onPressed: () {
                                                                   _chooseProfileImage2();
@@ -1102,13 +1462,16 @@ class _BookAppointmentState extends State<BookAppointment> {
                             ),
                           ),
                           isActive: _currentStep >= 0,
-                          state: _currentStep >= 0 ? StepState.complete : StepState.disabled,
+                          state: _currentStep >= 0
+                              ? StepState.complete
+                              : StepState.disabled,
                         ),
 
                         /// Step 2 //
                         Step(
                           title: new Text(
-                            getTranslated(context, bookAppointment_dateTime).toString(),
+                            getTranslated(context, bookAppointment_dateTime)
+                                .toString(),
                           ),
                           content: Form(
                             key: _step2,
@@ -1121,8 +1484,12 @@ class _BookAppointmentState extends State<BookAppointment> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          getTranslated(context, bookAppointment_appointmentDate_title).toString(),
-                                          style: TextStyle(fontSize: width * 0.04, color: Palette.dark_blue),
+                                          getTranslated(context,
+                                                  bookAppointment_appointmentDate_title)
+                                              .toString(),
+                                          style: TextStyle(
+                                              fontSize: width * 0.04,
+                                              color: Palette.dark_blue),
                                         )
                                       ],
                                     ),
@@ -1131,8 +1498,12 @@ class _BookAppointmentState extends State<BookAppointment> {
                                     height: width * 0.1,
                                     width: width * 1,
                                     margin: EdgeInsets.only(top: width * 0.02),
-                                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                                    decoration: BoxDecoration(color: Palette.dash_line, borderRadius: BorderRadius.circular(10)),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 15, vertical: 5),
+                                    decoration: BoxDecoration(
+                                        color: Palette.dash_line,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
                                     child: Padding(
                                       padding: const EdgeInsets.only(top: 12),
                                       child: TextFormField(
@@ -1140,15 +1511,21 @@ class _BookAppointmentState extends State<BookAppointment> {
                                         controller: date,
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
-                                          hintText: getTranslated(context, bookAppointment_appointmentDate_hint).toString(),
-                                          hintStyle: TextStyle(fontSize: width * 0.038, color: Palette.dark_blue),
+                                          hintText: getTranslated(context,
+                                                  bookAppointment_appointmentDate_hint)
+                                              .toString(),
+                                          hintStyle: TextStyle(
+                                              fontSize: width * 0.038,
+                                              color: Palette.dark_blue),
                                         ),
                                         onTap: () {
                                           _selectDate(context);
                                         },
                                         validator: (String? value) {
                                           if (value!.isEmpty) {
-                                            return getTranslated(context, bookAppointment_appointmentDate_validator).toString();
+                                            return getTranslated(context,
+                                                    bookAppointment_appointmentDate_validator)
+                                                .toString();
                                           }
                                           return null;
                                         },
@@ -1160,63 +1537,103 @@ class _BookAppointmentState extends State<BookAppointment> {
                                         ? Column(
                                             children: [
                                               Container(
-                                                alignment: AlignmentDirectional.center,
-                                                margin: EdgeInsets.only(top: width * 0.05),
+                                                alignment:
+                                                    AlignmentDirectional.center,
+                                                margin: EdgeInsets.only(
+                                                    top: width * 0.05),
                                                 child: Column(
                                                   children: [
                                                     Text(
-                                                      getTranslated(context, bookAppointment_appointmentTime_title).toString(),
-                                                      style: TextStyle(fontSize: width * 0.04, color: Palette.dark_blue),
+                                                      getTranslated(context,
+                                                              bookAppointment_appointmentTime_title)
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              width * 0.04,
+                                                          color: Palette
+                                                              .dark_blue),
                                                     )
                                                   ],
                                                 ),
                                               ),
                                               Container(
-                                                margin: EdgeInsets.only(top: width * 0.04),
+                                                margin: EdgeInsets.only(
+                                                    top: width * 0.04),
                                                 child: GridView.builder(
                                                   itemCount: timeList.length,
                                                   shrinkWrap: true,
-                                                  scrollDirection: Axis.vertical,
-                                                  physics: NeverScrollableScrollPhysics(),
-                                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                  scrollDirection:
+                                                      Axis.vertical,
+                                                  physics:
+                                                      NeverScrollableScrollPhysics(),
+                                                  gridDelegate:
+                                                      SliverGridDelegateWithFixedCrossAxisCount(
                                                     crossAxisSpacing: 5,
                                                     mainAxisSpacing: 5,
                                                     crossAxisCount: 3,
-                                                    childAspectRatio: 2.2,
+                                                    childAspectRatio: 1.2,
                                                   ),
-                                                  itemBuilder: (context, index) {
-                                                    return Column(
-                                                      children: [
-                                                        InkWell(
-                                                          onTap: () {
-                                                            setState(() {
-                                                              timeIndex = index;
-                                                              selectTime = timeList[index].startTime;
-                                                            });
-                                                          },
-                                                          child: Container(
-                                                            height: 50,
-                                                            width: width * 0.3,
-                                                            child: Card(
-                                                              color: index == timeIndex ? Palette.blue : Palette.dash_line,
-                                                              shape: RoundedRectangleBorder(
-                                                                borderRadius: BorderRadius.circular(10.0),
-                                                              ),
-                                                              child: Column(
-                                                                children: [
-                                                                  Container(
-                                                                    padding: EdgeInsets.all(12),
-                                                                    child: Text(
-                                                                      timeList[index].startTime!,
-                                                                      style: TextStyle(color: index == timeIndex ? Palette.white : Palette.blue),
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    return Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Column(
+                                                        children: [
+                                                          InkWell(
+                                                            onTap: () {
+                                                              setState(() {
+                                                                timeIndex =
+                                                                    index;
+                                                                selectTime =
+                                                                    timeList[
+                                                                            index]
+                                                                        .startTime;
+                                                              });
+                                                            },
+                                                            child: Container(
+                                                              height: 60,
+                                                              width:
+                                                                  width * 0.3,
+                                                              child: Card(
+                                                                color: index ==
+                                                                        timeIndex
+                                                                    ? Palette
+                                                                        .blue
+                                                                    : Palette
+                                                                        .dash_line,
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10.0),
+                                                                ),
+                                                                child: Column(
+                                                                  children: [
+                                                                    Container(
+                                                                      padding:
+                                                                          EdgeInsets.all(
+                                                                              12),
+                                                                      child:
+                                                                          Text(
+                                                                        timeList[index]
+                                                                            .startTime!,
+                                                                        style: TextStyle(
+                                                                            color: index == timeIndex
+                                                                                ? Palette.white
+                                                                                : Palette.blue),
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                ],
+                                                                  ],
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
-                                                        )
-                                                      ],
+                                                          // SizedBox(height: 15,)
+                                                        ],
+                                                      ),
                                                     );
                                                   },
                                                 ),
@@ -1225,12 +1642,18 @@ class _BookAppointmentState extends State<BookAppointment> {
                                           )
                                         : Container(
                                             height: height * 0.4,
-                                            width: MediaQuery.of(context).size.width,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
                                             child: Center(
                                               child: Text(
-                                                getTranslated(context, bookAppointment_selectOtherDate).toString(),
+                                                getTranslated(context,
+                                                        bookAppointment_selectOtherDate)
+                                                    .toString(),
                                                 textAlign: TextAlign.center,
-                                                style: TextStyle(fontSize: width * 0.04, color: Palette.grey),
+                                                style: TextStyle(
+                                                    fontSize: width * 0.04,
+                                                    color: Palette.grey),
                                               ),
                                             ),
                                           ),
@@ -1240,17 +1663,22 @@ class _BookAppointmentState extends State<BookAppointment> {
                             ),
                           ),
                           isActive: _currentStep >= 0,
-                          state: _currentStep >= 1 ? StepState.complete : StepState.disabled,
+                          state: _currentStep >= 1
+                              ? StepState.complete
+                              : StepState.disabled,
                         ),
 
                         /// Step 3 //
                         Step(
                           title: new Text(
-                            getTranslated(context, bookAppointment_payment_title).toString(),
+                            getTranslated(
+                                    context, bookAppointment_payment_title)
+                                .toString(),
                           ),
                           content: GestureDetector(
                             onTap: () {
-                              FocusScope.of(context).requestFocus(new FocusNode());
+                              FocusScope.of(context)
+                                  .requestFocus(new FocusNode());
                             },
                             child: Container(
                               height: height / 1.5,
@@ -1268,17 +1696,30 @@ class _BookAppointmentState extends State<BookAppointment> {
                                         children: [
                                           Container(
                                             width: width * 0.5,
-                                            margin: EdgeInsets.symmetric(horizontal: 10, vertical: width * 0.03),
-                                            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 2),
-                                            decoration: BoxDecoration(color: Palette.dark_white, borderRadius: BorderRadius.circular(10)),
+                                            margin: EdgeInsets.symmetric(
+                                                horizontal: 10,
+                                                vertical: width * 0.03),
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 15, vertical: 2),
+                                            decoration: BoxDecoration(
+                                                color: Palette.dark_white,
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
                                             child: TextFormField(
                                               controller: _offerController,
                                               keyboardType: TextInputType.text,
-                                              textCapitalization: TextCapitalization.words,
-                                              inputFormatters: [FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9]'))],
+                                              textCapitalization:
+                                                  TextCapitalization.words,
+                                              inputFormatters: [
+                                                FilteringTextInputFormatter
+                                                    .allow(
+                                                        RegExp('[a-zA-Z0-9]'))
+                                              ],
                                               decoration: InputDecoration(
                                                 border: InputBorder.none,
-                                                hintText: getTranslated(context, bookAppointment_offerCode_hint).toString(),
+                                                hintText: getTranslated(context,
+                                                        bookAppointment_offerCode_hint)
+                                                    .toString(),
                                                 hintStyle: TextStyle(
                                                   fontSize: width * 0.04,
                                                   color: Palette.dark_grey,
@@ -1287,7 +1728,9 @@ class _BookAppointmentState extends State<BookAppointment> {
                                               ),
                                               validator: (String? value) {
                                                 if (value!.isEmpty) {
-                                                  return getTranslated(context, bookAppointment_offerCode_validator).toString();
+                                                  return getTranslated(context,
+                                                          bookAppointment_offerCode_validator)
+                                                      .toString();
                                                 }
                                                 return null;
                                               },
@@ -1297,16 +1740,22 @@ class _BookAppointmentState extends State<BookAppointment> {
                                           Container(
                                             width: width * 0.3,
                                             height: height * 0.05,
-                                            margin: EdgeInsets.symmetric(horizontal: 5, vertical: width * 0.03),
-                                            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 2),
+                                            margin: EdgeInsets.symmetric(
+                                                horizontal: 5,
+                                                vertical: width * 0.03),
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 15, vertical: 2),
                                             child: ElevatedButton(
                                               onPressed: () {
-                                                if (_offerFormKey.currentState!.validate()) {
+                                                if (_offerFormKey.currentState!
+                                                    .validate()) {
                                                   callApiApplyOffer();
                                                 }
                                               },
                                               child: Text(
-                                                getTranslated(context, bookAppointment_apply_button).toString(),
+                                                getTranslated(context,
+                                                        bookAppointment_apply_button)
+                                                    .toString(),
                                               ),
                                             ),
                                           ),
@@ -1321,19 +1770,37 @@ class _BookAppointmentState extends State<BookAppointment> {
                                               ? Container(
                                                   margin: EdgeInsets.all(5),
                                                   alignment: Alignment.center,
-                                                  decoration: BoxDecoration(boxShadow: [
-                                                    BoxShadow(
-                                                      color: Palette.dark_grey.withOpacity(0.2),
-                                                      spreadRadius: 2,
-                                                      blurRadius: 7,
-                                                      offset: Offset(0, 3), // changes position of shadow
-                                                    ),
-                                                  ], borderRadius: BorderRadius.circular(10), color: Palette.white),
-                                                  height: MediaQuery.of(context).size.height * 0.08,
-                                                  child: RadioListTile<SingingCharacter>(
-                                                    controlAffinity: ListTileControlAffinity.trailing,
+                                                  decoration: BoxDecoration(
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: Palette
+                                                              .dark_grey
+                                                              .withOpacity(0.2),
+                                                          spreadRadius: 2,
+                                                          blurRadius: 7,
+                                                          offset: Offset(0,
+                                                              3), // changes position of shadow
+                                                        ),
+                                                      ],
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      color: Palette.white),
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.08,
+                                                  child: RadioListTile<
+                                                      SingingCharacter>(
+                                                    controlAffinity:
+                                                        ListTileControlAffinity
+                                                            .trailing,
                                                     title: Container(
-                                                      width: MediaQuery.of(context).size.width / 5,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              5,
                                                       child: Row(
                                                         children: [
                                                           Image.network(
@@ -1342,19 +1809,29 @@ class _BookAppointmentState extends State<BookAppointment> {
                                                             width: 50,
                                                           ),
                                                           SizedBox(
-                                                            width: MediaQuery.of(context).size.width * 0.01,
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                0.01,
                                                           ),
                                                           Text(
                                                             'PayPal',
-                                                            style: TextStyle(fontSize: 16, color: Palette.black),
+                                                            style: TextStyle(
+                                                                fontSize: 16,
+                                                                color: Palette
+                                                                    .black),
                                                           ),
                                                         ],
                                                       ),
                                                     ),
-                                                    value: SingingCharacter.Paypal,
+                                                    value:
+                                                        SingingCharacter.Paypal,
                                                     activeColor: Palette.black,
                                                     groupValue: _character,
-                                                    onChanged: (SingingCharacter? value) {
+                                                    onChanged:
+                                                        (SingingCharacter?
+                                                            value) {
                                                       setState(() {
                                                         _character = value;
                                                         isPaymentClicked = true;
@@ -1368,19 +1845,34 @@ class _BookAppointmentState extends State<BookAppointment> {
                                           ? Container(
                                               alignment: Alignment.center,
                                               margin: EdgeInsets.all(5),
-                                              decoration: BoxDecoration(boxShadow: [
-                                                BoxShadow(
-                                                  color: Palette.dark_grey.withOpacity(0.2),
-                                                  spreadRadius: 2,
-                                                  blurRadius: 7,
-                                                  offset: Offset(0, 3), // changes position of shadow
-                                                ),
-                                              ], borderRadius: BorderRadius.circular(10), color: Palette.white),
-                                              height: MediaQuery.of(context).size.height * 0.08,
-                                              child: RadioListTile<SingingCharacter>(
-                                                controlAffinity: ListTileControlAffinity.trailing,
+                                              decoration: BoxDecoration(
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Palette.dark_grey
+                                                          .withOpacity(0.2),
+                                                      spreadRadius: 2,
+                                                      blurRadius: 7,
+                                                      offset: Offset(0,
+                                                          3), // changes position of shadow
+                                                    ),
+                                                  ],
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  color: Palette.white),
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.08,
+                                              child: RadioListTile<
+                                                  SingingCharacter>(
+                                                controlAffinity:
+                                                    ListTileControlAffinity
+                                                        .trailing,
                                                 title: Container(
-                                                  width: MediaQuery.of(context).size.width / 5,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      5,
                                                   child: Row(
                                                     children: [
                                                       Image.network(
@@ -1389,16 +1881,26 @@ class _BookAppointmentState extends State<BookAppointment> {
                                                         width: 50,
                                                       ),
                                                       SizedBox(
-                                                        width: MediaQuery.of(context).size.width * 0.01,
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.01,
                                                       ),
-                                                      Text('RazorPay', style: TextStyle(fontSize: 16, color: Palette.black)),
+                                                      Text('RazorPay',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              color: Palette
+                                                                  .black)),
                                                     ],
                                                   ),
                                                 ),
-                                                value: SingingCharacter.Razorpay,
+                                                value:
+                                                    SingingCharacter.Razorpay,
                                                 activeColor: Palette.black,
                                                 groupValue: _character,
-                                                onChanged: (SingingCharacter? value) {
+                                                onChanged:
+                                                    (SingingCharacter? value) {
                                                   setState(
                                                     () {
                                                       _character = value;
@@ -1413,19 +1915,34 @@ class _BookAppointmentState extends State<BookAppointment> {
                                           ? Container(
                                               alignment: Alignment.center,
                                               margin: EdgeInsets.all(5),
-                                              decoration: BoxDecoration(boxShadow: [
-                                                BoxShadow(
-                                                  color: Palette.grey.withOpacity(0.2),
-                                                  spreadRadius: 2,
-                                                  blurRadius: 7,
-                                                  offset: Offset(0, 3), // changes position of shadow
-                                                ),
-                                              ], borderRadius: BorderRadius.circular(10), color: Palette.white),
-                                              height: MediaQuery.of(context).size.height * 0.08,
-                                              child: RadioListTile<SingingCharacter>(
-                                                controlAffinity: ListTileControlAffinity.trailing,
+                                              decoration: BoxDecoration(
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Palette.grey
+                                                          .withOpacity(0.2),
+                                                      spreadRadius: 2,
+                                                      blurRadius: 7,
+                                                      offset: Offset(0,
+                                                          3), // changes position of shadow
+                                                    ),
+                                                  ],
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  color: Palette.white),
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.08,
+                                              child: RadioListTile<
+                                                  SingingCharacter>(
+                                                controlAffinity:
+                                                    ListTileControlAffinity
+                                                        .trailing,
                                                 title: Container(
-                                                  width: MediaQuery.of(context).size.width / 5,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      5,
                                                   child: Row(
                                                     children: [
                                                       Image.network(
@@ -1434,16 +1951,25 @@ class _BookAppointmentState extends State<BookAppointment> {
                                                         width: 50,
                                                       ),
                                                       SizedBox(
-                                                        width: MediaQuery.of(context).size.width * 0.01,
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.01,
                                                       ),
-                                                      Text('Stripe', style: TextStyle(fontSize: 16, color: Palette.black)),
+                                                      Text('Stripe',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              color: Palette
+                                                                  .black)),
                                                     ],
                                                   ),
                                                 ),
                                                 value: SingingCharacter.Stripe,
                                                 activeColor: Palette.black,
                                                 groupValue: _character,
-                                                onChanged: (SingingCharacter? value) {
+                                                onChanged:
+                                                    (SingingCharacter? value) {
                                                   setState(() {
                                                     _character = value;
                                                     isPaymentClicked = true;
@@ -1455,19 +1981,34 @@ class _BookAppointmentState extends State<BookAppointment> {
                                           ? Container(
                                               alignment: Alignment.center,
                                               margin: EdgeInsets.all(5),
-                                              decoration: BoxDecoration(boxShadow: [
-                                                BoxShadow(
-                                                  color: Palette.dark_grey.withOpacity(0.2),
-                                                  spreadRadius: 2,
-                                                  blurRadius: 7,
-                                                  offset: Offset(0, 3), // changes position of shadow
-                                                ),
-                                              ], borderRadius: BorderRadius.circular(10), color: Palette.white),
-                                              height: MediaQuery.of(context).size.height * 0.08,
-                                              child: RadioListTile<SingingCharacter>(
-                                                controlAffinity: ListTileControlAffinity.trailing,
+                                              decoration: BoxDecoration(
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Palette.dark_grey
+                                                          .withOpacity(0.2),
+                                                      spreadRadius: 2,
+                                                      blurRadius: 7,
+                                                      offset: Offset(0,
+                                                          3), // changes position of shadow
+                                                    ),
+                                                  ],
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  color: Palette.white),
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.08,
+                                              child: RadioListTile<
+                                                  SingingCharacter>(
+                                                controlAffinity:
+                                                    ListTileControlAffinity
+                                                        .trailing,
                                                 title: Container(
-                                                  width: MediaQuery.of(context).size.width / 5,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      5,
                                                   // color: Colors.red,
                                                   child: Row(
                                                     children: [
@@ -1477,18 +2018,33 @@ class _BookAppointmentState extends State<BookAppointment> {
                                                         width: 50,
                                                       ),
                                                       SizedBox(
-                                                        width: MediaQuery.of(context).size.width * 0.01,
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.01,
                                                       ),
                                                       Flexible(
-                                                        child: Text('Flutterwave', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontSize: 16, color: Palette.black)),
+                                                        child: Text(
+                                                            'Flutterwave',
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            maxLines: 1,
+                                                            style: TextStyle(
+                                                                fontSize: 16,
+                                                                color: Palette
+                                                                    .black)),
                                                       ),
                                                     ],
                                                   ),
                                                 ),
-                                                value: SingingCharacter.FlutterWave,
+                                                value: SingingCharacter
+                                                    .FlutterWave,
                                                 activeColor: Palette.black,
                                                 groupValue: _character,
-                                                onChanged: (SingingCharacter? value) {
+                                                onChanged:
+                                                    (SingingCharacter? value) {
                                                   setState(() {
                                                     _character = value;
                                                     isPaymentClicked = true;
@@ -1500,19 +2056,34 @@ class _BookAppointmentState extends State<BookAppointment> {
                                           ? Container(
                                               alignment: Alignment.center,
                                               margin: EdgeInsets.all(5),
-                                              decoration: BoxDecoration(boxShadow: [
-                                                BoxShadow(
-                                                  color: Palette.dark_grey.withOpacity(0.2),
-                                                  spreadRadius: 2,
-                                                  blurRadius: 7,
-                                                  offset: Offset(0, 3), // changes position of shadow
-                                                ),
-                                              ], borderRadius: BorderRadius.circular(10), color: Palette.white),
-                                              height: MediaQuery.of(context).size.height * 0.08,
-                                              child: RadioListTile<SingingCharacter>(
-                                                controlAffinity: ListTileControlAffinity.trailing,
+                                              decoration: BoxDecoration(
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Palette.dark_grey
+                                                          .withOpacity(0.2),
+                                                      spreadRadius: 2,
+                                                      blurRadius: 7,
+                                                      offset: Offset(0,
+                                                          3), // changes position of shadow
+                                                    ),
+                                                  ],
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  color: Palette.white),
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.08,
+                                              child: RadioListTile<
+                                                  SingingCharacter>(
+                                                controlAffinity:
+                                                    ListTileControlAffinity
+                                                        .trailing,
                                                 title: Container(
-                                                  width: MediaQuery.of(context).size.width / 5,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      5,
                                                   child: Row(
                                                     children: [
                                                       Image.network(
@@ -1521,16 +2092,26 @@ class _BookAppointmentState extends State<BookAppointment> {
                                                         width: 50,
                                                       ),
                                                       SizedBox(
-                                                        width: MediaQuery.of(context).size.width * 0.01,
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.01,
                                                       ),
-                                                      Text('Paystack', style: TextStyle(fontSize: 16, color: Palette.black)),
+                                                      Text('Paystack',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              color: Palette
+                                                                  .black)),
                                                     ],
                                                   ),
                                                 ),
-                                                value: SingingCharacter.PayStack,
+                                                value:
+                                                    SingingCharacter.PayStack,
                                                 activeColor: Palette.black,
                                                 groupValue: _character,
-                                                onChanged: (SingingCharacter? value) {
+                                                onChanged:
+                                                    (SingingCharacter? value) {
                                                   setState(() {
                                                     _character = value;
                                                     isPaymentClicked = true;
@@ -1543,27 +2124,43 @@ class _BookAppointmentState extends State<BookAppointment> {
                                           ? Container(
                                               alignment: Alignment.center,
                                               margin: EdgeInsets.all(5),
-                                              decoration: BoxDecoration(boxShadow: [
-                                                BoxShadow(
-                                                  color: Palette.dark_grey.withOpacity(0.2),
-                                                  spreadRadius: 2,
-                                                  blurRadius: 7,
-                                                  offset: Offset(0, 3), // changes position of shadow
-                                                ),
-                                              ], borderRadius: BorderRadius.circular(10), color: Palette.white),
-                                              height: MediaQuery.of(context).size.height * 0.08,
-                                              child: RadioListTile<SingingCharacter>(
-                                                controlAffinity: ListTileControlAffinity.trailing,
+                                              decoration: BoxDecoration(
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Palette.dark_grey
+                                                          .withOpacity(0.2),
+                                                      spreadRadius: 2,
+                                                      blurRadius: 7,
+                                                      offset: Offset(0,
+                                                          3), // changes position of shadow
+                                                    ),
+                                                  ],
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  color: Palette.white),
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.08,
+                                              child: RadioListTile<
+                                                  SingingCharacter>(
+                                                controlAffinity:
+                                                    ListTileControlAffinity
+                                                        .trailing,
                                                 title: Text(
                                                   'COD (Case On Delivery)',
-                                                  overflow: TextOverflow.ellipsis,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                   maxLines: 1,
-                                                  style: TextStyle(fontSize: 16, color: Palette.black),
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: Palette.black),
                                                 ),
                                                 value: SingingCharacter.COD,
                                                 activeColor: Palette.black,
                                                 groupValue: _character,
-                                                onChanged: (SingingCharacter? value) {
+                                                onChanged:
+                                                    (SingingCharacter? value) {
                                                   setState(() {
                                                     _character = value;
                                                     isPaymentClicked = true;
@@ -1579,10 +2176,13 @@ class _BookAppointmentState extends State<BookAppointment> {
                             ),
                           ),
                           isActive: _currentStep >= 0,
-                          state: _currentStep >= 2 ? StepState.complete : StepState.disabled,
+                          state: _currentStep >= 2
+                              ? StepState.complete
+                              : StepState.disabled,
                         ),
                       ],
-                      controlsBuilder: (BuildContext context, ControlsDetails controls) {
+                      controlsBuilder:
+                          (BuildContext context, ControlsDetails controls) {
                         return Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1602,110 +2202,135 @@ class _BookAppointmentState extends State<BookAppointment> {
           opacity: 0.5,
           progressIndicator: CircularProgressIndicator(),
         ),
-        bottomNavigationBar: Container(
-          height: 50,
-          child: ElevatedButton(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (_currentStep == 0)
-                  Text(
-                    getTranslated(context, bookAppointment_continue_button).toString(),
-                    style: TextStyle(fontSize: width * 0.04, color: Palette.white),
-                  ),
-                if (_currentStep == 1)
-                  Text(
-                    getTranslated(context, bookAppointment_continue_button).toString(),
-                    style: TextStyle(fontSize: width * 0.04, color: Palette.white),
-                  ),
-                if (_currentStep == 2)
-                  '$newAppointmentFees' == "0.0"
-                      ? Text(
-                          getTranslated(context, bookAppointment_pay_button).toString() + SharedPreferenceHelper.getString(Preferences.currency_symbol).toString() + '$appointmentFees',
-                          style: TextStyle(fontSize: width * 0.04, color: Palette.white),
-                        )
-                      : Text(
-                          getTranslated(context, bookAppointment_pay_button).toString() + SharedPreferenceHelper.getString(Preferences.currency_symbol).toString() + '$newAppointmentFees',
-                          style: TextStyle(fontSize: width * 0.04, color: Palette.white),
-                        )
-              ],
-            ),
-            onPressed: () {
-              setState(
-                () {
-                  if (_currentStep == 0 && _step1.currentState!.validate()) {
-                    continued();
-                  } else if (_currentStep == 1) {
-                    if (selectTime != null && selectTime != "" && selectTime != "null") {
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            height: 50,
+            child: ElevatedButton(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (_currentStep == 0)
+                    Text(
+                      getTranslated(context, bookAppointment_continue_button)
+                          .toString(),
+                      style:
+                          TextStyle(fontSize: width * 0.04, color: Palette.white),
+                    ),
+                  if (_currentStep == 1)
+                    Text(
+                      getTranslated(context, bookAppointment_continue_button)
+                          .toString(),
+                      style:
+                          TextStyle(fontSize: width * 0.04, color: Palette.white),
+                    ),
+                  if (_currentStep == 2)
+                    '$newAppointmentFees' == "0.0"
+                        ? Text(
+                            getTranslated(context, bookAppointment_pay_button)
+                                    .toString() +
+                                SharedPreferenceHelper.getString(
+                                        Preferences.currency_symbol)
+                                    .toString() +
+                                '$appointmentFees',
+                            style: TextStyle(
+                                fontSize: width * 0.04, color: Palette.white),
+                          )
+                        : Text(
+                            getTranslated(context, bookAppointment_pay_button)
+                                    .toString() +
+                                SharedPreferenceHelper.getString(
+                                        Preferences.currency_symbol)
+                                    .toString() +
+                                '$newAppointmentFees',
+                            style: TextStyle(
+                                fontSize: width * 0.04, color: Palette.white),
+                          )
+                ],
+              ),
+              onPressed: () {
+                setState(
+                  () {
+                    if (_currentStep == 0 && _step1.currentState!.validate()) {
                       continued();
-                    } else {
-                      Fluttertoast.showToast(
-                        msg: getTranslated(context, "selectTime").toString(),
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER,
-                      );
-                    }
-                  } else if (_currentStep == 2) {
-                    str = "$_character";
-                    parts = str.split(".");
-                    startPart = parts[0].trim();
-                    paymentType = parts.sublist(1).join('.').trim();
-
-                    if (_character!.index == 0) {
-                      setState(() {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => PaypalPayment(
-                              total: "$newAppointmentFees" != "0.0" ? '$newAppointmentFees' : '$appointmentFees',
-                              onFinish: (number) async {
-                                if (number != null && number.toString() != '') {
-                                  setState(() {
-                                    _paymentToken = number;
-                                    callApiBook();
-                                  });
-                                }
-                              },
-                            ),
-                          ),
+                    } else if (_currentStep == 1) {
+                      if (selectTime != null &&
+                          selectTime != "" &&
+                          selectTime != "null") {
+                        continued();
+                      } else {
+                        Fluttertoast.showToast(
+                          msg: getTranslated(context, "selectTime").toString(),
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.CENTER,
                         );
-                      });
-                    } else if (_character!.index == 1) {
-                      openCheckoutRazorPay();
-                    } else if (_character!.index == 2) {
-                      Provider.of<StripePayment>(context, listen: false).makePayment(
-                        context: context,
-                        selectAppointmentFor: selectAppointmentFor!,
-                        hospitalId: hospitalId,
-                        patientName: patientNameController.text,
-                        illnessInformation: illnessInformation.text,
-                        age: ageController.text,
-                        patientAddress: selectAddressId.toString(),
-                        phoneNo: phoneNoController.text,
-                        selectDrugEffects: selectDrugEffects,
-                        note: note.text,
-                        newDate: newDate,
-                        selectTime: selectTime,
-                        appointmentFees: "$newAppointmentFees" != "0.0" ? '$newAppointmentFees' : '$appointmentFees',
-                        doctorId: id,
-                        newDateUser: newDateUser,
-                        reportImages: reportImages,
-                        isInsured: isInsured,
-                        insurerName: selectInsured,
-                        policyNumber: policyNumberController.text
-                      );
-                    } else if (_character!.index == 3) {
-                      flutterWavePayment(context, appointmentFees);
-                    } else if (_character!.index == 4) {
-                      paystackFunction();
-                    } else if (_character!.index == 5) {
-                      setState(() {
-                        callApiBook();
-                      });
+                      }
+                    } else if (_currentStep == 2) {
+                      str = "$_character";
+                      parts = str.split(".");
+                      startPart = parts[0].trim();
+                      paymentType = parts.sublist(1).join('.').trim();
+          
+                      if (_character!.index == 0) {
+                        setState(() {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) => PaypalPayment(
+                                total: "$newAppointmentFees" != "0.0"
+                                    ? '$newAppointmentFees'
+                                    : '$appointmentFees',
+                                onFinish: (number) async {
+                                  if (number != null && number.toString() != '') {
+                                    setState(() {
+                                      _paymentToken = number;
+                                      callApiBook();
+                                    });
+                                  }
+                                },
+                              ),
+                            ),
+                          );
+                        });
+                      } else if (_character!.index == 1) {
+                        openCheckoutRazorPay();
+                      } else if (_character!.index == 2) {
+                        Provider.of<StripePayment>(context, listen: false)
+                            .makePayment(
+                                context: context,
+                                selectAppointmentFor: selectAppointmentFor!,
+                                hospitalId: hospitalId,
+                                patientName: patientNameController.text,
+                                illnessInformation: illnessInformation.text,
+                                age: ageController.text,
+                                // patientAddress: selectAddressId.toString(),
+                                phoneNo: phoneNoController.text,
+                                selectDrugEffects: selectDrugEffects,
+                                note: note.text,
+                                newDate: newDate,
+                                selectTime: selectTime,
+                                appointmentFees: "$newAppointmentFees" != "0.0"
+                                    ? '$newAppointmentFees'
+                                    : '$appointmentFees',
+                                doctorId: id,
+                                newDateUser: newDateUser,
+                                reportImages: reportImages,
+                                isInsured: isInsured,
+                                insurerName: selectInsured,
+                                policyNumber: policyNumberController.text);
+                      } else if (_character!.index == 3) {
+                        flutterWavePayment(context, appointmentFees);
+                      } else if (_character!.index == 4) {
+                        paystackFunction();
+                      } else if (_character!.index == 5) {
+                        setState(() {
+                          callApiBook();
+                        });
+                      }
                     }
-                  }
-                },
-              );
-            },
+                  },
+                );
+              },
+            ),
           ),
         ),
       ),
@@ -1718,7 +2343,8 @@ class _BookAppointmentState extends State<BookAppointment> {
   flutterWavePayment(context, payAmount) async {
     final flutterwave = Flutterwave(
         context: context,
-        publicKey: SharedPreferenceHelper.getString(Preferences.flutterWave_key)!,
+        publicKey:
+            SharedPreferenceHelper.getString(Preferences.flutterWave_key)!,
         currency: this.currencyFlutterWave,
         txRef: Uuid().v1(),
         amount: payAmount.toString(),
@@ -1737,7 +2363,10 @@ class _BookAppointmentState extends State<BookAppointment> {
     }
   }
 
-  final Customer customer = Customer(name: SharedPreferenceHelper.getString(Preferences.name)!, phoneNumber: SharedPreferenceHelper.getString(Preferences.phone)!, email: SharedPreferenceHelper.getString(FirestoreConstants.email)!);
+  final Customer customer = Customer(
+      name: SharedPreferenceHelper.getString(Preferences.name)!,
+      phoneNumber: SharedPreferenceHelper.getString(Preferences.phone)!,
+      email: SharedPreferenceHelper.getString(FirestoreConstants.email)!);
 
   Future<BaseModel<BookAppointments>> callApiBook() async {
     BookAppointments response;
@@ -1747,7 +2376,7 @@ class _BookAppointmentState extends State<BookAppointment> {
       "patient_name": patientNameController.text,
       "illness_information": illnessInformation.text,
       "age": ageController.text,
-      "patient_address": selectAddressId,
+      // "patient_address": selectAddressId,
       "phone_no": phoneNoController.text,
       "drug_effect": selectDrugEffects,
       "note": note.text != "" ? note.text : "No note",
@@ -1756,17 +2385,18 @@ class _BookAppointmentState extends State<BookAppointment> {
       "payment_type": paymentType,
       "payment_status": _character!.index == 5 ? 0 : 1,
       "_paymentToken": _character!.index == 5 ? "" : _paymentToken,
-      "amount": newAppointmentFees != 0.0 ? newAppointmentFees.toString() : appointmentFees,
+      "amount": newAppointmentFees != 0.0
+          ? newAppointmentFees.toString()
+          : appointmentFees,
       "doctor_id": id,
       "report_image": reportImages.length != 0 ? reportImages : "",
     };
-    if(isInsured==true){
-      body['is_insured']=isInsured==true?1:0;
-      body['policy_insurer_name']=selectInsured;
-      body['policy_number']=policyNumberController.text;
-    }
-    else if(isInsured==false){
-      body['is_insured']=isInsured==true?1:0;
+    if (isInsured == true) {
+      body['is_insured'] = isInsured == true ? 1 : 0;
+      body['policy_insurer_name'] = selectInsured;
+      body['policy_number'] = policyNumberController.text;
+    } else if (isInsured == false) {
+      body['is_insured'] = isInsured == true ? 1 : 0;
     }
     print(body);
     setState(() {
@@ -1801,7 +2431,9 @@ class _BookAppointmentState extends State<BookAppointment> {
   void openCheckoutRazorPay() async {
     var map = {
       'key': SharedPreferenceHelper.getString(Preferences.razor_key),
-      'amount': "$newAppointmentFees" != "0.0" ? num.parse('$newAppointmentFees') * 100 : num.parse('$appointmentFees') * 100,
+      'amount': "$newAppointmentFees" != "0.0"
+          ? num.parse('$newAppointmentFees') * 100
+          : num.parse('$appointmentFees') * 100,
       'name': '$businessName',
       'currency': SharedPreferenceHelper.getString(Preferences.currency_code),
       'image': '$logo',
@@ -1833,7 +2465,10 @@ class _BookAppointmentState extends State<BookAppointment> {
   // void _handleExternalWallet(ExternalWalletResponse response) {}
 
   paystackFunction() async {
-    int convertAmount = newAppointmentFees != 0.0 ? int.parse(newAppointmentFees.toString().split(".")[0].toString()) * 100 : int.parse(appointmentFees.toString().split(".")[0].toString());
+    int convertAmount = newAppointmentFees != 0.0
+        ? int.parse(newAppointmentFees.toString().split(".")[0].toString()) *
+            100
+        : int.parse(appointmentFees.toString().split(".")[0].toString());
     int amountToPaystack = convertAmount * 100;
     Charge charge = Charge()
       ..amount = amountToPaystack
@@ -1847,7 +2482,13 @@ class _BookAppointmentState extends State<BookAppointment> {
     );
     if (response.status == true) {
       _paymentToken = response.reference;
-      _paymentToken != "" && _paymentToken!.isNotEmpty ? callApiBook() : Fluttertoast.showToast(msg: getTranslated(context, bookAppointment_paymentNotComplete_toast).toString(), toastLength: Toast.LENGTH_SHORT);
+      _paymentToken != "" && _paymentToken!.isNotEmpty
+          ? callApiBook()
+          : Fluttertoast.showToast(
+              msg: getTranslated(
+                      context, bookAppointment_paymentNotComplete_toast)
+                  .toString(),
+              toastLength: Toast.LENGTH_SHORT);
       setState(() {
         paymentToken = response.reference;
       });
@@ -1909,7 +2550,8 @@ class _BookAppointmentState extends State<BookAppointment> {
       loading = true;
     });
     try {
-      response = await RestClient(RetroApi2().dioData2()).doctorDetailRequest(id, body);
+      response = await RestClient(RetroApi2().dioData2())
+          .doctorDetailRequest(id, body);
       if (response.success == true) {
         setState(() {
           loading = false;
@@ -1925,7 +2567,8 @@ class _BookAppointmentState extends State<BookAppointment> {
           hospital.addAll(response.data!.hospitalId!);
           for (int i = 0; i < hospital.length; i++) {
             hospitalName = response.data!.hospitalId![i].hospitalDetails!.name!;
-            hospitalAddress = response.data!.hospitalId![i].hospitalDetails!.address;
+            hospitalAddress =
+                response.data!.hospitalId![i].hospitalDetails!.address;
           }
           // hospitalGallery.addAll(response.data!.hospitalId![0].hospitalGallery!);
         });
@@ -2038,7 +2681,8 @@ class _BookAppointmentState extends State<BookAppointment> {
       date
         ..text = DateFormat('dd-MM-yyyy').format(_selectedDate!)
         ..selection = TextSelection.fromPosition(
-          TextPosition(offset: date.text.length, affinity: TextAffinity.upstream),
+          TextPosition(
+              offset: date.text.length, affinity: TextAffinity.upstream),
         );
       var temp = '$_selectedDate';
       // Date Format  display user
@@ -2055,8 +2699,10 @@ class _BookAppointmentState extends State<BookAppointment> {
     setState(
       () {
         if (pickedFile != null) {
-          SharedPreferenceHelper.setString(Preferences.reportImage, pickedFile.path);
-          _proImage = File(SharedPreferenceHelper.getString(Preferences.reportImage)!);
+          SharedPreferenceHelper.setString(
+              Preferences.reportImage, pickedFile.path);
+          _proImage =
+              File(SharedPreferenceHelper.getString(Preferences.reportImage)!);
           List<int> imageBytes = _proImage!.readAsBytesSync();
           reportImage = base64Encode(imageBytes);
           if (reportImage != "null") {
@@ -2073,8 +2719,10 @@ class _BookAppointmentState extends State<BookAppointment> {
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
     setState(() {
       if (pickedFile != null) {
-        SharedPreferenceHelper.setString(Preferences.reportImage, pickedFile.path);
-        _proImage = File(SharedPreferenceHelper.getString(Preferences.reportImage)!);
+        SharedPreferenceHelper.setString(
+            Preferences.reportImage, pickedFile.path);
+        _proImage =
+            File(SharedPreferenceHelper.getString(Preferences.reportImage)!);
         List<int> imageBytes = _proImage!.readAsBytesSync();
         reportImage = base64Encode(imageBytes);
         if (reportImage != "null") {
@@ -2092,8 +2740,10 @@ class _BookAppointmentState extends State<BookAppointment> {
     setState(
       () {
         if (pickedFile != null) {
-          SharedPreferenceHelper.setString(Preferences.reportImage1, pickedFile.path);
-          _proImage1 = File(SharedPreferenceHelper.getString(Preferences.reportImage1)!);
+          SharedPreferenceHelper.setString(
+              Preferences.reportImage1, pickedFile.path);
+          _proImage1 =
+              File(SharedPreferenceHelper.getString(Preferences.reportImage1)!);
           List<int> imageBytes = _proImage1!.readAsBytesSync();
           reportImage1 = base64Encode(imageBytes);
           if (reportImage1 != "null") {
@@ -2110,8 +2760,10 @@ class _BookAppointmentState extends State<BookAppointment> {
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
     setState(() {
       if (pickedFile != null) {
-        SharedPreferenceHelper.setString(Preferences.reportImage1, pickedFile.path);
-        _proImage1 = File(SharedPreferenceHelper.getString(Preferences.reportImage1)!);
+        SharedPreferenceHelper.setString(
+            Preferences.reportImage1, pickedFile.path);
+        _proImage1 =
+            File(SharedPreferenceHelper.getString(Preferences.reportImage1)!);
         List<int> imageBytes = _proImage1!.readAsBytesSync();
         reportImage1 = base64Encode(imageBytes);
         if (reportImage1 != "null") {
@@ -2129,8 +2781,10 @@ class _BookAppointmentState extends State<BookAppointment> {
     setState(
       () {
         if (pickedFile != null) {
-          SharedPreferenceHelper.setString(Preferences.reportImage2, pickedFile.path);
-          _proImage2 = File(SharedPreferenceHelper.getString(Preferences.reportImage2)!);
+          SharedPreferenceHelper.setString(
+              Preferences.reportImage2, pickedFile.path);
+          _proImage2 =
+              File(SharedPreferenceHelper.getString(Preferences.reportImage2)!);
           List<int> imageBytes = _proImage2!.readAsBytesSync();
           reportImage2 = base64Encode(imageBytes);
           if (reportImage2 != "null") {
@@ -2147,8 +2801,10 @@ class _BookAppointmentState extends State<BookAppointment> {
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
     setState(() {
       if (pickedFile != null) {
-        SharedPreferenceHelper.setString(Preferences.reportImage2, pickedFile.path);
-        _proImage2 = File(SharedPreferenceHelper.getString(Preferences.reportImage2)!);
+        SharedPreferenceHelper.setString(
+            Preferences.reportImage2, pickedFile.path);
+        _proImage2 =
+            File(SharedPreferenceHelper.getString(Preferences.reportImage2)!);
         List<int> imageBytes = _proImage2!.readAsBytesSync();
         reportImage2 = base64Encode(imageBytes);
         if (reportImage2 != "null") {
@@ -2165,7 +2821,8 @@ class _BookAppointmentState extends State<BookAppointment> {
   Future<BaseModel<ApplyOffer>> callApiApplyOffer() async {
     ApplyOffer response;
     var offerDateToday = "$todayDate";
-    String offerDate = DateUtilForPass().formattedDate(DateTime.parse(offerDateToday));
+    String offerDate =
+        DateUtilForPass().formattedDate(DateTime.parse(offerDateToday));
     Map<String, dynamic> body = {
       "offer_code": _offerController.text,
       "date": offerDate,
@@ -2189,18 +2846,26 @@ class _BookAppointmentState extends State<BookAppointment> {
           if (discountType == "AMOUNT" && isFlat == 1) {
             if (int.parse('$appointmentFees') > flatDiscount!) {
               if (flatDiscount! < minDiscount!) {
-                newAppointmentFees = int.parse('$appointmentFees') - int.parse('$flatDiscount');
+                newAppointmentFees =
+                    int.parse('$appointmentFees') - int.parse('$flatDiscount');
               } else {
-                newAppointmentFees = int.parse('$appointmentFees') - int.parse('$minDiscount');
+                newAppointmentFees =
+                    int.parse('$appointmentFees') - int.parse('$minDiscount');
               }
               Fluttertoast.showToast(
-                msg: getTranslated(context, bookAppointment_offerApply_toast).toString(),
+                msg: getTranslated(context, bookAppointment_offerApply_toast)
+                    .toString(),
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
               );
             } else {
               Fluttertoast.showToast(
-                msg: getTranslated(context, bookAppointment_worthMore_toast).toString() + SharedPreferenceHelper.getString(Preferences.currency_symbol).toString() + '$flatDiscount.',
+                msg: getTranslated(context, bookAppointment_worthMore_toast)
+                        .toString() +
+                    SharedPreferenceHelper.getString(
+                            Preferences.currency_symbol)
+                        .toString() +
+                    '$flatDiscount.',
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
               );
@@ -2208,39 +2873,60 @@ class _BookAppointmentState extends State<BookAppointment> {
           } else if (discountType == "AMOUNT" && isFlat == 0) {
             if (int.parse('$appointmentFees') > discount!) {
               if (discount! < minDiscount!) {
-                newAppointmentFees = int.parse('$appointmentFees') - int.parse('$discount');
+                newAppointmentFees =
+                    int.parse('$appointmentFees') - int.parse('$discount');
               } else {
-                newAppointmentFees = int.parse('$appointmentFees') - int.parse('$minDiscount');
+                newAppointmentFees =
+                    int.parse('$appointmentFees') - int.parse('$minDiscount');
               }
               Fluttertoast.showToast(
-                msg: getTranslated(context, bookAppointment_offerApply_toast).toString(),
+                msg: getTranslated(context, bookAppointment_offerApply_toast)
+                    .toString(),
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
               );
             } else {
               Fluttertoast.showToast(
-                msg: getTranslated(context, bookAppointment_worthMore_toast).toString() + SharedPreferenceHelper.getString(Preferences.currency_symbol).toString() + '$discount.',
+                msg: getTranslated(context, bookAppointment_worthMore_toast)
+                        .toString() +
+                    SharedPreferenceHelper.getString(
+                            Preferences.currency_symbol)
+                        .toString() +
+                    '$discount.',
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
               );
             }
           } else if (discountType == "PERCENTAGE") {
             setState(() {
-              prAmount = (int.parse('$appointmentFees') * int.parse('$discount')) / 100;
+              prAmount =
+                  (int.parse('$appointmentFees') * int.parse('$discount')) /
+                      100;
               if (prAmount <= minDiscount!) {
-                newAppointmentFees = double.parse('$appointmentFees') - double.parse('$prAmount');
+                newAppointmentFees = double.parse('$appointmentFees') -
+                    double.parse('$prAmount');
               } else {
-                newAppointmentFees = double.parse('$appointmentFees') - double.parse('$minDiscount');
+                newAppointmentFees = double.parse('$appointmentFees') -
+                    double.parse('$minDiscount');
               }
             });
             Fluttertoast.showToast(
-              msg: int.parse('$appointmentFees') >= prAmount || int.parse('$appointmentFees') >= minDiscount!
-                  ? getTranslated(context, bookAppointment_offerApply_toast).toString()
-                  : getTranslated(context, bookAppointment_itemWorth_toast).toString() + '$prAmount' + getTranslated(context, bookAppointment_orMore_toast).toString(),
+              msg: int.parse('$appointmentFees') >= prAmount ||
+                      int.parse('$appointmentFees') >= minDiscount!
+                  ? getTranslated(context, bookAppointment_offerApply_toast)
+                      .toString()
+                  : getTranslated(context, bookAppointment_itemWorth_toast)
+                          .toString() +
+                      '$prAmount' +
+                      getTranslated(context, bookAppointment_orMore_toast)
+                          .toString(),
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.CENTER,
             );
-            newAppointmentFees = int.parse('$appointmentFees') >= prAmount || int.parse('$appointmentFees') >= minDiscount! ? newAppointmentFees : appointmentFees;
+            newAppointmentFees = int.parse('$appointmentFees') >= prAmount ||
+                    int.parse('$appointmentFees') >= minDiscount!
+                ? newAppointmentFees
+                : appointmentFees;
           }
         });
       } else {
@@ -2368,24 +3054,24 @@ class _BookAppointmentState extends State<BookAppointment> {
       },
     );
   }
-  List<InsurersData> allInsurers=[];
-  Future<BaseModel<InsurersResponse>> callGetInsurers()async{
+
+  List<InsurersData> allInsurers = [];
+  Future<BaseModel<InsurersResponse>> callGetInsurers() async {
     InsurersResponse response;
-    try{
+    try {
       setState(() {
         allInsurers.clear();
       });
       response = await RestClient(RetroApi().dioData()).callInsurers();
-      if(response.success==true){
+      if (response.success == true) {
         setState(() {
           allInsurers.addAll(response.data!);
         });
       }
-    }
-    catch(error){
+    } catch (error) {
       return BaseModel()..setException(ServerError.withError(error: error));
     }
-    return BaseModel()..data=response;
+    return BaseModel()..data = response;
   }
 }
 

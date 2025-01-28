@@ -38,7 +38,7 @@ import 'package:flutter/services.dart';
 import 'package:doctro_patient/Screen/MedicineAndPharmacy/MedicineOrder.dart';
 import 'package:doctro_patient/Screen/MedicineAndPharmacy/MedicineOrderDetail.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+// import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
@@ -95,7 +95,8 @@ void main() async {
 }
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
     'high_importance_channel', // id
     'High Importance Notifications', // title
@@ -140,11 +141,13 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    setState(() {
+    // setState(() {
       callApiSetting();
       init();
       Future.delayed(const Duration(seconds: 2), () {
-        FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
+        FirebaseMessaging.instance
+            .getInitialMessage()
+            .then((RemoteMessage? message) {
           if (message != null) {
             Map<String, dynamic> dataValue = message.data;
             msgImage = dataValue['doctorImage'].toString();
@@ -152,7 +155,8 @@ class _MyAppState extends State<MyApp> {
             msgId = dataValue['doctorId'].toString();
             doctorToken = dataValue['doctorToken'].toString();
             print("message not null");
-            if (SharedPreferenceHelper.getBoolean(Preferences.is_logged_in) == true) {
+            if (SharedPreferenceHelper.getBoolean(Preferences.is_logged_in) ==
+                true) {
               Navigator.of(navigatorKey.currentState!.context).pushReplacement(
                 MaterialPageRoute(
                   builder: (context) => ChatPage(
@@ -176,10 +180,14 @@ class _MyAppState extends State<MyApp> {
       });
 
       /// Get Notification ///
-      var initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
+      var initializationSettingsAndroid =
+          AndroidInitializationSettings('@mipmap/ic_launcher');
       var initializationSettingsIOS = new DarwinInitializationSettings();
-      var initializationSettings = InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
-      flutterLocalNotificationsPlugin.initialize(initializationSettings, onDidReceiveNotificationResponse: onSelectNotification);
+      var initializationSettings = InitializationSettings(
+          android: initializationSettingsAndroid,
+          iOS: initializationSettingsIOS);
+      flutterLocalNotificationsPlugin.initialize(initializationSettings,
+          onDidReceiveNotificationResponse: onSelectNotification);
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
         RemoteNotification? notification = message.notification;
         AndroidNotification? android = message.notification?.android;
@@ -224,12 +232,16 @@ class _MyAppState extends State<MyApp> {
         }
       });
       getToken();
-    });
+    // }
+    // );
   }
 
   onSelectNotification(payload) {
     if (payload.payload == "screen") {
-      if (msgId.isNotEmpty && msgName.isNotEmpty && msgImage.isNotEmpty && SharedPreferenceHelper.getBoolean(Preferences.is_logged_in) == true) {
+      if (msgId.isNotEmpty &&
+          msgName.isNotEmpty &&
+          msgImage.isNotEmpty &&
+          SharedPreferenceHelper.getBoolean(Preferences.is_logged_in) == true) {
         Navigator.of(navigatorKey.currentState!.context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => ChatPage(
@@ -249,7 +261,8 @@ class _MyAppState extends State<MyApp> {
     token = (await FirebaseMessaging.instance.getToken())!;
     if (token.isNotEmpty) {
       print("Notification Token:" + token);
-      SharedPreferenceHelper.setString(Preferences.notificationRegisterKey, token);
+      SharedPreferenceHelper.setString(
+          Preferences.notificationRegisterKey, token);
     }
   }
 
@@ -270,7 +283,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
     if (_locale == null) {
       return Container(
         child: Center(
@@ -282,9 +296,9 @@ class _MyAppState extends State<MyApp> {
         providers: [
           ChangeNotifierProvider<StripePayment>(
             create: (context) => StripePayment(),
-          // ),
-          // ChangeNotifierProvider<MedicinesStripePayment>(
-          //   create: (context) => MedicinesStripePayment(),
+            // ),
+            // ChangeNotifierProvider<MedicinesStripePayment>(
+            //   create: (context) => MedicinesStripePayment(),
           ),
           ChangeNotifierProvider<AuthProvider>(
             create: (_) => AuthProvider(
@@ -327,13 +341,14 @@ class _MyAppState extends State<MyApp> {
             ],
             localizationsDelegates: [
               LanguageLocalization.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
+              // GlobalMaterialLocalizations.delegate,
+              // GlobalWidgetsLocalizations.delegate,
+              // GlobalCupertinoLocalizations.delegate,
             ],
             localeResolutionCallback: (deviceLocal, supportedLocales) {
               for (var local in supportedLocales) {
-                if (local.languageCode == deviceLocal!.languageCode && local.countryCode == deviceLocal.countryCode) {
+                if (local.languageCode == deviceLocal!.languageCode &&
+                    local.countryCode == deviceLocal.countryCode) {
                   return deviceLocal;
                 }
               }
@@ -342,15 +357,12 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             initialRoute: "/",
             theme: ThemeData(
-              splashColor: Palette.transparent,
-              highlightColor: Palette.transparent,
-              primaryColor: Palette.blue,
-              elevatedButtonTheme: ElevatedButtonThemeData(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor:  Palette.blue
-                )
-              )
-            ),
+                splashColor: Palette.transparent,
+                highlightColor: Palette.transparent,
+                primaryColor: Palette.blue,
+                elevatedButtonTheme: ElevatedButtonThemeData(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Palette.blue))),
             routes: {
               '/': (context) => Home(),
               'SignIn': (context) => SignIn(),
@@ -384,7 +396,8 @@ class _MyAppState extends State<MyApp> {
               'TreatmentSpecialist': (context) => TreatmentSpecialist(),
               'Notifications': (context) => Notifications(),
               'StripePaymentScreen': (context) => StripePaymentScreen(),
-              'StripePaymentScreenMedicine': (context) => StripePaymentScreenMedicine(),
+              'StripePaymentScreenMedicine': (context) =>
+                  StripePaymentScreenMedicine(),
               'ChangePassword': (context) => ChangePassword(),
               'PrivacyPolicy': (context) => PrivacyPolicy(),
               'AboutUs': (context) => AboutUs(),
@@ -403,9 +416,11 @@ class _MyAppState extends State<MyApp> {
       response = await RestClient(RetroApi2().dioData2()).settingRequest();
       setState(() {
         if (response.success == true) {
-          SharedPreferenceHelper.setString(Preferences.patientAppId, response.data!.patientAppId!);
+          SharedPreferenceHelper.setString(
+              Preferences.patientAppId, response.data!.patientAppId!);
           if (response.data!.patientAppId != null) {
-            getOneSingleToken(SharedPreferenceHelper.getString(Preferences.patientAppId));
+            getOneSingleToken(
+                SharedPreferenceHelper.getString(Preferences.patientAppId));
           }
         }
       });
@@ -422,11 +437,13 @@ class _MyAppState extends State<MyApp> {
       OneSignal.shared.consentGranted(true);
       OneSignal.shared.setAppId(appId);
       OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
-      await OneSignal.shared.promptUserForPushNotificationPermission(fallbackToSettings: true);
+      await OneSignal.shared
+          .promptUserForPushNotificationPermission(fallbackToSettings: true);
       OneSignal.shared.promptLocationPermission();
       await OneSignal.shared.getDeviceState().then((value) {
         print('device token is ${value!.userId}');
-        return SharedPreferenceHelper.setString(Preferences.device_token, value.userId!);
+        return SharedPreferenceHelper.setString(
+            Preferences.device_token, value.userId!);
       });
     } catch (e) {
       print("error${e.toString()}");
@@ -441,6 +458,8 @@ class _MyAppState extends State<MyApp> {
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

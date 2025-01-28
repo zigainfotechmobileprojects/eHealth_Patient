@@ -13,7 +13,7 @@ class _RestClient implements RestClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://bookmypaparazzi.com/api/';
+    baseUrl ??= 'https://ehealth.zigainfotech.app/api/';
   }
 
   final Dio _dio;
@@ -279,6 +279,7 @@ class _RestClient implements RestClient {
         .fetch<Map<String, dynamic>>(_setStreamType<BookAppointments>(Options(
       method: 'POST',
       headers: _headers,
+      
       extra: _extra,
     )
             .compose(

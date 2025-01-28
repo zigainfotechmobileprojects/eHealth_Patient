@@ -509,8 +509,8 @@ class _SpecialistState extends State<Specialist> {
   Future<BaseModel<Doctors>> callApiDoctorList() async {
     Doctors response;
     Map<String, dynamic> body = {
-      "lat": _lat,
-      "lang": _lang,
+      "lat": 38.4219983,
+      "lang":  -122.084,
     };
     setState(() {
       loading = true;

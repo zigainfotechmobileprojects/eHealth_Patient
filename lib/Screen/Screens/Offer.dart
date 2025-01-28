@@ -50,7 +50,10 @@ class _OfferState extends State<Offer> {
         backgroundColor: Palette.white,
         title: Text(
           getTranslated(context, offer_title).toString(),
-          style: TextStyle(fontSize: 20, color: Palette.dark_blue, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              fontSize: 20,
+              color: Palette.dark_blue,
+              fontWeight: FontWeight.bold),
         ),
       ),
       body: ModalProgressHUD(
@@ -71,7 +74,11 @@ class _OfferState extends State<Offer> {
                         Container(
                           margin: EdgeInsets.all(10),
                           width: width,
-                          color: index % 2 == 0 ? Palette.light_blue : Palette.offer_card,
+                          decoration: BoxDecoration(
+                              color: index % 2 == 0
+                                  ? Palette.light_blue
+                                  : Palette.offer_card,
+                              borderRadius: BorderRadius.circular(10)),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10.0),
                             child: Column(
@@ -83,43 +90,79 @@ class _OfferState extends State<Offer> {
                                     child: Center(
                                       child: Text(
                                         offerList[index].name!,
-                                        style: TextStyle(color: index % 2 == 0 ? Palette.white : Palette.light_blue),
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            color: index % 2 == 0
+                                                ? Palette.white
+                                                : Palette.light_blue),
                                       ),
                                     ),
                                   ),
                                 ),
-                                if (offerList[index].discountType == "amount" && offerList[index].isFlat == 0)
+                                if (offerList[index].discountType == "amount" &&
+                                    offerList[index].isFlat == 0)
                                   Padding(
                                     padding: const EdgeInsets.only(top: 15.0),
                                     child: Center(
                                       child: Text(
-                                        getTranslated(context, offer_flat).toString() + SharedPreferenceHelper.getString(Preferences.currency_symbol).toString() + offerList[index].discount.toString(),
-                                        style: TextStyle(color: Palette.dark_blue, fontSize: 16.0, fontWeight: FontWeight.bold),
+                                        getTranslated(context, offer_flat)
+                                                .toString() +
+                                            SharedPreferenceHelper.getString(
+                                                    Preferences.currency_symbol)
+                                                .toString() +
+                                            offerList[index]
+                                                .discount
+                                                .toString(),
+                                        style: TextStyle(
+                                            color: Palette.dark_blue,
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                   ),
-                                if (offerList[index].discountType == "percentage" && offerList[index].isFlat == 0)
+                                if (offerList[index].discountType ==
+                                        "percentage" &&
+                                    offerList[index].isFlat == 0)
                                   Padding(
                                     padding: const EdgeInsets.only(top: 15.0),
                                     child: Center(
                                       child: Text(
-                                        offerList[index].discount.toString() + '% ' + getTranslated(context, offer_discount).toString(),
-                                        style: TextStyle(color: Palette.dark_blue, fontSize: 16.0, fontWeight: FontWeight.bold),
+                                        offerList[index].discount.toString() +
+                                            '% ' +
+                                            getTranslated(
+                                                    context, offer_discount)
+                                                .toString(),
+                                        style :TextStyle(
+                                            color: Palette.dark_blue,
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                   ),
-                                if (offerList[index].discountType == "amount" && offerList[index].isFlat == 1)
+                                if (offerList[index].discountType == "amount" &&
+                                    offerList[index].isFlat == 1)
                                   Padding(
                                     padding: const EdgeInsets.only(top: 15.0),
                                     child: Center(
                                       child: Text(
-                                        getTranslated(context, offer_flat).toString() + SharedPreferenceHelper.getString(Preferences.currency_symbol).toString() + offerList[index].flatDiscount.toString(),
-                                        style: TextStyle(color: Palette.dark_blue, fontSize: 16.0, fontWeight: FontWeight.bold),
+                                        getTranslated(context, offer_flat)
+                                                .toString() +
+                                            SharedPreferenceHelper.getString(
+                                                    Preferences.currency_symbol)
+                                                .toString() +
+                                            offerList[index]
+                                                .flatDiscount
+                                                .toString(),
+                                        style: TextStyle(
+                                            color: Palette.dark_blue,
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                   ),
                                 Container(
-                                  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+                                  margin: EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 0),
                                   child: Column(
                                     children: [
                                       DottedLine(
@@ -127,7 +170,9 @@ class _OfferState extends State<Offer> {
                                         lineLength: double.infinity,
                                         lineThickness: 1.0,
                                         dashLength: 3.0,
-                                        dashColor: index % 2 == 0 ? Palette.white : Palette.light_blue,
+                                        dashColor: index % 2 == 0
+                                            ? Palette.white
+                                            : Palette.light_blue,
                                         dashRadius: 0.0,
                                         dashGapLength: 1.0,
                                         dashGapColor: Palette.transparent,
@@ -140,28 +185,42 @@ class _OfferState extends State<Offer> {
                                   children: [
                                     Container(
                                       child: Text(
-                                        getTranslated(context, offer_useCouponCode).toString(),
+                                        getTranslated(
+                                                context, offer_useCouponCode)
+                                            .toString(),
                                         style: TextStyle(
                                           fontSize: 14,
-                                          color: index % 2 == 0 ? Palette.dark_white.withOpacity(0.7) : Palette.grey,
+                                          color: index % 2 == 0
+                                              ? Palette.dark_white
+                                                  .withOpacity(0.7)
+                                              : Palette.grey,
                                         ),
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.all(8),
+                                      padding: const EdgeInsets.all(10),
                                       child: Center(
                                         child: Container(
-                                          width: 90.0,
+                                          width: 130.0,
                                           height: 30.0,
                                           decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(30.0),
-                                            border: Border.all(width: 1.0, color: index % 2 == 0 ? Palette.white : Palette.blue),
+                                            borderRadius:
+                                                BorderRadius.circular(30.0),
+                                            border: Border.all(
+                                                width: 1.0,
+                                                color: index % 2 == 0
+                                                    ? Palette.white
+                                                    : Palette.blue),
                                           ),
                                           child: Center(
                                             child: SelectableText(
                                               offerList[index].offerCode!,
                                               cursorColor: Palette.white,
-                                              style: TextStyle(fontSize: 16, color: index % 2 == 0 ? Palette.white : Palette.light_blue),
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: index % 2 == 0
+                                                      ? Palette.white
+                                                      : Palette.light_blue),
                                             ),
                                           ),
                                         ),
@@ -184,7 +243,10 @@ class _OfferState extends State<Offer> {
                   alignment: AlignmentDirectional.center,
                   child: Text(
                     getTranslated(context, offer_offerNotAvailable).toString(),
-                    style: TextStyle(fontSize: width * 0.05, color: Palette.grey, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: width * 0.05,
+                        color: Palette.grey,
+                        fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                 ),

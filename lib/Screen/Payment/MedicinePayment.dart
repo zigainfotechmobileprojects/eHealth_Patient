@@ -37,7 +37,14 @@ import 'medicines_stripe_services.dart';
 
 enum SingingCharacter { Pharmacy, Home }
 
-enum SingingCharacterPayment { Paypal, Razorpay, Stripe, FlutterWave, PayStack, COD }
+enum SingingCharacterPayment {
+  Paypal,
+  Razorpay,
+  Stripe,
+  FlutterWave,
+  PayStack,
+  COD
+}
 
 class MedicinePayment extends StatefulWidget {
   @override
@@ -46,6 +53,7 @@ class MedicinePayment extends StatefulWidget {
 
 class _MedicinePaymentState extends State<MedicinePayment> {
   TextEditingController _offerController = TextEditingController();
+  TextEditingController _addressController = TextEditingController();
 
   final GlobalKey<FormState> _offerFormKey = GlobalKey<FormState>();
 
@@ -157,8 +165,11 @@ class _MedicinePaymentState extends State<MedicinePayment> {
     // _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
 
     // PayStack //
-    plugin.initialize(publicKey: SharedPreferenceHelper.getString(Preferences.payStack_public_key)!);
-    Stripe.publishableKey = SharedPreferenceHelper.getString(Preferences.stripe_public_key)!;
+    plugin.initialize(
+        publicKey:
+            SharedPreferenceHelper.getString(Preferences.payStack_public_key)!);
+    Stripe.publishableKey =
+        SharedPreferenceHelper.getString(Preferences.stripe_public_key)!;
   }
 
   // RazorPay Clear //
@@ -175,8 +186,10 @@ class _MedicinePaymentState extends State<MedicinePayment> {
   getBookedData() async {
     grandTotal = SharedPreferenceHelper.getInt('grandTotal');
     pharmacyId = SharedPreferenceHelper.getInt('pharmacyIdCart');
-    prescriptionFilePath = SharedPreferenceHelper.getString('prescriptionFilePath');
-    _character = isShipping == 1 ? SingingCharacter.Home : SingingCharacter.Pharmacy;
+    prescriptionFilePath =
+        SharedPreferenceHelper.getString('prescriptionFilePath');
+    _character =
+        isShipping == 1 ? SingingCharacter.Home : SingingCharacter.Pharmacy;
     deliveryType = isShipping == 1 ? "Home" : "Pharmacy";
     getSavedInfo();
   }
@@ -208,7 +221,11 @@ class _MedicinePaymentState extends State<MedicinePayment> {
   }
 
   getDistance() async {
-    double distanceInMeters = Geolocator.distanceBetween(double.parse(pharmacyLat!), double.parse(pharmacyLong!), double.parse(userLat!), double.parse(userLang!));
+    double distanceInMeters = Geolocator.distanceBetween(
+        double.parse(pharmacyLat!),
+        double.parse(pharmacyLong!),
+        double.parse(userLat!),
+        double.parse(userLang!));
     double deliveryKM = distanceInMeters / 1000;
     str = "$deliveryKM";
     parts = str.split(".");
@@ -217,7 +234,8 @@ class _MedicinePaymentState extends State<MedicinePayment> {
     if (isShipping == 1) {
       String? strFinalDeliveryCharge1 = '';
       for (int i = 0; i < listDeliveryCharge.length; i++) {
-        if (deliveryDistance >= double.parse(listDeliveryCharge[i].minValue!) && deliveryDistance <= double.parse(listDeliveryCharge[i].maxValue!)) {
+        if (deliveryDistance >= double.parse(listDeliveryCharge[i].minValue!) &&
+            deliveryDistance <= double.parse(listDeliveryCharge[i].maxValue!)) {
           strFinalDeliveryCharge1 = listDeliveryCharge[i].charges;
         }
       }
@@ -225,7 +243,10 @@ class _MedicinePaymentState extends State<MedicinePayment> {
         strFinalDeliveryCharge = '0';
       } else {
         if (strFinalDeliveryCharge1 == '') {
-          var max = listDeliveryCharge.reduce((current, next) => int.parse(current.charges!) > int.parse(next.charges!) ? current : next);
+          var max = listDeliveryCharge.reduce((current, next) =>
+              int.parse(current.charges!) > int.parse(next.charges!)
+                  ? current
+                  : next);
           strFinalDeliveryCharge = max.charges;
         } else {
           strFinalDeliveryCharge = strFinalDeliveryCharge1;
@@ -233,7 +254,8 @@ class _MedicinePaymentState extends State<MedicinePayment> {
       }
     }
 
-    SharedPreferenceHelper.setString('strFinalDeliveryCharge', strFinalDeliveryCharge!);
+    SharedPreferenceHelper.setString(
+        'strFinalDeliveryCharge', strFinalDeliveryCharge!);
 
     if (deliveryType == "Home" && isShipping == 1) {
       payAmount = grandTotal + int.parse(strFinalDeliveryCharge!);
@@ -285,9 +307,11 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                     children: [
                       Container(
                         alignment: AlignmentDirectional.topStart,
-                        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                         child: Text(
-                          getTranslated(context, medicinePayment_youOrdered).toString(),
+                          getTranslated(context, medicinePayment_youOrdered)
+                              .toString(),
                           style: TextStyle(
                             fontSize: 18,
                             color: Palette.blue,
@@ -299,7 +323,8 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                           children: [
                             RadioListTile(
                               title: Text(
-                                getTranslated(context, medicinePayment_pharmacy).toString(),
+                                getTranslated(context, medicinePayment_pharmacy)
+                                    .toString(),
                                 style: TextStyle(
                                   color: Palette.blue,
                                 ),
@@ -313,17 +338,21 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                                   str = "$_character";
                                   parts = str.split(".");
                                   startPart = parts[0].trim();
-                                  deliveryType = parts.sublist(1).join('.').trim();
+                                  deliveryType =
+                                      parts.sublist(1).join('.').trim();
                                 });
                               },
                             ),
                             isShipping == 1
                                 ? RadioListTile(
                                     title: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          getTranslated(context, medicinePayment_home).toString(),
+                                          getTranslated(
+                                                  context, medicinePayment_home)
+                                              .toString(),
                                           style: TextStyle(
                                             color: Palette.blue,
                                           ),
@@ -339,7 +368,8 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                                           str = "$_character";
                                           parts = str.split(".");
                                           startPart = parts[0].trim();
-                                          deliveryType = parts.sublist(1).join('.').trim();
+                                          deliveryType =
+                                              parts.sublist(1).join('.').trim();
                                           getDistance();
                                         },
                                       );
@@ -354,47 +384,85 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                 ),
                 deliveryType == 'Home' && isShipping == 1
                     ? Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                         child: Container(
-                          height: 56,
+                          // height: 56,
                           width: 350,
                           child: Column(
                             children: [
                               Container(
-                                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 5),
                                 alignment: Alignment.topLeft,
                                 child: Text(
-                                  getTranslated(context, medicinePayment_address).toString(),
-                                  style: TextStyle(fontSize: 16, color: Palette.dark_blue, fontWeight: FontWeight.bold),
+                                  getTranslated(
+                                          context, medicinePayment_address)
+                                      .toString(),
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Palette.dark_blue,
+                                      fontWeight: FontWeight.bold),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
-                              InkWell(
-                                onTap: () {
-                                  SharedPreferenceHelper.setString('isWhere', "MedicinePayment");
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ShowLocation(),
+                              Container(
+                                // margin: EdgeInsets.symmetric(
+                                //   horizontal: 10,
+                                // ),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 2),
+
+                                decoration: BoxDecoration(
+                                    color: Palette.dark_white,
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: TextFormField(
+                                  maxLines: 2,
+                                  controller: _addressController,
+                                  keyboardType: TextInputType.text,
+                                  // textCapitalization: TextCapitalization.words,
+                                  // inputFormatters: [
+                                  //   FilteringTextInputFormatter.allow(
+                                  //       RegExp('[a-zA-Z0-9]'))
+                                  // ],
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: "enter address",
+                                    hintStyle: TextStyle(
+                                      fontSize: width * 0.04,
+                                      color: Palette.dark_grey,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                  );
-                                },
-                                child: Container(
-                                  alignment: Alignment.topLeft,
-                                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                                  child: address != null && address != "N/A"
-                                      ? Text(
-                                          '$address',
-                                          style: TextStyle(fontSize: 14, color: Palette.blue),
-                                          overflow: TextOverflow.ellipsis,
-                                        )
-                                      : Text(
-                                          getTranslated(context, addLocation_address_validator).toString(),
-                                          style: TextStyle(fontSize: 14, color: Palette.blue),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
+                                  ),
                                 ),
                               ),
+
+                              // InkWell(
+                              //   onTap: () {
+                              //     SharedPreferenceHelper.setString('isWhere', "MedicinePayment");
+                              //     Navigator.pushReplacement(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //         builder: (context) => ShowLocation(),
+                              //       ),
+                              //     );
+                              //   },
+                              //   child: Container(
+                              //     alignment: Alignment.topLeft,
+                              //     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                              //     child: address != null && address != "N/A"
+                              //         ? Text(
+                              //             '$address',
+                              //             style: TextStyle(fontSize: 14, color: Palette.blue),
+                              //             overflow: TextOverflow.ellipsis,
+                              //           )
+                              //         : Text(
+                              //             getTranslated(context, addLocation_address_validator).toString(),
+                              //             style: TextStyle(fontSize: 14, color: Palette.blue),
+                              //             overflow: TextOverflow.ellipsis,
+                              //           ),
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
@@ -409,17 +477,26 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                       children: [
                         Container(
                           width: width * 0.55,
-                          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 2),
-                          decoration: BoxDecoration(color: Palette.dark_white, borderRadius: BorderRadius.circular(10)),
+                          margin:
+                              EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 15, vertical: 2),
+                          decoration: BoxDecoration(
+                              color: Palette.dark_white,
+                              borderRadius: BorderRadius.circular(10)),
                           child: TextFormField(
                             controller: _offerController,
                             keyboardType: TextInputType.text,
                             textCapitalization: TextCapitalization.words,
-                            inputFormatters: [FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9]'))],
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(
+                                  RegExp('[a-zA-Z0-9]'))
+                            ],
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: getTranslated(context, medicinePayment_offerCode_hint).toString(),
+                              hintText: getTranslated(
+                                      context, medicinePayment_offerCode_hint)
+                                  .toString(),
                               hintStyle: TextStyle(
                                 fontSize: width * 0.04,
                                 color: Palette.dark_grey,
@@ -428,7 +505,9 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                             ),
                             validator: (String? value) {
                               if (value!.isEmpty) {
-                                return getTranslated(context, medicinePayment_offerCode_validator).toString();
+                                return getTranslated(context,
+                                        medicinePayment_offerCode_validator)
+                                    .toString();
                               }
                               return null;
                             },
@@ -438,15 +517,19 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                         Container(
                           width: width * 0.32,
                           height: height * 0.05,
-                          margin: EdgeInsets.symmetric(horizontal: 0, vertical: width * 0.03),
-                          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 2),
+                          margin: EdgeInsets.symmetric(
+                              horizontal: 0, vertical: width * 0.03),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 15, vertical: 2),
                           child: ElevatedButton(
                             onPressed: () {
                               if (_offerFormKey.currentState!.validate()) {
                                 callApiApplyOffer();
                               }
                             },
-                            child: Text(getTranslated(context, medicinePayment_apply_button).toString()),
+                            child: Text(getTranslated(
+                                    context, medicinePayment_apply_button)
+                                .toString()),
                           ),
                         ),
                       ],
@@ -465,8 +548,12 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                   alignment: AlignmentDirectional.topStart,
                   padding: EdgeInsets.symmetric(vertical: 5, horizontal: 25),
                   child: Text(
-                    getTranslated(context, medicinePayment_totalAmount).toString(),
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Palette.dark_blue),
+                    getTranslated(context, medicinePayment_totalAmount)
+                        .toString(),
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Palette.dark_blue),
                   ),
                 ),
                 Padding(
@@ -480,20 +567,41 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                               child: Column(
                                 children: [
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        getTranslated(context, medicinePayment_amount).toString(),
-                                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Palette.dark_blue),
+                                        getTranslated(
+                                                context, medicinePayment_amount)
+                                            .toString(),
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: Palette.dark_blue),
                                       ),
-                                      '$discountGrandTotal' == "0.0" || '$discountGrandTotal' == "0"
+                                      '$discountGrandTotal' == "0.0" ||
+                                              '$discountGrandTotal' == "0"
                                           ? Text(
-                                              SharedPreferenceHelper.getString(Preferences.currency_symbol).toString() + grandTotal.toString(),
-                                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Palette.blue),
+                                              SharedPreferenceHelper.getString(
+                                                          Preferences
+                                                              .currency_symbol)
+                                                      .toString() +
+                                                  grandTotal.toString(),
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Palette.blue),
                                             )
                                           : Text(
-                                              SharedPreferenceHelper.getString(Preferences.currency_symbol).toString() + discountGrandTotal.toString(),
-                                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Palette.blue),
+                                              SharedPreferenceHelper.getString(
+                                                          Preferences
+                                                              .currency_symbol)
+                                                      .toString() +
+                                                  discountGrandTotal.toString(),
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Palette.blue),
                                             ),
                                     ],
                                   ),
@@ -501,15 +609,27 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                                     height: 5,
                                   ),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        getTranslated(context, medicinePayment_deliveryCharges).toString(),
-                                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Palette.dark_blue),
+                                        getTranslated(context,
+                                                medicinePayment_deliveryCharges)
+                                            .toString(),
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: Palette.dark_blue),
                                       ),
                                       Text(
-                                        SharedPreferenceHelper.getString(Preferences.currency_symbol).toString() + '$strFinalDeliveryCharge',
-                                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Palette.blue),
+                                        SharedPreferenceHelper.getString(
+                                                    Preferences.currency_symbol)
+                                                .toString() +
+                                            '$strFinalDeliveryCharge',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: Palette.blue),
                                       )
                                     ],
                                   ),
@@ -521,9 +641,14 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                                 top: 5,
                               ),
                               child: Container(
-                                  child: '$newGrandTotal' == "0.0" || '$newGrandTotal' == "0"
+                                  child: '$newGrandTotal' == "0.0" ||
+                                          '$newGrandTotal' == "0"
                                       ? Text(
-                                          SharedPreferenceHelper.getString(Preferences.currency_symbol).toString() + '$payAmount',
+                                          SharedPreferenceHelper.getString(
+                                                      Preferences
+                                                          .currency_symbol)
+                                                  .toString() +
+                                              '$payAmount',
                                           style: TextStyle(
                                             fontSize: 35,
                                             fontWeight: FontWeight.bold,
@@ -531,7 +656,11 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                                           ),
                                         )
                                       : Text(
-                                          SharedPreferenceHelper.getString(Preferences.currency_symbol).toString() + '$newGrandTotal',
+                                          SharedPreferenceHelper.getString(
+                                                      Preferences
+                                                          .currency_symbol)
+                                                  .toString() +
+                                              '$newGrandTotal',
                                           style: TextStyle(
                                             fontSize: 35,
                                             fontWeight: FontWeight.bold,
@@ -549,9 +678,13 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                                 top: 5,
                               ),
                               child: Container(
-                                child: '$newGrandTotal' == "0.0" || '$newGrandTotal' == '0'
+                                child: '$newGrandTotal' == "0.0" ||
+                                        '$newGrandTotal' == '0'
                                     ? Text(
-                                        SharedPreferenceHelper.getString(Preferences.currency_symbol).toString() + '$payAmount',
+                                        SharedPreferenceHelper.getString(
+                                                    Preferences.currency_symbol)
+                                                .toString() +
+                                            '$payAmount',
                                         style: TextStyle(
                                           fontSize: 35,
                                           fontWeight: FontWeight.bold,
@@ -559,7 +692,10 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                                         ),
                                       )
                                     : Text(
-                                        SharedPreferenceHelper.getString(Preferences.currency_symbol).toString() + '$newGrandTotal',
+                                        SharedPreferenceHelper.getString(
+                                                    Preferences.currency_symbol)
+                                                .toString() +
+                                            '$newGrandTotal',
                                         //
                                         style: TextStyle(
                                           fontSize: 35,
@@ -581,9 +717,13 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                   alignment: Alignment.topLeft,
                   margin: EdgeInsets.only(left: 15),
                   child: Text(
-                    getTranslated(context, medicinePayment_paymentType).toString(),
+                    getTranslated(context, medicinePayment_paymentType)
+                        .toString(),
                     textAlign: TextAlign.start,
-                    style: TextStyle(fontSize: 18, color: Palette.dark_blue, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: Palette.dark_blue,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
                 SizedBox(
@@ -598,20 +738,27 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                               ? Container(
                                   margin: EdgeInsets.all(5),
                                   alignment: Alignment.center,
-                                  decoration: BoxDecoration(boxShadow: [
-                                    BoxShadow(
-                                      color: Palette.grey.withOpacity(0.2),
-                                      spreadRadius: 2,
-                                      blurRadius: 7,
-                                      offset: Offset(0, 3), // changes position of shadow
-                                    ),
-                                  ], borderRadius: BorderRadius.circular(10), color: Palette.white),
-                                  height: MediaQuery.of(context).size.height * 0.08,
+                                  decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Palette.grey.withOpacity(0.2),
+                                          spreadRadius: 2,
+                                          blurRadius: 7,
+                                          offset: Offset(0,
+                                              3), // changes position of shadow
+                                        ),
+                                      ],
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Palette.white),
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.08,
                                   child: RadioListTile<SingingCharacterPayment>(
-                                    controlAffinity: ListTileControlAffinity.trailing,
+                                    controlAffinity:
+                                        ListTileControlAffinity.trailing,
                                     // contentPadding: EdgeInsets.only(left: 10),
                                     title: Container(
-                                      width: MediaQuery.of(context).size.width / 5,
+                                      width:
+                                          MediaQuery.of(context).size.width / 5,
                                       child: Row(
                                         children: [
                                           Image.network(
@@ -620,16 +767,23 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                                             width: 50,
                                           ),
                                           SizedBox(
-                                            width: MediaQuery.of(context).size.width * 0.01,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.01,
                                           ),
-                                          Text('PayPal', style: TextStyle(fontSize: 16, color: Palette.black)),
+                                          Text('PayPal',
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Palette.black)),
                                         ],
                                       ),
                                     ),
                                     value: SingingCharacterPayment.Paypal,
                                     activeColor: Palette.black,
                                     groupValue: _payment,
-                                    onChanged: (SingingCharacterPayment? value) {
+                                    onChanged:
+                                        (SingingCharacterPayment? value) {
                                       setState(
                                         () {
                                           _payment = value;
@@ -645,17 +799,22 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                           ? Container(
                               alignment: Alignment.center,
                               margin: EdgeInsets.all(5),
-                              decoration: BoxDecoration(boxShadow: [
-                                BoxShadow(
-                                  color: Palette.grey.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 7,
-                                  offset: Offset(0, 3), // changes position of shadow
-                                ),
-                              ], borderRadius: BorderRadius.circular(10), color: Palette.white),
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Palette.grey.withOpacity(0.2),
+                                      spreadRadius: 2,
+                                      blurRadius: 7,
+                                      offset: Offset(
+                                          0, 3), // changes position of shadow
+                                    ),
+                                  ],
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Palette.white),
                               height: MediaQuery.of(context).size.height * 0.08,
                               child: RadioListTile<SingingCharacterPayment>(
-                                controlAffinity: ListTileControlAffinity.trailing,
+                                controlAffinity:
+                                    ListTileControlAffinity.trailing,
                                 title: Container(
                                   width: MediaQuery.of(context).size.width / 5,
                                   child: Row(
@@ -666,9 +825,14 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                                         width: 50,
                                       ),
                                       SizedBox(
-                                        width: MediaQuery.of(context).size.width * 0.01,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.01,
                                       ),
-                                      Text('RazorPay', style: TextStyle(fontSize: 16, color: Palette.black)),
+                                      Text('RazorPay',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Palette.black)),
                                     ],
                                   ),
                                 ),
@@ -690,17 +854,22 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                           ? Container(
                               alignment: Alignment.center,
                               margin: EdgeInsets.all(5),
-                              decoration: BoxDecoration(boxShadow: [
-                                BoxShadow(
-                                  color: Palette.grey.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 7,
-                                  offset: Offset(0, 3), // changes position of shadow
-                                ),
-                              ], borderRadius: BorderRadius.circular(10), color: Palette.white),
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Palette.grey.withOpacity(0.2),
+                                      spreadRadius: 2,
+                                      blurRadius: 7,
+                                      offset: Offset(
+                                          0, 3), // changes position of shadow
+                                    ),
+                                  ],
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Palette.white),
                               height: MediaQuery.of(context).size.height * 0.08,
                               child: RadioListTile<SingingCharacterPayment>(
-                                controlAffinity: ListTileControlAffinity.trailing,
+                                controlAffinity:
+                                    ListTileControlAffinity.trailing,
                                 title: Container(
                                   width: MediaQuery.of(context).size.width / 5,
                                   child: Row(
@@ -711,9 +880,14 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                                         width: 50,
                                       ),
                                       SizedBox(
-                                        width: MediaQuery.of(context).size.width * 0.01,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.01,
                                       ),
-                                      Text('Stripe', style: TextStyle(fontSize: 16, color: Palette.black)),
+                                      Text('Stripe',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Palette.black)),
                                     ],
                                   ),
                                 ),
@@ -735,17 +909,22 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                           ? Container(
                               alignment: Alignment.center,
                               margin: EdgeInsets.all(5),
-                              decoration: BoxDecoration(boxShadow: [
-                                BoxShadow(
-                                  color: Palette.grey.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 7,
-                                  offset: Offset(0, 3), // changes position of shadow
-                                ),
-                              ], borderRadius: BorderRadius.circular(10), color: Palette.white),
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Palette.grey.withOpacity(0.2),
+                                      spreadRadius: 2,
+                                      blurRadius: 7,
+                                      offset: Offset(
+                                          0, 3), // changes position of shadow
+                                    ),
+                                  ],
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Palette.white),
                               height: MediaQuery.of(context).size.height * 0.08,
                               child: RadioListTile<SingingCharacterPayment>(
-                                controlAffinity: ListTileControlAffinity.trailing,
+                                controlAffinity:
+                                    ListTileControlAffinity.trailing,
                                 title: Container(
                                   width: MediaQuery.of(context).size.width / 5,
                                   child: Row(
@@ -756,10 +935,17 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                                         width: 50,
                                       ),
                                       SizedBox(
-                                        width: MediaQuery.of(context).size.width * 0.01,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.01,
                                       ),
                                       Flexible(
-                                        child: Text('Flutterwave', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontSize: 16, color: Palette.black)),
+                                        child: Text('Flutterwave',
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Palette.black)),
                                       ),
                                     ],
                                   ),
@@ -782,17 +968,22 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                           ? Container(
                               alignment: Alignment.center,
                               margin: EdgeInsets.all(5),
-                              decoration: BoxDecoration(boxShadow: [
-                                BoxShadow(
-                                  color: Palette.grey.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 7,
-                                  offset: Offset(0, 3), // changes position of shadow
-                                ),
-                              ], borderRadius: BorderRadius.circular(10), color: Palette.white),
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Palette.grey.withOpacity(0.2),
+                                      spreadRadius: 2,
+                                      blurRadius: 7,
+                                      offset: Offset(
+                                          0, 3), // changes position of shadow
+                                    ),
+                                  ],
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Palette.white),
                               height: MediaQuery.of(context).size.height * 0.08,
                               child: RadioListTile<SingingCharacterPayment>(
-                                controlAffinity: ListTileControlAffinity.trailing,
+                                controlAffinity:
+                                    ListTileControlAffinity.trailing,
                                 title: Container(
                                   width: MediaQuery.of(context).size.width / 5,
                                   child: Row(
@@ -803,9 +994,14 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                                         width: 50,
                                       ),
                                       SizedBox(
-                                        width: MediaQuery.of(context).size.width * 0.01,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.01,
                                       ),
-                                      Text('Paystack', style: TextStyle(fontSize: 16, color: Palette.black)),
+                                      Text('Paystack',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Palette.black)),
                                     ],
                                   ),
                                 ),
@@ -827,23 +1023,29 @@ class _MedicinePaymentState extends State<MedicinePayment> {
                           ? Container(
                               alignment: Alignment.center,
                               margin: EdgeInsets.all(5),
-                              decoration: BoxDecoration(boxShadow: [
-                                BoxShadow(
-                                  color: Palette.grey.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 7,
-                                  offset: Offset(0, 3), // changes position of shadow
-                                ),
-                              ], borderRadius: BorderRadius.circular(10), color: Palette.white),
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Palette.grey.withOpacity(0.2),
+                                      spreadRadius: 2,
+                                      blurRadius: 7,
+                                      offset: Offset(
+                                          0, 3), // changes position of shadow
+                                    ),
+                                  ],
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Palette.white),
                               height: MediaQuery.of(context).size.height * 0.08,
                               // width: MediaQuery.of(context).size.width / 2.2,
                               child: RadioListTile<SingingCharacterPayment>(
-                                controlAffinity: ListTileControlAffinity.trailing,
+                                controlAffinity:
+                                    ListTileControlAffinity.trailing,
                                 title: Text(
                                   'COD(Case On Delivery)',
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
-                                  style: TextStyle(fontSize: 16, color: Palette.black),
+                                  style: TextStyle(
+                                      fontSize: 16, color: Palette.black),
                                 ),
                                 value: SingingCharacterPayment.COD,
                                 activeColor: Palette.black,
@@ -865,106 +1067,120 @@ class _MedicinePaymentState extends State<MedicinePayment> {
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        height: 50,
-        child: ElevatedButton(
-          child: Text(
-            getTranslated(context, bookAppointment_pay_button).toString(),
-            // 'Pay'
-          ),
-          onPressed: () async {
-            if (deliveryType == 'Home') {
-              if (address != null && address != "N/A") {
-                if (_payment!.index == 0) {
-                  print('Paypal');
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => PaypalPayment(
-                        total: grandTotal.toString(),
-                        onFinish: (number) async {
-                          print('order id: ' + number);
-                          if (number != null && number.toString() != '') {
-                            setState(() {
-                              _paymentToken = number;
-                              callApiBookMedicine();
-                            });
-                            print("success paypal payment ${number.toString()}");
-                          }
-                        },
-                      ),
-                    ),
-                  );
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          height: 50,
+          child: ElevatedButton(
+            child: Text(
+              style: TextStyle(color: Colors.white),
+              getTranslated(context, bookAppointment_pay_button).toString(),
+              // 'Pay'
+            ),
+            onPressed: () async {
+              print("================================");
+              if (deliveryType == 'Home') {
+                if (_payment!.index == 5) {
+                  print('cod');
+
+                  callApiBookMedicine();
+                  // }
                 }
-                if (_payment!.index == 1) {
-                  openCheckoutRazorPay();
-                  print('Razorpay');
-                }
+                // if (address != null && address != "N/A") {
+                // if (_payment!.index == 0) {
+                //   print('Paypal');
+                //   Navigator.of(context).push(
+                //     MaterialPageRoute(
+                //       builder: (BuildContext context) => PaypalPayment(
+                //         total: grandTotal.toString(),
+                //         onFinish: (number) async {
+                //           print('order id: ' + number);
+                //           if (number != null && number.toString() != '') {
+                //             setState(() {
+                //               _paymentToken = number;
+                //               callApiBookMedicine();
+                //             });
+                //             print(
+                //                 "success paypal payment ${number.toString()}");
+                //           }
+                //         },
+                //       ),
+                //     ),
+                //   );
+                // }
+                // if (_payment!.index == 1) {
+                //   openCheckoutRazorPay();
+                //   print('Razorpay');
+                // }
                 // if (_payment!.index == 2) {
                 //   print('Stripe');
                 //   Provider.of<MedicinesStripePayment>(context, listen: false)
                 //       .makePayment(context: context, pharamacyId: pharmacyId, amount: grandTotal.toString(), deliveryType: deliveryType, prescriptionFilePath: prescriptionFilePath, strFinalDeliveryCharge: strFinalDeliveryCharge, listData: listData);
                 // }
-                if (_payment!.index == 3) {
-                  flutterWavePayment(context, payAmount);
-                }
-                if (_payment!.index == 4) {
-                  print('PayStack');
-                  payStackFunction();
-                }
+                // if (_payment!.index == 3) {
+                //   flutterWavePayment(context, payAmount);
+                // }
+                // if (_payment!.index == 4) {
+                //   print('PayStack');
+                //   payStackFunction();
+                // }
+                // if (_payment!.index == 5) {
+                //   print('cod');
+
+                //   callApiBookMedicine();
+                //   // }
+                // } else {
+                //   Fluttertoast.showToast(msg: "Please Select Address");
+                // }
+              } else {
+                // if (_payment?.index == 0) {
+                //   print('Paypal');
+                //   Navigator.of(context).push(
+                //     MaterialPageRoute(
+                //       builder: (BuildContext context) => PaypalPayment(
+                //         total: grandTotal.toString(),
+                //         onFinish: (number) async {
+                //           print('order id: ' + number);
+                //           if (number != null && number.toString() != '') {
+                //             setState(() {
+                //               _paymentToken = number;
+                //               callApiBookMedicine();
+                //             });
+                //             print(
+                //                 "success paypal payment ${number.toString()}");
+                //           }
+                //         },
+                //       ),
+                //     ),
+                //   );
+                // }
+                // if (_payment!.index == 1) {
+                //   openCheckoutRazorPay();
+                //   print('Razorpay');
+                // }
+                // if (_payment!.index == 2) {
+                //   print('Stripe');
+                //   Provider.of<MedicinesStripePayment>(context, listen: false)
+                //       .makePayment(context: context, pharamacyId: pharmacyId, amount: grandTotal.toString(), deliveryType: deliveryType, prescriptionFilePath: prescriptionFilePath, strFinalDeliveryCharge: strFinalDeliveryCharge, listData: listData);
+                // }
+                // if (_payment!.index == 3) {
+                //   flutterWavePayment(context, payAmount);
+                // }
+                // if (_payment!.index == 4) {
+                //   print('PayStack');
+                //   payStackFunction();
+                // }
                 if (_payment!.index == 5) {
                   print('cod');
                   callApiBookMedicine();
                 }
-              } else {
-                Fluttertoast.showToast(msg: "Please Select Address");
               }
-            } else {
-              if (_payment!.index == 0) {
-                print('Paypal');
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => PaypalPayment(
-                      total: grandTotal.toString(),
-                      onFinish: (number) async {
-                        print('order id: ' + number);
-                        if (number != null && number.toString() != '') {
-                          setState(() {
-                            _paymentToken = number;
-                            callApiBookMedicine();
-                          });
-                          print("success paypal payment ${number.toString()}");
-                        }
-                      },
-                    ),
-                  ),
-                );
-              }
-              if (_payment!.index == 1) {
-                openCheckoutRazorPay();
-                print('Razorpay');
-              }
-              // if (_payment!.index == 2) {
-              //   print('Stripe');
-              //   Provider.of<MedicinesStripePayment>(context, listen: false)
-              //       .makePayment(context: context, pharamacyId: pharmacyId, amount: grandTotal.toString(), deliveryType: deliveryType, prescriptionFilePath: prescriptionFilePath, strFinalDeliveryCharge: strFinalDeliveryCharge, listData: listData);
-              // }
-              if (_payment!.index == 3) {
-                flutterWavePayment(context, payAmount);
-              }
-              if (_payment!.index == 4) {
-                print('PayStack');
-                payStackFunction();
-              }
-              if (_payment!.index == 5) {
-                print('cod');
-                callApiBookMedicine();
-              }
-            }
-            str = "$_payment";
-            parts = str.split(".");
-            startPartPayment = parts[0].trim();
-            paymentType = parts.sublist(1).join('.').trim();
-          },
+              str = "$_payment";
+              parts = str.split(".");
+              startPartPayment = parts[0].trim();
+              paymentType = parts.sublist(1).join('.').trim();
+            },
+          ),
         ),
       ),
     );
@@ -1007,7 +1223,9 @@ class _MedicinePaymentState extends State<MedicinePayment> {
   void openCheckoutRazorPay() async {
     var options = {
       'key': SharedPreferenceHelper.getString(Preferences.razor_key),
-      'amount': '$newGrandTotal' == "0.0" || '$newGrandTotal' == '0' ? num.parse('$payAmount') * 100 : num.parse('$newGrandTotal') * 100,
+      'amount': '$newGrandTotal' == "0.0" || '$newGrandTotal' == '0'
+          ? num.parse('$payAmount') * 100
+          : num.parse('$newGrandTotal') * 100,
       'name': '$businessName',
       'image': '$logo',
       'currency': SharedPreferenceHelper.getString(Preferences.currency_code),
@@ -1040,7 +1258,9 @@ class _MedicinePaymentState extends State<MedicinePayment> {
 
   // PayStack //
   payStackFunction() async {
-    var amountToPaystack = '$newGrandTotal' == "0.0" || '$newGrandTotal' == '0' ? num.parse('$payAmount') * 100 : num.parse('$newGrandTotal') * 100;
+    var amountToPaystack = '$newGrandTotal' == "0.0" || '$newGrandTotal' == '0'
+        ? num.parse('$payAmount') * 100
+        : num.parse('$newGrandTotal') * 100;
     Charge charge = Charge()
       ..amount = amountToPaystack as int
       ..reference = _getReference()
@@ -1053,7 +1273,12 @@ class _MedicinePaymentState extends State<MedicinePayment> {
     );
     if (response.status == true) {
       _paymentToken = response.reference;
-      _paymentToken != "" && _paymentToken!.isNotEmpty ? callApiBookMedicine() : Fluttertoast.showToast(msg: getTranslated(context, medicinePayment_paymentNotComplete).toString(), toastLength: Toast.LENGTH_SHORT);
+      _paymentToken != "" && _paymentToken!.isNotEmpty
+          ? callApiBookMedicine()
+          : Fluttertoast.showToast(
+              msg: getTranslated(context, medicinePayment_paymentNotComplete)
+                  .toString(),
+              toastLength: Toast.LENGTH_SHORT);
       setState(() {
         paymentToken = response.reference;
       });
@@ -1083,17 +1308,21 @@ class _MedicinePaymentState extends State<MedicinePayment> {
     body["payment_status"] = _payment!.index == 5 ? 0 : 1;
     body["payment_token"] = _payment!.index == 5 ? "" : _paymentToken;
     body["shipping_at"] = deliveryType;
-    body["address_id"] = deliveryType == 'Pharmacy' ? "" : addressId;
-    body["delivery_charge"] = deliveryType == 'Pharmacy' ? 0 : strFinalDeliveryCharge;
+    body["address_line"] = _addressController.text;
+    // body["address_id"] = deliveryType == 'Pharmacy' ? "" : addressId;
+    body["delivery_charge"] =
+        deliveryType == 'Pharmacy' ? 0 : strFinalDeliveryCharge;
     if (prescriptionFilePath != "") {
-      body["pdf"] = MultipartFile.fromFileSync(prescriptionFilePath!, filename: fileName);
+      body["pdf"] =
+          MultipartFile.fromFileSync(prescriptionFilePath!, filename: fileName);
     }
     try {
       print(body);
       setState(() {
         Preferences.onLoading(context);
       });
-      response = await RestClient(RetroApi().dioData()).bookMedicineRequest(body);
+      response =
+          await RestClient(RetroApi().dioData()).bookMedicineRequest(body);
       if (response.success == true) {
         setState(() {
           Preferences.hideDialog(context);
@@ -1136,7 +1365,8 @@ class _MedicinePaymentState extends State<MedicinePayment> {
   flutterWavePayment(context, payAmount) async {
     final flutterwave = Flutterwave(
         context: context,
-        publicKey: SharedPreferenceHelper.getString(Preferences.flutterWave_key)!,
+        publicKey:
+            SharedPreferenceHelper.getString(Preferences.flutterWave_key)!,
         currency: this.currencyFlutterWave,
         txRef: Uuid().v1(),
         amount: payAmount.toString(),
@@ -1155,12 +1385,16 @@ class _MedicinePaymentState extends State<MedicinePayment> {
     }
   }
 
-  final Customer customer = Customer(name: SharedPreferenceHelper.getString(Preferences.name)!, phoneNumber: SharedPreferenceHelper.getString(Preferences.phone)!, email: SharedPreferenceHelper.getString(FirestoreConstants.email)!);
+  final Customer customer = Customer(
+      name: SharedPreferenceHelper.getString(Preferences.name)!,
+      phoneNumber: SharedPreferenceHelper.getString(Preferences.phone)!,
+      email: SharedPreferenceHelper.getString(FirestoreConstants.email)!);
 
   Future<BaseModel<ApplyOffer>> callApiApplyOffer() async {
     ApplyOffer response;
     var offerDateToday = "$todayDate";
-    String offerDate = DateUtilForPass().formattedDate(DateTime.parse(offerDateToday));
+    String offerDate =
+        DateUtilForPass().formattedDate(DateTime.parse(offerDateToday));
     Map<String, dynamic> body = {
       "offer_code": _offerController.text,
       "date": offerDate,
@@ -1184,21 +1418,33 @@ class _MedicinePaymentState extends State<MedicinePayment> {
             if (discountType == "AMOUNT" && isFlat == 1) {
               if (grandTotal > flatDiscount!) {
                 if (flatDiscount! < minDiscount!) {
-                  newGrandTotal = int.parse('$payAmount') - int.parse('$flatDiscount');
-                  discountGrandTotal = double.parse('$grandTotal') - double.parse('$flatDiscount');
+                  newGrandTotal =
+                      int.parse('$payAmount') - int.parse('$flatDiscount');
+                  discountGrandTotal = double.parse('$grandTotal') -
+                      double.parse('$flatDiscount');
                 } else {
-                  newGrandTotal = int.parse('$payAmount') - int.parse('$minDiscount');
-                  discountGrandTotal = double.parse('$grandTotal') - double.parse('$minDiscount');
+                  newGrandTotal =
+                      int.parse('$payAmount') - int.parse('$minDiscount');
+                  discountGrandTotal = double.parse('$grandTotal') -
+                      double.parse('$minDiscount');
                 }
                 Fluttertoast.showToast(
-                  msg: getTranslated(context, medicinePayment_successFullOfferApply_toast).toString(),
+                  msg: getTranslated(
+                          context, medicinePayment_successFullOfferApply_toast)
+                      .toString(),
                   // 'Successfully Offer Apply',
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.CENTER,
                 );
               } else {
                 Fluttertoast.showToast(
-                  msg: getTranslated(context, medicinePayment_worthMoreThan_toast).toString() + SharedPreferenceHelper.getString(Preferences.currency_symbol).toString() + '$flatDiscount.',
+                  msg: getTranslated(
+                              context, medicinePayment_worthMoreThan_toast)
+                          .toString() +
+                      SharedPreferenceHelper.getString(
+                              Preferences.currency_symbol)
+                          .toString() +
+                      '$flatDiscount.',
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.CENTER,
                 );
@@ -1206,41 +1452,68 @@ class _MedicinePaymentState extends State<MedicinePayment> {
             } else if (discountType == "AMOUNT" && isFlat == 0) {
               if (grandTotal > discount!) {
                 if (discount! < minDiscount!) {
-                  newGrandTotal = int.parse('$payAmount') - int.parse('$discount');
-                  discountGrandTotal = double.parse('$grandTotal') - double.parse('$discount');
+                  newGrandTotal =
+                      int.parse('$payAmount') - int.parse('$discount');
+                  discountGrandTotal =
+                      double.parse('$grandTotal') - double.parse('$discount');
                 } else {
-                  newGrandTotal = int.parse('$payAmount') - int.parse('$minDiscount');
-                  discountGrandTotal = double.parse('$grandTotal') - double.parse('$minDiscount');
+                  newGrandTotal =
+                      int.parse('$payAmount') - int.parse('$minDiscount');
+                  discountGrandTotal = double.parse('$grandTotal') -
+                      double.parse('$minDiscount');
                 }
                 Fluttertoast.showToast(
-                  msg: getTranslated(context, medicinePayment_successFullOfferApply_toast).toString(),
+                  msg: getTranslated(
+                          context, medicinePayment_successFullOfferApply_toast)
+                      .toString(),
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.CENTER,
                 );
               } else {
                 Fluttertoast.showToast(
-                  msg: getTranslated(context, medicinePayment_worthMoreThan_toast).toString() + SharedPreferenceHelper.getString(Preferences.currency_symbol).toString() + '$discount.',
+                  msg: getTranslated(
+                              context, medicinePayment_worthMoreThan_toast)
+                          .toString() +
+                      SharedPreferenceHelper.getString(
+                              Preferences.currency_symbol)
+                          .toString() +
+                      '$discount.',
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.CENTER,
                 );
               }
             } else if (discountType == "PERCENTAGE") {
-              prAmount = (int.parse('$grandTotal') * int.parse('$discount')) / 100;
+              prAmount =
+                  (int.parse('$grandTotal') * int.parse('$discount')) / 100;
               if (prAmount <= minDiscount!) {
-                newGrandTotal = double.parse('$payAmount') - double.parse('$prAmount');
-                discountGrandTotal = double.parse('$grandTotal') - double.parse('$prAmount');
+                newGrandTotal =
+                    double.parse('$payAmount') - double.parse('$prAmount');
+                discountGrandTotal =
+                    double.parse('$grandTotal') - double.parse('$prAmount');
               } else {
-                newGrandTotal = double.parse('$payAmount') - double.parse('$minDiscount');
-                discountGrandTotal = double.parse('$grandTotal') - double.parse('$minDiscount');
+                newGrandTotal =
+                    double.parse('$payAmount') - double.parse('$minDiscount');
+                discountGrandTotal =
+                    double.parse('$grandTotal') - double.parse('$minDiscount');
               }
               Fluttertoast.showToast(
                 msg: payAmount >= prAmount || payAmount >= minDiscount!
-                    ? getTranslated(context, medicinePayment_successFullOfferApply_toast).toString()
-                    : getTranslated(context, medicinePayment_worthMoreThan_toast).toString() + SharedPreferenceHelper.getString(Preferences.currency_symbol).toString() + '$prAmount.',
+                    ? getTranslated(context,
+                            medicinePayment_successFullOfferApply_toast)
+                        .toString()
+                    : getTranslated(
+                                context, medicinePayment_worthMoreThan_toast)
+                            .toString() +
+                        SharedPreferenceHelper.getString(
+                                Preferences.currency_symbol)
+                            .toString() +
+                        '$prAmount.',
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
               );
-              newGrandTotal = payAmount >= prAmount || payAmount >= minDiscount! ? newGrandTotal : payAmount;
+              newGrandTotal = payAmount >= prAmount || payAmount >= minDiscount!
+                  ? newGrandTotal
+                  : payAmount;
             }
           });
         } else {
@@ -1270,7 +1543,8 @@ class _MedicinePaymentState extends State<MedicinePayment> {
       loading = true;
     });
     try {
-      response = await RestClient(RetroApi().dioData()).pharmacyDetailRequest(pharmacyId);
+      response = await RestClient(RetroApi().dioData())
+          .pharmacyDetailRequest(pharmacyId);
       setState(() {
         loading = false;
 
@@ -1281,7 +1555,8 @@ class _MedicinePaymentState extends State<MedicinePayment> {
               pharmacyLat = response.data!.lat;
               pharmacyLong = response.data!.lang;
               if (isShipping == 1) {
-                var convertCharges = json.decode(response.data!.deliveryCharges!);
+                var convertCharges =
+                    json.decode(response.data!.deliveryCharges!);
                 minValue.clear();
                 maxValue.clear();
                 charges.clear();
@@ -1293,7 +1568,9 @@ class _MedicinePaymentState extends State<MedicinePayment> {
 
                 String strDeliveryCharges = response.data!.deliveryCharges!;
                 var deliveryCharge = jsonDecode(strDeliveryCharges);
-                listDeliveryCharge = (deliveryCharge as List).map((i) => DeliveryChargesModel.fromJson(i)).toList();
+                listDeliveryCharge = (deliveryCharge as List)
+                    .map((i) => DeliveryChargesModel.fromJson(i))
+                    .toList();
               }
               getDistance();
             });
@@ -1314,7 +1591,9 @@ class _MedicinePaymentState extends State<MedicinePayment> {
 
               String strDeliveryCharges = response.data!.deliveryCharges!;
               var deliveryCharge = jsonDecode(strDeliveryCharges);
-              listDeliveryCharge = (deliveryCharge as List).map((i) => DeliveryChargesModel.fromJson(i)).toList();
+              listDeliveryCharge = (deliveryCharge as List)
+                  .map((i) => DeliveryChargesModel.fromJson(i))
+                  .toList();
             }
 
             getDistance();
@@ -1340,6 +1619,9 @@ class DeliveryChargesModel {
   DeliveryChargesModel({this.minValue, this.maxValue, this.charges});
 
   factory DeliveryChargesModel.fromJson(Map<String, dynamic> parsedJson) {
-    return DeliveryChargesModel(minValue: parsedJson['min_value'], maxValue: parsedJson['max_value'], charges: parsedJson['charges']);
+    return DeliveryChargesModel(
+        minValue: parsedJson['min_value'],
+        maxValue: parsedJson['max_value'],
+        charges: parsedJson['charges']);
   }
 }

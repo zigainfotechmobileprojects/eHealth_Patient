@@ -1,6 +1,6 @@
 class Apis {
   static const String baseUrl =
-      "https://bookmypaparazzi.com/api/"; // Don't remove /api/
+      "https://ehealth.zigainfotech.app/api/"; // Don't remove /api/
   static const String login = "login";
   static const String register = "register";
   static const String doctors_list = "doctors";
